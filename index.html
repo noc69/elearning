@@ -540,7 +540,6 @@
             color: #0f172a;
         }
 
-        /* Grievance Modal Overlay */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -659,18 +658,18 @@
                 </p>
             </form>
 
-            <!-- Admin Login[cite: 3] -->
+            <!-- Admin Login (Supports Multiple Admins)[cite: 3] -->
             <form id="adminForm" class="hidden" onsubmit="handleAdminLogin(event)">
                 <div style="margin-bottom: 1.5rem;">
                     <h2 style="font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;">Admin Terminal</h2>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Authentication required for question management.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Authentication required for management console.</p>
                 </div>
                 <div class="form-row">
-                    <label>Admin ID</label>
+                    <label>Admin Username</label>
                     <input type="text" id="adminUser" placeholder="Enter admin username" required>
                 </div>
                 <div class="form-row">
-                    <label>Admin Secret</label>
+                    <label>Admin Password</label>
                     <input type="password" id="adminPass" placeholder="Enter admin password" required>
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 8px;">Access Dashboard</button>
@@ -703,7 +702,6 @@
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <span class="marks">+1.00 Mark &nbsp;|&nbsp; -0.25 Negative</span>
-                    <!-- Candidate Complaint Button during live test -->
                     <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.75rem; color: var(--red); border-color: var(--border);" onclick="openGrievanceModalForCurrentQuestion()">⚠️ Report</button>
                 </div>
             </div>
@@ -776,7 +774,7 @@
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.25rem;">
                 <div>
                     <h2 style="font-size: 1.4rem; font-weight: 800;">Administrator Console</h2>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Direct access to test banks, examinee accounts, and complaints</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Direct access to test banks, examinee accounts, complaints, and admin roles</p>
                 </div>
                 <div style="display: flex; gap: 8px;">
                     <button class="btn btn-warning" onclick="resetDefaultQuestionBank()">Reset 50-Q Subject Banks</button>
@@ -784,7 +782,52 @@
                 </div>
             </div>
 
-            <!-- GRIEVANCES / DISPUTE MANAGEMENT SECTION (NEW) -->
+            <!-- MULTI-ADMIN ACCOUNTS MANAGEMENT -->
+            <div style="border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div>
+                        <h3 style="font-size: 1.05rem; font-weight: 700;">Administrator Access Control</h3>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Create, inspect, or revoke administrator access accounts</p>
+                    </div>
+                    <span class="code-pill" id="adminCountBadge">0 admins</span>
+                </div>
+
+                <form onsubmit="handleCreateNewAdmin(event)" style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 12px; align-items: end; margin-bottom: 1.25rem;">
+                    <div class="form-row" style="margin-bottom: 0;">
+                        <label>Admin Username</label>
+                        <input type="text" id="newAdminUsername" placeholder="e.g. admin_raj" required>
+                    </div>
+                    <div class="form-row" style="margin-bottom: 0;">
+                        <label>Password</label>
+                        <input type="password" id="newAdminPassword" placeholder="Min 4 characters" required minlength="4">
+                    </div>
+                    <div class="form-row" style="margin-bottom: 0;">
+                        <label>Role</label>
+                        <select id="newAdminRole">
+                            <option value="Administrator">Administrator</option>
+                            <option value="Content Moderator">Content Moderator</option>
+                            <option value="Reviewer">Reviewer</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success" style="height: 46px;">+ Add Admin</button>
+                </form>
+
+                <div class="table-responsive">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Role</th>
+                                <th>Password</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminAccountsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- GRIEVANCES / DISPUTE MANAGEMENT SECTION -->
             <div style="border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                     <div>
@@ -904,7 +947,7 @@
         </div>
     </div>
 
-    <!-- 6. COMPLAINT / GRIEVANCE MODAL FOR CANDIDATES (NEW) -->
+    <!-- 6. COMPLAINT / GRIEVANCE MODAL FOR CANDIDATES -->
     <div id="grievanceModal" class="modal-overlay hidden">
         <div class="modal-content">
             <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; color: #0f172a;">Question Grievance Form</h3>
@@ -951,6 +994,11 @@
             { id: "Indian Polity", name: "Indian Polity & Governance", desc: "Constitution, Executive, Judiciary & Rights", icon: "⚖️" },
             { id: "Economics", name: "Economics & Banking", desc: "Macroeconomics, Fiscal Indicators & Monetary Policy", icon: "📈" },
             { id: "General Science", name: "General Science & Tech", desc: "Physics, Chemistry, Life Sciences & Technology", icon: "🔬" }
+        ];
+
+        const defaultAdmins = [
+            { username: 'hp', pass: 'noc123', role: 'Super Admin' },
+            { username: 'admin2', pass: 'pass123', role: 'Admin' }
         ];
 
         // 50 Questions per Subject Master Pool
@@ -1171,6 +1219,7 @@
         let availableSubjects = JSON.parse(localStorage.getItem('tb_cbt_subjects')) || initialSubjects;
         let questions = JSON.parse(localStorage.getItem('tb_cbt_questions')) || masterSeedQuestions;
         let candidates = JSON.parse(localStorage.getItem('tb_cbt_candidates')) || defaultCandidates;
+        let adminAccounts = JSON.parse(localStorage.getItem('tb_cbt_admins')) || defaultAdmins;
         let grievances = JSON.parse(localStorage.getItem('tb_cbt_grievances')) || [];
 
         let currentLoggedCandidate = null;
@@ -1182,6 +1231,7 @@
         function saveSubjects() { localStorage.setItem('tb_cbt_subjects', JSON.stringify(availableSubjects)); }
         function saveQuestions() { localStorage.setItem('tb_cbt_questions', JSON.stringify(questions)); }
         function saveCandidates() { localStorage.setItem('tb_cbt_candidates', JSON.stringify(candidates)); }
+        function saveAdminAccounts() { localStorage.setItem('tb_cbt_admins', JSON.stringify(adminAccounts)); }
         function saveGrievances() { localStorage.setItem('tb_cbt_grievances', JSON.stringify(grievances)); }
 
         function resetDefaultQuestionBank() {
@@ -1290,12 +1340,15 @@
             renderSubjectSelector();
         }
 
+        // Multi-Admin Login Check
         function handleAdminLogin(e) {
             e.preventDefault();
             const u = document.getElementById('adminUser').value.trim();
             const p = document.getElementById('adminPass').value;
 
-            if (u === 'hp' && p === 'noc123') {
+            const matchedAdmin = adminAccounts.find(a => a.username === u && a.pass === p);
+
+            if (matchedAdmin) {
                 document.getElementById('authView').classList.add('hidden');
                 document.getElementById('adminDashboardView').classList.remove('hidden');
                 document.getElementById('globalLogoutBtn').classList.remove('hidden');
@@ -1303,6 +1356,7 @@
                 renderAdminList();
                 renderAdminUserList();
                 renderAdminGrievances();
+                renderAdminAccountsList();
             } else {
                 alert('Invalid Administrative Credentials.');
             }
@@ -1325,6 +1379,56 @@
                 document.getElementById('authView').classList.remove('hidden');
                 setAuthTab('candidate-login');
             }
+        }
+
+        // --- MULTI-ADMIN ACCOUNTS MANAGEMENT ---
+        function handleCreateNewAdmin(e) {
+            e.preventDefault();
+            const u = document.getElementById('newAdminUsername').value.trim();
+            const p = document.getElementById('newAdminPassword').value.trim();
+            const r = document.getElementById('newAdminRole').value;
+
+            if (adminAccounts.some(a => a.username.toLowerCase() === u.toLowerCase())) {
+                alert("An admin with this username already exists!");
+                return;
+            }
+
+            adminAccounts.push({ username: u, pass: p, role: r });
+            saveAdminAccounts();
+            e.target.reset();
+            renderAdminAccountsList();
+            alert(`Admin account "${u}" created successfully!`);
+        }
+
+        function deleteAdminAccount(idx) {
+            if (adminAccounts.length <= 1) {
+                alert("You must keep at least one active administrator account.");
+                return;
+            }
+            if (confirm(`Revoke administrator privileges for "${adminAccounts[idx].username}"?`)) {
+                adminAccounts.splice(idx, 1);
+                saveAdminAccounts();
+                renderAdminAccountsList();
+            }
+        }
+
+        function renderAdminAccountsList() {
+            document.getElementById('adminCountBadge').innerText = `${adminAccounts.length} admins`;
+            const tbody = document.getElementById('adminAccountsTableBody');
+            tbody.innerHTML = '';
+
+            adminAccounts.forEach((a, idx) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${a.username}</strong></td>
+                        <td><span class="code-pill">${a.role}</span></td>
+                        <td><span class="code-pill">${a.pass}</span></td>
+                        <td style="text-align: right;">
+                            <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.8rem; color: var(--red);" onclick="deleteAdminAccount(${idx})">Revoke</button>
+                        </td>
+                    </tr>
+                `;
+            });
         }
 
         // --- SUBJECT SELECTION & MANAGEMENT[cite: 3] ---
@@ -1571,7 +1675,6 @@
                     }
                 }
 
-                // Sanitize question string for modal call
                 const escapedQ = q.question.replace(/'/g, "\\'");
                 const escapedSubj = (q.subject || activeSubject).replace(/'/g, "\\'");
 
@@ -1610,7 +1713,7 @@
             initTestState();
         }
 
-        // --- CANDIDATE GRIEVANCE / CUSTOMER SERVICE LOGIC (NEW) ---
+        // --- CANDIDATE GRIEVANCE LOGIC ---
         function openGrievanceModalForCurrentQuestion() {
             const q = currentSubjectQuestions[currentIndex];
             openGrievanceModal(q.subject || activeSubject, q.question);
@@ -1651,7 +1754,7 @@
             alert(`Thank you! Grievance registered under Reference ${ticket.id}. The admin team will review this question.`);
         }
 
-        // --- ADMIN GRIEVANCE INBOX (NEW) ---
+        // --- ADMIN GRIEVANCE INBOX ---
         function renderAdminGrievances() {
             document.getElementById('grievanceCountBadge').innerText = `${grievances.length} tickets`;
             const tbody = document.getElementById('adminGrievanceTableBody');
@@ -1710,7 +1813,7 @@
             }
         }
 
-        // --- ADMIN DASHBOARD[cite: 3] ---
+        // --- ADMIN QUESTION POOL MANAGEMENT[cite: 3] ---
         function handleAddQuestion(e) {
             e.preventDefault();
             const newQ = {
