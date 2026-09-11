@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNKNOWN CBT Portal - Test Series</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #eef2ff;
+            --accent: #06b6d4;
+            --dark-surface: #0f172a;
+            --dark-elevated: #1e293b;
+            --surface-card: rgba(255, 255, 255, 0.85);
+            --border: #e2e8f0;
+            --border-focus: #818cf8;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            
+            --green: #10b981;
+            --green-glow: rgba(16, 185, 129, 0.2);
+            --red: #f43f5e;
+            --red-glow: rgba(244, 63, 94, 0.2);
+            --purple: #8b5cf6;
+            --amber: #f59e0b;
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+            --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+        
+        body {
+            background-color: #f8fafc;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.05) 0px, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .hidden { display: none !important; }
+
+        /* Top Bar */
+        .top-navbar {
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: #fff;
+            padding: 0.85rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .brand {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .brand span.badge-logo {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+        .brand span.subtitle {
+            color: #94a3b8;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .user-tag {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .user-tag::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green);
+            display: inline-block;
+        }
+
+        /* Auth Card */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            padding: 2.5rem 1rem;
+        }
+        .auth-card {
+            background: var(--surface-card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            width: 100%;
+            max-width: 440px;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .tab-group {
+            display: flex;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 8px 12px;
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tab-btn.active {
+            background: #ffffff;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-row { margin-bottom: 1.25rem; }
+        .form-row label {
+            display: block;
+            margin-bottom: 0.45rem;
+            font-weight: 600;
+            font-size: 0.82rem;
+            color: #334155;
+            letter-spacing: -0.01em;
+        }
+        .form-row input, .form-row select, .form-row textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            background: #ffffff;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+        }
+        .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px var(--primary-light);
+        }
+        .switch-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .switch-link a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .switch-link a:hover { text-decoration: underline; }
+
+        .btn {
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid transparent;
+            font-size: 0.88rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+        }
+        .btn-success {
+            background: var(--green);
+            color: white;
+            box-shadow: 0 4px 12px var(--green-glow);
+        }
+        .btn-success:hover { background: #059669; transform: translateY(-1px); }
+        .btn-warning { background: var(--amber); color: white; }
+        .btn-warning:hover { background: #d97706; }
+        .btn-outline {
+            background: white;
+            border: 1px solid var(--border);
+            color: #334155;
+        }
+        .btn-outline:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+        .btn-danger {
+            background: var(--red);
+            color: white;
+            box-shadow: 0 4px 12px var(--red-glow);
+        }
+        .btn-danger:hover { background: #e11d48; transform: translateY(-1px); }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .subject-card {
+            background: #ffffff;
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            padding: 1.75rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+        .subject-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .subject-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .cbt-container {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            flex: 1;
+            height: calc(100vh - 61px);
+            overflow: hidden;
+        }
+        .quiz-area {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            border-right: 1px solid var(--border);
+            height: 100%;
+            overflow: hidden;
+        }
+        .meta-bar {
+            padding: 1rem 2rem;
+            background: #fafafa;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .meta-bar span.pill {
+            background: #f1f5f9;
+            padding: 4px 10px;
+            border-radius: 6px;
+            color: #475569;
+        }
+        .meta-bar span.marks {
+            color: var(--green);
+            background: rgba(16, 185, 129, 0.08);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+        
+        .question-body {
+            padding: 2.5rem 2rem;
+            overflow-y: auto;
+            flex: 1;
+        }
+        .q-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #1e293b;
+        }
+
+        .options-wrapper { display: flex; flex-direction: column; gap: 12px; }
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 18px;
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #ffffff;
+            user-select: none;
+        }
+        .option-label:hover {
+            border-color: var(--primary);
+            background: #fafbff;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+        .option-label.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            box-shadow: 0 0 0 1px var(--primary);
+        }
+        .option-label input[type="radio"] {
+            accent-color: var(--primary);
+            width: 18px;
+            height: 18px;
+        }
+        .option-text {
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
+        .footer-controls {
+            padding: 1rem 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+        }
+
+        .sidebar {
+            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            height: 100%;
+            overflow-y: auto;
+        }
+        .sidebar-header {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .legend-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+        .legend-item { display: flex; align-items: center; gap: 8px; }
+        .badge {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .badge-gray { background: #cbd5e1; color: #475569; }
+        .badge-red { background: var(--red); }
+        .badge-green { background: var(--green); }
+        .badge-purple { background: var(--purple); }
+
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            align-content: start;
+            flex: 1;
+            margin-bottom: 1.5rem;
+        }
+        .palette-btn {
+            height: 42px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            background: #ffffff;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #475569;
+            transition: all 0.15s ease;
+        }
+        .palette-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .palette-btn.current {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.3);
+        }
+        .palette-btn.answered {
+            background: var(--green);
+            color: white;
+            border-color: var(--green);
+            box-shadow: 0 2px 8px var(--green-glow);
+        }
+        .palette-btn.unanswered {
+            background: var(--red);
+            color: white;
+            border-color: var(--red);
+            box-shadow: 0 2px 8px var(--red-glow);
+        }
+        .palette-btn.marked {
+            background: var(--purple);
+            color: white;
+            border-color: var(--purple);
+            border-radius: 50%;
+        }
+
+        .full-view {
+            max-width: 960px;
+            margin: 2.5rem auto;
+            width: 100%;
+            padding: 0 1.5rem;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+        .metrics-banner {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .metric-card {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+        }
+        .metric-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .table-responsive {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            text-align: left;
+        }
+        .admin-table th {
+            background: #f8fafc;
+            color: #475569;
+            padding: 12px 16px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+        .admin-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: #334155;
+        }
+        .admin-table tr:last-child td { border-bottom: none; }
+        .admin-table tr:hover td { background: #fafafa; }
+        
+        .code-pill {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            background: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            color: #0f172a;
+        }
+
+        /* Grievance Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 1rem;
+        }
+        .modal-content {
+            background: #ffffff;
+            width: 100%;
+            max-width: 520px;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation[cite: 3] -->
+    <header class="top-navbar">
+        <div class="brand">
+            <span class="badge-logo">CBT</span>
+            <span>UNKNOWN</span>
+            <span class="subtitle">| Assessment Series</span>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 1.2rem;">
+            <div id="candidateHeaderWidget" class="hidden" style="display: flex; align-items: center; gap: 1rem;">
+                <span class="user-tag" id="userDisplayName">Candidate</span>
+            </div>
+            <button id="globalLogoutBtn" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;" onclick="logout()">Log Out</button>
+        </div>
+    </header>
+
+    <!-- 1. AUTH GATEWAY[cite: 3] -->
+    <div id="authView" class="auth-container">
+        <div class="auth-card">
+            <div class="tab-group">
+                <button class="tab-btn active" id="tabCandidate" onclick="setAuthTab('candidate-login')">Candidate</button>
+                <button class="tab-btn" id="tabAdmin" onclick="setAuthTab('admin')">Administrator</button>
+            </div>
+
+            <!-- Candidate Login[cite: 3] -->
+            <form id="candidateLoginForm" onsubmit="handleCandidateLogin(event)">
+                <div style="margin-bottom: 1.5rem;">
+                    <h2 style="font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;">Welcome Back</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Sign in to access your assigned examinations.</p>
+                </div>
+                <div class="form-row">
+                    <label>Email / Roll Number</label>
+                    <input type="text" id="candLoginId" placeholder="Enter your registered ID" required>
+                </div>
+                <div class="form-row">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                        <label style="margin-bottom: 0;">Password</label>
+                        <a onclick="setAuthTab('candidate-forgot')" style="font-size: 0.8rem; color: var(--primary); cursor: pointer; font-weight: 600;">Forgot?</a>
+                    </div>
+                    <input type="password" id="candLoginPass" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 8px;">Enter Test Console</button>
+                
+                <p class="switch-link">
+                    Don't have an account? <a onclick="setAuthTab('candidate-register')">Register Now</a>
+                </p>
+            </form>
+
+            <!-- Candidate Register[cite: 3] -->
+            <form id="candidateRegisterForm" class="hidden" onsubmit="handleCandidateRegister(event)">
+                <div style="margin-bottom: 1.5rem;">
+                    <h2 style="font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;">Candidate Register</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Enroll to generate exam profile.</p>
+                </div>
+                <div class="form-row">
+                    <label>Full Legal Name</label>
+                    <input type="text" id="regName" placeholder="Enter full name" required>
+                </div>
+                <div class="form-row">
+                    <label>Email / Roll Identifier</label>
+                    <input type="text" id="regId" placeholder="Enter email or unique ID" required>
+                </div>
+                <div class="form-row">
+                    <label>Create Secret Password</label>
+                    <input type="password" id="regPass" placeholder="Min 4 characters" required minlength="4">
+                </div>
+                <button type="submit" class="btn btn-success" style="width: 100%; padding: 12px; margin-top: 8px;">Create Profile</button>
+                
+                <p class="switch-link">
+                    Registered already? <a onclick="setAuthTab('candidate-login')">Back to Sign In</a>
+                </p>
+            </form>
+
+            <!-- Reset Password[cite: 3] -->
+            <form id="candidateForgotForm" class="hidden" onsubmit="handleCandidateResetPassword(event)">
+                <div style="margin-bottom: 1.5rem;">
+                    <h2 style="font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;">Credential Recovery</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Provide identifier to update credentials.</p>
+                </div>
+                <div class="form-row">
+                    <label>Registered Identifier</label>
+                    <input type="text" id="resetCandId" placeholder="Email or Roll Number" required>
+                </div>
+                <div class="form-row">
+                    <label>New Secret Password</label>
+                    <input type="password" id="resetNewPass" placeholder="••••••••" required minlength="4">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 8px;">Set New Password</button>
+                
+                <p class="switch-link">
+                    Return to <a onclick="setAuthTab('candidate-login')">Sign In</a>
+                </p>
+            </form>
+
+            <!-- Admin Login[cite: 3] -->
+            <form id="adminForm" class="hidden" onsubmit="handleAdminLogin(event)">
+                <div style="margin-bottom: 1.5rem;">
+                    <h2 style="font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;">Admin Terminal</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Authentication required for question management.</p>
+                </div>
+                <div class="form-row">
+                    <label>Admin ID</label>
+                    <input type="text" id="adminUser" placeholder="Enter admin username" required>
+                </div>
+                <div class="form-row">
+                    <label>Admin Secret</label>
+                    <input type="password" id="adminPass" placeholder="Enter admin password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 8px;">Access Dashboard</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. SUBJECT SELECTION DASHBOARD[cite: 3] -->
+    <div id="subjectView" class="full-view hidden">
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;">
+                <div>
+                    <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em;">Available Subject Modules</h2>
+                    <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">Select an assessment subject to initiate the computer-based exam.</p>
+                </div>
+            </div>
+
+            <div class="subjects-grid" id="subjectsGridContainer"></div>
+        </div>
+    </div>
+
+    <!-- 3. MODERN CBT DESKTOP[cite: 3] -->
+    <div id="cbtView" class="cbt-container hidden">
+        <div class="quiz-area">
+            <div class="meta-bar">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem;" onclick="returnToSubjects()">← Change Subject</button>
+                    <span class="pill" id="activeSubjectBadge">Subject</span>
+                    <span class="pill" id="qNumText">Question 01</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="marks">+1.00 Mark &nbsp;|&nbsp; -0.25 Negative</span>
+                    <!-- Candidate Complaint Button during live test -->
+                    <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.75rem; color: var(--red); border-color: var(--border);" onclick="openGrievanceModalForCurrentQuestion()">⚠️ Report</button>
+                </div>
+            </div>
+
+            <div class="question-body">
+                <p class="q-title" id="qText">Question Loading...</p>
+                <div class="options-wrapper" id="optionsContainer"></div>
+            </div>
+
+            <div class="footer-controls">
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-warning" onclick="markForReview()">Review Later</button>
+                    <button class="btn btn-outline" onclick="clearResponse()">Deselect</button>
+                </div>
+                <button class="btn btn-primary" onclick="saveAndNext()">Save & Next</button>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <span>Overview Matrix</span>
+            </div>
+            
+            <div class="legend-grid">
+                <div class="legend-item"><span class="badge badge-green" id="legAnswered">0</span> Answered</div>
+                <div class="legend-item"><span class="badge badge-red" id="legNotAnswered">0</span> Unanswered</div>
+                <div class="legend-item"><span class="badge badge-purple" id="legMarked">0</span> Marked</div>
+                <div class="legend-item"><span class="badge badge-gray" id="legNotVisited">0</span> Skipped</div>
+            </div>
+
+            <div class="palette-grid" id="paletteGrid"></div>
+
+            <button class="btn btn-success" style="width: 100%; padding: 12px;" onclick="submitTest()">Final Submit</button>
+        </div>
+    </div>
+
+    <!-- 4. SCORECARD & DETAILED SUMMARY[cite: 3] -->
+    <div id="resultView" class="full-view hidden">
+        <div class="card">
+            <h2 style="font-size: 1.5rem; font-weight: 800; text-align: center; letter-spacing: -0.02em;">Examination Report</h2>
+            
+            <div class="metrics-banner">
+                <div class="metric-card">
+                    <div class="metric-value" id="resScore" style="color: var(--primary);">0.00</div>
+                    <div class="metric-label">Aggregated Score</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="resAccuracy" style="color: var(--green);">0%</div>
+                    <div class="metric-label">Precision Rate</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value" id="resAttempted" style="color: var(--text-main);">0/0</div>
+                    <div class="metric-label">Questions Evaluated</div>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.1rem; font-weight: 700; margin: 2rem 0 1rem;">Solutions & Key Explanations</h3>
+            <div id="solutionList" style="display: flex; flex-direction: column; gap: 1rem;"></div>
+
+            <div style="display: flex; justify-content: center; gap: 12px; margin-top: 2.5rem;">
+                <button class="btn btn-primary" onclick="restartTest()">Re-take Subject Test</button>
+                <button class="btn btn-outline" onclick="returnToSubjects()">Switch Subject</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. MODERN ADMIN CMS[cite: 3] -->
+    <div id="adminDashboardView" class="full-view hidden">
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.25rem;">
+                <div>
+                    <h2 style="font-size: 1.4rem; font-weight: 800;">Administrator Console</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Direct access to test banks, examinee accounts, and complaints</p>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-warning" onclick="resetDefaultQuestionBank()">Reset 50-Q Subject Banks</button>
+                    <button class="btn btn-danger" onclick="logout()">Sign Out</button>
+                </div>
+            </div>
+
+            <!-- GRIEVANCES / DISPUTE MANAGEMENT SECTION (NEW) -->
+            <div style="border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div>
+                        <h3 style="font-size: 1.05rem; font-weight: 700; color: #b91c1c;">Incoming Candidate Question Grievances</h3>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Review student reports regarding incorrect keys, wrong statements, or errors</p>
+                    </div>
+                    <span class="code-pill" id="grievanceCountBadge">0 tickets</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Candidate</th>
+                                <th>Subject & Question</th>
+                                <th>Issue Type</th>
+                                <th>Candidate Remarks</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminGrievanceTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Subject Manager Section[cite: 3] -->
+            <div style="border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem;">Subject Management</h3>
+                <form onsubmit="handleAddSubject(event)" style="display: grid; grid-template-columns: 80px 1.5fr 2fr auto; gap: 12px; align-items: end;">
+                    <div class="form-row" style="margin-bottom: 0;">
+                        <label>Icon</label>
+                        <input type="text" id="newSubjIcon" placeholder="📚" maxlength="2" required style="text-align: center;">
+                    </div>
+                    <div class="form-row" style="margin-bottom: 0;">
+                        <label>Subject Name</label>
+                        <input type="text" id="newSubjName" placeholder="e.g. World History" required>
+                    </div>
+                    <div class="form-row" style="margin-bottom: 0;">
+                        <label>Short Description</label>
+                        <input type="text" id="newSubjDesc" placeholder="e.g. Modern history & milestones" required>
+                    </div>
+                    <button type="submit" class="btn btn-success" style="height: 46px;">+ Add Subject</button>
+                </form>
+
+                <div style="margin-top: 1.25rem;">
+                    <p style="font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.5rem;">Current Subjects:</p>
+                    <div id="adminSubjectChips" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+                </div>
+            </div>
+
+            <!-- Question Form[cite: 3] -->
+            <form onsubmit="handleAddQuestion(event)" style="border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem;">Add Subject Question</h3>
+                
+                <div class="form-row">
+                    <label>Assigned Subject Category</label>
+                    <select id="adSubjectSelect" required></select>
+                </div>
+
+                <div class="form-row">
+                    <label>Statement</label>
+                    <textarea id="adQuestion" rows="2" required placeholder="Type the question content..."></textarea>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="form-row"><label>Choice A</label><input type="text" id="adOpt0" required></div>
+                    <div class="form-row"><label>Choice B</label><input type="text" id="adOpt1" required></div>
+                    <div class="form-row"><label>Choice C</label><input type="text" id="adOpt2" required></div>
+                    <div class="form-row"><label>Choice D</label><input type="text" id="adOpt3" required></div>
+                </div>
+                <div class="form-row">
+                    <label>Designated Key</label>
+                    <select id="adCorrect">
+                        <option value="0">Choice A</option>
+                        <option value="1">Choice B</option>
+                        <option value="2">Choice C</option>
+                        <option value="3">Choice D</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label>Contextual Rationale</label>
+                    <textarea id="adExplanation" rows="2" placeholder="Explain the rationale behind the correct choice..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Publish Question Item</button>
+            </form>
+
+            <!-- User Management[cite: 3] -->
+            <div style="border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div>
+                        <h3 style="font-size: 1.05rem; font-weight: 700;">Active Examinees</h3>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Inspect or reset authentication credentials</p>
+                    </div>
+                    <span class="code-pill" id="userCountBadge">0 registered</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Identifier</th>
+                                <th>Plain Secret</th>
+                                <th style="text-align: right;">Operations</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminUserTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Published List[cite: 3] -->
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.05rem; font-weight: 700;">Published Question Pool</h3>
+                    <span class="code-pill" id="qCountBadge">0 active items</span>
+                </div>
+                <div id="adminQuestionList" style="display: flex; flex-direction: column; gap: 8px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. COMPLAINT / GRIEVANCE MODAL FOR CANDIDATES (NEW) -->
+    <div id="grievanceModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; color: #0f172a;">Question Grievance Form</h3>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+                Flag an inaccurate answer key, typographical error, or flawed question statement for the academic admin team to review.
+            </p>
+
+            <form onsubmit="handleSubmitGrievance(event)">
+                <input type="hidden" id="reportQSubject">
+                <input type="hidden" id="reportQStatement">
+
+                <div class="form-row">
+                    <label>Target Question</label>
+                    <p id="reportQPreview" style="font-size: 0.85rem; font-weight: 600; color: #334155; background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); max-height: 80px; overflow-y: auto;"></p>
+                </div>
+
+                <div class="form-row">
+                    <label>Nature of Grievance</label>
+                    <select id="reportQIssue" required>
+                        <option value="Incorrect Answer Key">Incorrect Answer Key / Wrong Option Marked Correct</option>
+                        <option value="Ambiguous / Multiple Correct Answers">Ambiguous Question / More than One Correct Answer</option>
+                        <option value="Typo or Translation Error">Factual Typo / Misprinted Question</option>
+                        <option value="Outdated Information">Information is Outdated</option>
+                        <option value="Other Discrepancy">Other Discrepancy</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label>Elaborate / Supporting Explanation</label>
+                    <textarea id="reportQDetails" rows="3" required placeholder="Please cite why you believe the current key/question is incorrect..."></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.5rem;">
+                    <button type="button" class="btn btn-outline" onclick="closeGrievanceModal()">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Submit Grievance</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const initialSubjects = [
+            { id: "Current Affairs", name: "Current Affairs", desc: "Global Summits, Treaties & International Organizations", icon: "🌐" },
+            { id: "Indian Polity", name: "Indian Polity & Governance", desc: "Constitution, Executive, Judiciary & Rights", icon: "⚖️" },
+            { id: "Economics", name: "Economics & Banking", desc: "Macroeconomics, Fiscal Indicators & Monetary Policy", icon: "📈" },
+            { id: "General Science", name: "General Science & Tech", desc: "Physics, Chemistry, Life Sciences & Technology", icon: "🔬" }
+        ];
+
+        // 50 Questions per Subject Master Pool
+        const masterSeedQuestions = [
+            // ==================== CURRENT AFFAIRS (1 to 50) ====================
+            { subject: "Current Affairs", question: "Which city is the permanent headquarters of the International Maritime Organization (IMO)?", options: ["Geneva", "London", "Paris", "Rome"], answer: 1, explanation: "IMO is a specialized agency of the UN with its permanent secretariat in London, UK." },
+            { subject: "Current Affairs", question: "The Nobel Peace Prize is officially presented in which city?", options: ["Stockholm", "Oslo", "Hague", "Copenhagen"], answer: 1, explanation: "Unlike other Nobel Prizes presented in Stockholm, the Peace Prize is presented annually in Oslo, Norway." },
+            { subject: "Current Affairs", question: "Where is the principal headquarters of the International Court of Justice (ICJ)?", options: ["Geneva", "The Hague", "Vienna", "Brussels"], answer: 1, explanation: "The ICJ sits at the Peace Palace in The Hague, Netherlands." },
+            { subject: "Current Affairs", question: "Which multilateral institution publishes the flagship 'World Economic Outlook' report?", options: ["World Bank", "IMF", "WEF", "WTO"], answer: 1, explanation: "The International Monetary Fund (IMF) publishes the World Economic Outlook twice annually." },
+            { subject: "Current Affairs", question: "Which European country officially joined NATO as its 32nd member state?", options: ["Finland", "Sweden", "Austria", "Ukraine"], answer: 1, explanation: "Sweden officially became the 32nd member of NATO following ratification." },
+            { subject: "Current Affairs", question: "The Copernicus Climate Change Service is an operational program administered by which entity?", options: ["NASA", "European Union", "WMO", "IPCC"], answer: 1, explanation: "Copernicus is the Earth observation component of the European Union's space programme." },
+            { subject: "Current Affairs", question: "The headquarters of the International Atomic Energy Agency (IAEA) is situated in:", options: ["Vienna", "Geneva", "Zurich", "Berlin"], answer: 0, explanation: "IAEA has maintained its headquarters at the Vienna International Centre since 1957." },
+            { subject: "Current Affairs", question: "Which regional intergovernmental organization was formed by the Bangkok Declaration in 1967?", options: ["SAARC", "ASEAN", "BIMSTEC", "GCC"], answer: 1, explanation: "ASEAN was founded on 8 August 1967 with the signing of the Bangkok Declaration." },
+            { subject: "Current Affairs", question: "The term 'Nine-Dash Line' frequently appears in maritime news regarding which body of water?", options: ["Black Sea", "South China Sea", "Red Sea", "Baltic Sea"], answer: 1, explanation: "The line relates to territorial and maritime boundary claims in the South China Sea." },
+            { subject: "Current Affairs", question: "The G20 forum formally admitted which continental bloc as a permanent member at the New Delhi Summit?", options: ["European Union", "African Union", "ASEAN", "OAS"], answer: 1, explanation: "The African Union was officially inducted as a permanent member of the G20 in 2023." },
+            { subject: "Current Affairs", question: "Which UN agency publishes the 'Global Gender Gap Report'?", options: ["UN Women", "UNDP", "World Economic Forum", "UNESCO"], answer: 2, explanation: "The World Economic Forum publishes the benchmark Global Gender Gap Index." },
+            { subject: "Current Affairs", question: "The Svalbard Global Seed Vault, housing duplicates of global crop diversity, is located in:", options: ["Sweden", "Norway", "Finland", "Iceland"], answer: 1, explanation: "The vault is on the Norwegian island of Spitsbergen near Longyearbyen in Svalbard." },
+            { subject: "Current Affairs", question: "The Abraham Accords facilitated diplomatic normalization between Israel and several Arab states, beginning with:", options: ["UAE and Bahrain", "Egypt and Jordan", "Saudi Arabia", "Qatar"], answer: 0, explanation: "The initial accords were signed by Israel, the United Arab Emirates, and Bahrain in September 2020." },
+            { subject: "Current Affairs", question: "The International Criminal Court (ICC) operates under which founding international treaty?", options: ["Geneva Conventions", "Rome Statute", "Vienna Convention", "Charter of Paris"], answer: 1, explanation: "The ICC was created by the Rome Statute, entering into force in July 2002." },
+            { subject: "Current Affairs", question: "Which country launched the world's first commercial-scale carbon capture and storage transport network (Northern Lights)?", options: ["Germany", "Norway", "Japan", "Canada"], answer: 1, explanation: "Northern Lights is a joint venture carbon transport project located in Norway." },
+            { subject: "Current Affairs", question: "The headquarters of the World Intellectual Property Organization (WIPO) is in:", options: ["Paris", "Geneva", "London", "Munich"], answer: 1, explanation: "WIPO is a specialized UN agency headquartered in Geneva, Switzerland." },
+            { subject: "Current Affairs", question: "Which waterway connects the Mediterranean Sea directly to the Red Sea?", options: ["Bosphorus Strait", "Suez Canal", "Panama Canal", "Strait of Hormuz"], answer: 1, explanation: "The Suez Canal spans the Isthmus of Suez in Egypt connecting Mediterranean and Red seas." },
+            { subject: "Current Affairs", question: "Which international agreement aims to prevent the cross-border movement of hazardous wastes?", options: ["Basel Convention", "Rotterdam Convention", "Stockholm Convention", "Minamata Convention"], answer: 0, explanation: "The Basel Convention controls transboundary movements of hazardous wastes and their disposal." },
+            { subject: "Current Affairs", question: "The headquarters of Interpol (International Criminal Police Organization) is situated in:", options: ["Brussels", "Lyon", "The Hague", "Geneva"], answer: 1, explanation: "Interpol's General Secretariat has been based in Lyon, France since 1989." },
+            { subject: "Current Affairs", question: "Which country holds the rotating presidency of the BRICS grouping throughout 2024?", options: ["India", "Russia", "China", "South Africa"], answer: 1, explanation: "Russia assumed the rotating BRICS chairmanship for the 2024 calendar cycle." },
+            { subject: "Current Affairs", question: "The Sendai Framework (2015–2030) is associated with which international agenda?", options: ["Biodiversity Loss", "Disaster Risk Reduction", "Refugee Protection", "Cyber Warfare"], answer: 1, explanation: "The Sendai Framework was adopted at the 3rd UN World Conference on Disaster Risk Reduction." },
+            { subject: "Current Affairs", question: "Which strait serves as the primary maritime transit chokepoint for global petroleum exports from the Persian Gulf?", options: ["Strait of Malacca", "Strait of Hormuz", "Bab-el-Mandeb", "Strait of Gibraltar"], answer: 1, explanation: "The Strait of Hormuz connects the Persian Gulf with the Gulf of Oman." },
+            { subject: "Current Affairs", question: "The International Renewable Energy Agency (IRENA) has its official headquarters located in:", options: ["Abu Dhabi", "Doha", "Riyadh", "Muscat"], answer: 0, explanation: "IRENA is headquartered in Masdar City, Abu Dhabi, United Arab Emirates." },
+            { subject: "Current Affairs", question: "The 'Kunming-Montreal Global Biodiversity Framework' was adopted under which UN convention?", options: ["UNFCCC", "UNCBD", "UNCCD", "CITES"], answer: 1, explanation: "It was adopted at COP15 under the Convention on Biological Diversity (CBD)." },
+            { subject: "Current Affairs", question: "Which treaty prohibits the proliferation of nuclear weapons and entered into force in 1970?", options: ["CTBT", "NPT", "START", "TPNW"], answer: 1, explanation: "The Treaty on the Non-Proliferation of Nuclear Weapons (NPT) entered into force in 1970." },
+            { subject: "Current Affairs", question: "The headquarters of the United Nations Environment Programme (UNEP) is in:", options: ["Geneva", "Nairobi", "Bonn", "Vienna"], answer: 1, explanation: "UNEP is headquartered in Nairobi, Kenya." },
+            { subject: "Current Affairs", question: "The 'Artemis Accords' establish non-binding principles for civil space exploration led by:", options: ["ESA", "NASA", "ISRO", "JAXA"], answer: 1, explanation: "The Artemis Accords are led by NASA in coordination with the US Department of State." },
+            { subject: "Current Affairs", question: "Where is the headquarters of the European Central Bank (ECB) located?", options: ["Brussels", "Frankfurt", "Luxembourg", "Strasbourg"], answer: 1, explanation: "The ECB is based in Frankfurt am Main, Germany." },
+            { subject: "Current Affairs", question: "Which African nation hosts the headquarters of the African Union?", options: ["Nairobi, Kenya", "Addis Ababa, Ethiopia", "Abuja, Nigeria", "Pretoria, South Africa"], answer: 1, explanation: "The African Union has its administrative headquarters in Addis Ababa, Ethiopia." },
+            { subject: "Current Affairs", question: "The Financial Action Task Force (FATF) has its secretariat hosted at the headquarters of:", options: ["IMF in Washington", "OECD in Paris", "UN in New York", "WTO in Geneva"], answer: 1, explanation: "The FATF Secretariat is housed at the OECD headquarters in Paris, France." },
+            { subject: "Current Affairs", question: "The Comprehensive Nuclear-Test-Ban Treaty Organization (CTBTO) Preparatory Commission is based in:", options: ["Geneva", "Vienna", "Hague", "Oslo"], answer: 1, explanation: "CTBTO is based at the Vienna International Centre in Austria." },
+            { subject: "Current Affairs", question: "Which country launched the James Webb Space Telescope in collaboration with ESA and CSA?", options: ["USA", "Japan", "United Kingdom", "Australia"], answer: 0, explanation: "NASA led the development of JWST alongside European and Canadian space agencies." },
+            { subject: "Current Affairs", question: "The International Seabed Authority (ISA), organized under UNCLOS, is headquartered in:", options: ["Suva, Fiji", "Kingston, Jamaica", "Valparaiso, Chile", "Bonn, Germany"], answer: 1, explanation: "The ISA is mandated by UNCLOS and headquartered in Kingston, Jamaica." },
+            { subject: "Current Affairs", question: "The New Development Bank (NDB), established by BRICS nations, is based in which city?", options: ["Beijing", "Shanghai", "Moscow", "Johannesburg"], answer: 1, explanation: "The NDB was established by BRICS and is headquartered in Shanghai, China." },
+            { subject: "Current Affairs", question: "Which city hosts the secretariats of both the WTO and the World Health Organization (WHO)?", options: ["Geneva", "Zurich", "Paris", "Vienna"], answer: 0, explanation: "Both WTO and WHO maintain their worldwide secretariats in Geneva, Switzerland." },
+            { subject: "Current Affairs", question: "The 'Treaty on the Prohibition of Nuclear Weapons' (TPNW) entered into legal force in which year?", options: ["2017", "2019", "2021", "2023"], answer: 2, explanation: "TPNW entered into full international legal force on 22 January 2021." },
+            { subject: "Current Affairs", question: "Which country administers the Panama Canal after full sovereignty transfer in 1999?", options: ["Colombia", "Panama", "United States", "Costa Rica"], answer: 1, explanation: "The Panama Canal Authority of the Republic of Panama took full control on Dec 31, 1999." },
+            { subject: "Current Affairs", question: "The United Nations High Commissioner for Refugees (UNHCR) has its principal office in:", options: ["Geneva", "New York", "Nairobi", "Copenhagen"], answer: 0, explanation: "UNHCR was created in 1950 and has its headquarters in Geneva, Switzerland." },
+            { subject: "Current Affairs", question: "The 'Bletchley Declaration', signed by 28 nations in 2023, addresses global standards for:", options: ["Autonomous Weapons", "Artificial Intelligence Safety", "Ocean Plastic", "Satellite Debris"], answer: 1, explanation: "The Bletchley Declaration was agreed at the AI Safety Summit held at Bletchley Park, UK." },
+            { subject: "Current Affairs", question: "Which strait separates the Italian peninsula from the island of Sicily?", options: ["Strait of Otranto", "Strait of Messina", "Strait of Bonifacio", "Dardanelles"], answer: 1, explanation: "The Strait of Messina separates Sicily from the Calabria region of southern Italy." },
+            { subject: "Current Affairs", question: "The headquarters of the Asian Infrastructure Investment Bank (AIIB) is located in:", options: ["Shanghai", "Beijing", "Hong Kong", "Singapore"], answer: 1, explanation: "AIIB began operations in 2016 and is based in Beijing, China." },
+            { subject: "Current Affairs", question: "The 'Paris Agreement' on climate change formally sets an objective to limit global temperature rise to:", options: ["Below 1.0°C", "Well below 2.0°C and preferably 1.5°C", "Below 2.5°C", "Below 3.0°C"], answer: 1, explanation: "The treaty specifies holding the increase well below 2°C above pre-industrial levels." },
+            { subject: "Current Affairs", question: "Which country is the newest member of the East African Community (EAC) admitted in 2023?", options: ["South Sudan", "DR Congo", "Somalia", "Burundi"], answer: 2, explanation: "The Federal Republic of Somalia was officially admitted as the 8th EAC member in 2023." },
+            { subject: "Current Affairs", question: "Where is the headquarters of the Organization of the Petroleum Exporting Countries (OPEC)?", options: ["Riyadh", "Vienna", "Geneva", "Kuwait City"], answer: 1, explanation: "OPEC relocated its headquarters from Geneva to Vienna, Austria in 1965." },
+            { subject: "Current Affairs", question: "Which country launched the 'Belt and Road Initiative' (BRI) global infrastructure program in 2013?", options: ["India", "China", "Russia", "Japan"], answer: 1, explanation: "China's President Xi Jinping unveiled the BRI framework during state visits in 2013." },
+            { subject: "Current Affairs", question: "The Ramsar Convention relates to the conservation and sustainable use of:", options: ["Coral Reefs", "Wetlands", "Mangroves", "Tropical Rainforests"], answer: 1, explanation: "The Ramsar Convention on Wetlands of International Importance was signed in Ramsar, Iran in 1971." },
+            { subject: "Current Affairs", question: "The Commonwealth of Nations is an association of mostly former territories of which empire?", options: ["French", "British", "Spanish", "Portuguese"], answer: 1, explanation: "The Commonwealth comprises 56 nations, the vast majority being former British colonies." },
+            { subject: "Current Affairs", question: "Which country successfully completed the first soft lunar south pole landing with its Chandrayaan-3 mission?", options: ["USA", "India", "Russia", "China"], answer: 1, explanation: "India's ISRO became the first to land near the lunar south pole on August 23, 2023." },
+            { subject: "Current Affairs", question: "The Council of Europe is headquartered in which city?", options: ["Brussels", "Strasbourg", "The Hague", "Luxembourg"], answer: 1, explanation: "The Council of Europe (distinct from the EU) is headquartered in Strasbourg, France." },
+            { subject: "Current Affairs", question: "Which UN agency is mandated to protect international cultural and natural heritage sites?", options: ["UNDP", "UNESCO", "UNIDO", "UNEP"], answer: 1, explanation: "UNESCO manages the World Heritage Convention adopted in 1972." },
+
+            // ==================== INDIAN POLITY (1 to 50) ====================
+            { subject: "Indian Polity", question: "Which Article of the Constitution establishes the Finance Commission?", options: ["Article 280", "Article 324", "Article 112", "Article 356"], answer: 0, explanation: "Article 280 requires the President to constitute a Finance Commission every fifth year." },
+            { subject: "Indian Polity", question: "Under which Article are Fundamental Duties enumerated in the Indian Constitution?", options: ["Article 51", "Article 51A", "Article 39A", "Article 48A"], answer: 1, explanation: "Article 51A was inserted by the 42nd Amendment Act, 1976 on recommendations of the Swaran Singh Committee." },
+            { subject: "Indian Polity", question: "The power of judicial review in India is primarily derived from which constitutional doctrine and article?", options: ["Article 13", "Article 19", "Article 25", "Article 44"], answer: 0, explanation: "Article 13(2) declares that laws inconsistent with Fundamental Rights are void to the extent of inconsistency." },
+            { subject: "Indian Polity", question: "Which constitutional amendment introduced the Goods and Services Tax (GST)?", options: ["99th Amendment", "101st Amendment", "103rd Amendment", "105th Amendment"], answer: 1, explanation: "The 101st Constitutional Amendment Act, 2016 paved the way for nationwide GST rollout." },
+            { subject: "Indian Polity", question: "The Right to Privacy was declared a Fundamental Right under Article 21 in which landmark Supreme Court verdict?", options: ["Kesavananda Bharati Case", "Puttaswamy Case", "Minerva Mills Case", "Maneka Gandhi Case"], answer: 1, explanation: "Justice K.S. Puttaswamy (Retd.) v. Union of India (2017) recognized privacy under Article 21." },
+            { subject: "Indian Polity", question: "Which Schedule contains the allocation of seats in the Rajya Sabha to States and UTs?", options: ["Third Schedule", "Fourth Schedule", "Fifth Schedule", "Seventh Schedule"], answer: 1, explanation: "The Fourth Schedule allocates Council of States seats among states and union territories." },
+            { subject: "Indian Polity", question: "The Comptroller and Auditor General (CAG) of India is appointed under which Article?", options: ["Article 76", "Article 148", "Article 280", "Article 324"], answer: 1, explanation: "Article 148 provides for an independent office of the Comptroller and Auditor General." },
+            { subject: "Indian Polity", question: "The Attorney General of India holds office during the pleasure of:", options: ["Chief Justice of India", "Prime Minister", "President", "Parliament"], answer: 2, explanation: "Under Article 76(4), the Attorney General holds office during the pleasure of the President." },
+            { subject: "Indian Polity", question: "Which Article deals with the proclamation of National Emergency?", options: ["Article 352", "Article 356", "Article 360", "Article 365"], answer: 0, explanation: "Article 352 empowers the President to declare emergency on grounds of war, external aggression, or armed rebellion." },
+            { subject: "Indian Polity", question: "Who presides over a joint sitting of both Houses of Parliament?", options: ["President", "Chairman of Rajya Sabha", "Speaker of Lok Sabha", "Prime Minister"], answer: 2, explanation: "Under Article 118(4), the Speaker of the Lok Sabha presides over joint sittings." },
+            { subject: "Indian Polity", question: "Which Schedule of the Constitution deals with the Anti-Defection Law?", options: ["Eighth Schedule", "Ninth Schedule", "Tenth Schedule", "Eleventh Schedule"], answer: 2, explanation: "The 10th Schedule was added by the 52nd Amendment Act in 1985 to curb political defections." },
+            { subject: "Indian Polity", question: "The concept of 'Procedure Established by Law' in Article 21 was borrowed from:", options: ["UK Constitution", "US Constitution", "Japanese Constitution", "Irish Constitution"], answer: 2, explanation: "The phrase was borrowed from the 1946 Constitution of Japan." },
+            { subject: "Indian Polity", question: "Which writ literally translates to 'What is your authority'?", options: ["Habeas Corpus", "Mandamus", "Quo-Warranto", "Certiorari"], answer: 2, explanation: "Quo-Warranto is issued by courts to restrain a person from acting in an office to which they are not entitled." },
+            { subject: "Indian Polity", question: "A Money Bill can be introduced only in:", options: ["Rajya Sabha", "Lok Sabha", "Joint Sitting", "Either House"], answer: 1, explanation: "Article 109 stipulates that a Money Bill cannot be introduced in the Council of States." },
+            { subject: "Indian Polity", question: "The 73rd Constitutional Amendment Act, 1992 added which Schedule to the Constitution?", options: ["Tenth Schedule", "Eleventh Schedule", "Twelfth Schedule", "Seventh Schedule"], answer: 1, explanation: "The 11th Schedule contains 29 functional items placed under Panchayati Raj Institutions." },
+            { subject: "Indian Polity", question: "Who is the ex-officio Chairman of the Rajya Sabha?", options: ["President", "Vice-President", "Prime Minister", "Chief Justice"], answer: 1, explanation: "Article 64 states the Vice-President shall be the ex-officio Chairman of the Council of States." },
+            { subject: "Indian Polity", question: "The Directive Principles of State Policy in Part IV are borrowed from which country's constitution?", options: ["Australia", "Ireland", "Canada", "USSR"], answer: 1, explanation: "The makers borrowed DPSPs from the Irish Constitution of 1937." },
+            { subject: "Indian Polity", question: "Which Article guarantees protection against double jeopardy and self-incrimination?", options: ["Article 19", "Article 20", "Article 21", "Article 22"], answer: 1, explanation: "Article 20 provides safeguards regarding conviction for offenses." },
+            { subject: "Indian Polity", question: "How many languages are officially recognized under the Eighth Schedule of the Constitution?", options: ["18", "20", "22", "24"], answer: 2, explanation: "The Eighth Schedule currently recognizes 22 languages after several amendment acts." },
+            { subject: "Indian Polity", question: "The maximum permissible strength of the Lok Sabha as envisaged by the Constitution is:", options: ["545", "550", "552", "560"], answer: 1, explanation: "The 104th Amendment abolished Anglo-Indian nominations, capping max strength at 550." },
+            { subject: "Indian Polity", question: "The National Commission for Scheduled Tribes was created as an independent constitutional body by which amendment?", options: ["65th Amendment", "89th Amendment", "91st Amendment", "102nd Amendment"], answer: 1, explanation: "The 89th Amendment Act, 2003 bifurcated the joint commission and inserted Article 338A." },
+            { subject: "Indian Polity", question: "Which constitutional doctrine prevents colorable legislation ('what cannot be done directly cannot be done indirectly')?", options: ["Doctrine of Severability", "Doctrine of Pith and Substance", "Doctrine of Colorable Legislation", "Doctrine of Eclipse"], answer: 2, explanation: "It ensures legislatures act strictly within their substantive constitutional competence." },
+            { subject: "Indian Polity", question: "Elections to the Panchayats and Municipalities are conducted by:", options: ["Election Commission of India", "State Election Commission", "District Magistrates", "Ministry of Panchayati Raj"], answer: 1, explanation: "State Election Commissions established under Article 243K conduct local body elections." },
+            { subject: "Indian Polity", question: "Which Article deals with the constitutional remedies enabling citizens to move the Supreme Court directly?", options: ["Article 32", "Article 226", "Article 136", "Article 143"], answer: 0, explanation: "Dr. B.R. Ambedkar termed Article 32 the 'heart and soul' of the Indian Constitution." },
+            { subject: "Indian Polity", question: "The Sarkaria Commission was set up in 1983 to examine matters related to:", options: ["Electoral Reforms", "Centre-State Relations", "Administrative Tribunals", "Police Reforms"], answer: 1, explanation: "Justice R.S. Sarkaria chaired the commission reviewing Union-State arrangements." },
+            { subject: "Indian Polity", question: "The concept of 'Equal Protection of the Laws' in Article 14 is borrowed from:", options: ["British Rule of Law", "US Constitution", "French Declaration", "Weimar Constitution"], answer: 1, explanation: "While 'Equality before law' is British, 'Equal protection of laws' is from the 14th US Amendment." },
+            { subject: "Indian Polity", question: "Under Article 123, the President has the power to:", options: ["Grant Pardons", "Promulgate Ordinances", "Dismiss Governors", "Impose Martial Law"], answer: 1, explanation: "Ordinance-making power applies when either House of Parliament is not in session." },
+            { subject: "Indian Polity", question: "Which constitutional body is established under Article 324?", options: ["UPSC", "Election Commission", "Finance Commission", "Inter-State Council"], answer: 1, explanation: "Article 324 vests superintendence, direction, and control of elections in the Election Commission." },
+            { subject: "Indian Polity", question: "Which Constitutional Article empowers High Courts to issue prerogative writs?", options: ["Article 32", "Article 131", "Article 226", "Article 227"], answer: 2, explanation: "Article 226 gives High Courts writ powers for fundamental rights as well as ordinary legal rights." },
+            { subject: "Indian Polity", question: "The 44th Constitutional Amendment Act, 1978 removed which right from the list of Fundamental Rights?", options: ["Right to Property", "Right to Education", "Right to Assemble", "Right to Work"], answer: 0, explanation: "Property was removed from Part III and made a constitutional right under Article 300A." },
+            { subject: "Indian Polity", question: "Uniform Civil Code (UCC) is mentioned in which Article of the Constitution?", options: ["Article 40", "Article 44", "Article 45", "Article 48"], answer: 1, explanation: "Article 44 directs the State to secure for citizens a Uniform Civil Code throughout India." },
+            { subject: "Indian Polity", question: "The President of India is elected by an Electoral College consisting of:", options: ["All members of Parliament", "Elected members of both Houses of Parliament and Legislative Assemblies", "All members of Parliament and Assemblies", "Elected members of Parliament only"], answer: 1, explanation: "Article 54 restricts voting to elected MPs and elected MLAs of States and UTs." },
+            { subject: "Indian Polity", question: "Who decides whether a bill is a Money Bill or not?", options: ["Finance Minister", "President", "Speaker of Lok Sabha", "Prime Minister"], answer: 2, explanation: "Under Article 110(3), the decision of the Lok Sabha Speaker is final." },
+            { subject: "Indian Polity", question: "The Inter-State Council is constituted by the President under which Article?", options: ["Article 262", "Article 263", "Article 275", "Article 282"], answer: 1, explanation: "Article 263 authorizes establishment of an Inter-State Council to coordinate policy." },
+            { subject: "Indian Polity", question: "The minimum age prescribed for qualifying for election as President of India is:", options: ["25 years", "30 years", "35 years", "40 years"], answer: 2, explanation: "Article 58 requires a candidate to have completed the age of 35 years." },
+            { subject: "Indian Polity", question: "Which Article mandates separation of the Judiciary from the Executive in public services?", options: ["Article 46", "Article 48", "Article 50", "Article 51"], answer: 2, explanation: "Article 50 directs the state to take steps to separate the judiciary from executive machinery." },
+            { subject: "Indian Polity", question: "The concept of 'Basic Structure' of the Constitution was propounded in which case?", options: ["Golaknath Case", "Kesavananda Bharati Case", "Minerva Mills Case", "Shankari Prasad Case"], answer: 1, explanation: "A 13-judge bench established the Basic Structure doctrine in April 1973." },
+            { subject: "Indian Polity", question: "Which writ is issued to an inferior court or tribunal prohibiting it from exceeding its jurisdiction?", options: ["Mandamus", "Prohibition", "Certiorari", "Quo-Warranto"], answer: 1, explanation: "The writ of Prohibition prevents a judicial or quasi-judicial body from usurping power." },
+            { subject: "Indian Polity", question: "The Eighth Schedule currently does not include which of the following languages?", options: ["Bodo", "Santhali", "English", "Dogri"], answer: 2, explanation: "English is an official language of union business but not listed in the Eighth Schedule." },
+            { subject: "Indian Polity", question: "A judge of the Supreme Court may resign from office by writing to the:", options: ["Chief Justice of India", "President", "Law Minister", "Prime Minister"], answer: 1, explanation: "Under Article 124(2)(a), a Supreme Court judge submits their resignation to the President." },
+            { subject: "Indian Polity", question: "The Preamble to the Indian Constitution was amended by which Constitutional Amendment Act?", options: ["24th Amendment", "42nd Amendment", "44th Amendment", "52nd Amendment"], answer: 1, explanation: "The 42nd Amendment (1976) added 'Socialist', 'Secular', and 'Integrity'." },
+            { subject: "Indian Polity", question: "Which Article empowers Parliament to establish an administrative tribunal for public service disputes?", options: ["Article 323A", "Article 323B", "Article 324", "Article 330"], answer: 0, explanation: "Article 323A authorizes tribunals dealing with recruitment and conditions of service." },
+            { subject: "Indian Polity", question: "A proclamation of President's Rule under Article 356 must be approved by Parliament within:", options: ["One month", "Two months", "Three months", "Six months"], answer: 1, explanation: "Approval by simple majority in both Houses must occur within two months of issuance." },
+            { subject: "Indian Polity", question: "What is the quorum required to constitute a meeting of either House of Parliament?", options: ["One-fifth of members", "One-tenth of members", "One-third of members", "One-eighth of members"], answer: 1, explanation: "Article 100(3) sets quorum at one-tenth of the total number of members of the House." },
+            { subject: "Indian Polity", question: "Which Article authorizes Parliament to form new States and alter boundaries of existing States?", options: ["Article 1", "Article 2", "Article 3", "Article 4"], answer: 2, explanation: "Article 3 relates to formation of new states and alteration of areas, boundaries, or names." },
+            { subject: "Indian Polity", question: "The Union Public Service Commission (UPSC) submits its annual report to the:", options: ["Prime Minister", "Parliament", "President", "Ministry of Personnel"], answer: 2, explanation: "Under Article 323, the commission presents its report annually to the President." },
+            { subject: "Indian Polity", question: "The concept of 'Concurrent List' in the Seventh Schedule was borrowed from:", options: ["Australia", "Canada", "USA", "South Africa"], answer: 0, explanation: "The Concurrent List concept was adapted from the Commonwealth of Australia Constitution Act." },
+            { subject: "Indian Polity", question: "Under which Article can the Union Executive give directions to a State during peace times?", options: ["Article 256 and 257", "Article 352", "Article 356", "Article 360"], answer: 0, explanation: "Articles 256 and 257 mandate compliance with Union laws and directions." },
+            { subject: "Indian Polity", question: "Which committee recommended the establishment of the institution of Lokpal?", options: ["First Administrative Reforms Commission", "Santhanam Committee", "Gorwala Committee", "Kothari Commission"], answer: 0, explanation: "The First ARC (1966) recommended Lokpal and Lokayukta bodies on the Ombudsman model." },
+            { subject: "Indian Polity", question: "The President can declare a Financial Emergency under which Article?", options: ["Article 352", "Article 356", "Article 360", "Article 365"], answer: 2, explanation: "Article 360 authorizes the declaration of Financial Emergency (never invoked in India)." },
+
+            // ==================== ECONOMICS (1 to 50) ====================
+            { subject: "Economics", question: "The term 'Stagflation' refers to an economic condition marked by:", options: ["High inflation and high growth", "Low inflation and low unemployment", "Stagnant growth accompanied by high inflation", "Rapid deflation and currency appreciation"], answer: 2, explanation: "Stagflation occurs when high inflation combines with stagnant economic growth." },
+            { subject: "Economics", question: "The Monetary Policy Committee (MPC) of the Reserve Bank of India consists of how many members?", options: ["4", "5", "6", "8"], answer: 2, explanation: "The MPC consists of six members: 3 from the RBI and 3 external experts appointed by the Central Government." },
+            { subject: "Economics", question: "The rate at which commercial banks borrow money from the RBI against government securities is:", options: ["Reverse Repo Rate", "Repo Rate", "Bank Rate", "CRR"], answer: 1, explanation: "Repo (Repurchase Option) is the key short-term liquidity policy rate." },
+            { subject: "Economics", question: "Which institution calculates and releases the official Consumer Price Index (CPI) in India?", options: ["RBI", "National Statistical Office (NSO)", "NITI Aayog", "Ministry of Finance"], answer: 1, explanation: "The National Statistical Office (NSO) under MoSPI publishes monthly all-India CPI figures." },
+            { subject: "Economics", question: "Gini Coefficient is a recognized macroeconomic metric used to measure:", options: ["Poverty line threshold", "Income inequality", "Inflationary pressure", "Fiscal deficit"], answer: 1, explanation: "A Gini coefficient of 0 expresses perfect equality, while 1 indicates complete inequality." },
+            { subject: "Economics", question: "A persistent balance of payments surplus usually leads to which pressure on a country's currency?", options: ["Depreciation", "Appreciation", "Hyperinflation", "Demonetization"], answer: 1, explanation: "High demand for domestic currency to pay for net exports tends to strengthen the exchange rate." },
+            { subject: "Economics", question: "Which committee recommended adoption of the Flexible Inflation Targeting (FIT) framework in India?", options: ["Raghuram Rajan Committee", "Urjit Patel Committee", "Bimal Jalan Committee", "Tarapore Committee"], answer: 1, explanation: "The Urjit Patel Committee report (2014) recommended adopting consumer inflation targeting." },
+            { subject: "Economics", question: "The difference between total government revenue and total government expenditure (excluding borrowings) is:", options: ["Revenue Deficit", "Fiscal Deficit", "Primary Deficit", "Monetized Deficit"], answer: 1, explanation: "Fiscal Deficit reflects the total borrowing requirements of the government in a financial year." },
+            { subject: "Economics", question: "Primary Deficit is obtained by deducting which component from the Fiscal Deficit?", options: ["Subsidies", "Interest Payments", "Defence Capital", "Pension Payments"], answer: 1, explanation: "Primary Deficit = Fiscal Deficit – Interest Payments." },
+            { subject: "Economics", question: "The 'Lorenz Curve' graphically demonstrates the relationship between:", options: ["Tax rates and tax revenues", "Cumulative population and cumulative income received", "Inflation and unemployment", "Exchange rates and trade balances"], answer: 1, explanation: "The Lorenz Curve illustrates the distribution of income or wealth in an economy." },
+            { subject: "Economics", question: "The Phillips Curve illustrates an inverse theoretical relationship between:", options: ["Interest rates and savings", "Inflation and unemployment", "Poverty and GDP growth", "Exchange rate and tariffs"], answer: 1, explanation: "A.W. Phillips showed that lower unemployment correlates with higher rates of wage inflation." },
+            { subject: "Economics", question: "Which category of goods exhibits an increase in demand as consumer income rises?", options: ["Giffen Goods", "Inferior Goods", "Normal Goods", "Veblen Goods"], answer: 2, explanation: "Normal goods have a positive income elasticity of demand." },
+            { subject: "Economics", question: "Cash Reserve Ratio (CRR) mandates commercial banks to park a percentage of deposits with:", options: ["State Bank of India", "RBI in cash form", "Finance Ministry", "Stock Exchanges"], answer: 1, explanation: "CRR is the share of Net Demand and Time Liabilities (NDTL) banks must hold with the RBI." },
+            { subject: "Economics", question: "Statutory Liquidity Ratio (SLR) can be maintained by commercial banks in the form of:", options: ["Only Cash", "Cash, Gold, and Approved Government Securities", "Foreign Currency only", "Corporate Debentures"], answer: 1, explanation: "SLR requires banks to hold liquid unencumbered assets such as cash, gold, or approved securities." },
+            { subject: "Economics", question: "The 'Laffer Curve' depicts the theoretical relationship between:", options: ["Tax rates and tax revenue", "Income and leisure", "Interest rates and investment", "Unemployment and output"], answer: 0, explanation: "The Laffer Curve hypothesizes that beyond an optimal tax rate, higher rates reduce overall tax receipts." },
+            { subject: "Economics", question: "The Base Year currently utilized for calculating the official GDP series in India is:", options: ["2004-05", "2011-12", "2016-17", "2018-19"], answer: 1, explanation: "The current official national accounts series operates with 2011-12 as the benchmark base year." },
+            { subject: "Economics", question: "Which financial market regulator in India oversees commodity derivatives and securities markets?", options: ["RBI", "SEBI", "IRDAI", "PFRDA"], answer: 1, explanation: "The Securities and Exchange Board of India (SEBI) regulates both securities and commodity derivatives." },
+            { subject: "Economics", question: "What represents 'Narrow Money' in the Reserve Bank of India's monetary aggregates?", options: ["M1", "M2", "M3", "M4"], answer: 0, explanation: "M1 consists of currency in circulation plus demand deposits with banking systems." },
+            { subject: "Economics", question: "What is designated as 'Broad Money' in Indian monetary accounting?", options: ["M1", "M2", "M3", "M0"], answer: 2, explanation: "M3 comprises M1 plus time deposits with commercial banking institutions." },
+            { subject: "Economics", question: "The minimum interest rate below which commercial banks are not allowed to lend is termed:", options: ["Base Rate", "MCLR / External Benchmark Lending Rate", "Call Rate", "Reverse Repo"], answer: 1, explanation: "Banks now benchmark loans to external rates or Marginal Cost of Funds Based Lending Rate (MCLR)." },
+            { subject: "Economics", question: "Which institution superseded the Planning Commission on 1 January 2015?", options: ["Finance Commission", "NITI Aayog", "National Development Council", "Inter-State Council"], answer: 1, explanation: "NITI Aayog (National Institution for Transforming India) replaced the Planning Commission." },
+            { subject: "Economics", question: "The 'Kuznets Curve' hypothesizes an inverted-U relationship between economic development and:", options: ["Trade Volume", "Income Inequality", "Pollution only", "Literacy Rates"], answer: 1, explanation: "Simon Kuznets suggested that as an economy develops, market forces first increase then decrease economic inequality." },
+            { subject: "Economics", question: "Disguised unemployment is most prevalent in which sector of developing economies?", options: ["Manufacturing", "Agriculture", "IT Sector", "Aviation"], answer: 1, explanation: "Disguised unemployment occurs when marginal productivity of labor is zero or negligible, common in agrarian setups." },
+            { subject: "Economics", question: "Which curve shows the tradeoff between tax rates and public revenues?", options: ["Engel Curve", "Laffer Curve", "Indifference Curve", "Yield Curve"], answer: 1, explanation: "The Laffer curve models taxable behavior in response to varying marginal tax rates." },
+            { subject: "Economics", question: "An economy operating inside its Production Possibility Frontier (PPF) indicates:", options: ["Infeasible production", "Underutilization or inefficiency of resources", "Maximum attainable output", "Technological advance"], answer: 1, explanation: "Points beneath the PPF reflect underemployed capital or labor resources." },
+            { subject: "Economics", question: "Devaluation of a domestic currency under a fixed exchange rate system is intended to:", options: ["Discourage exports", "Encourage exports and discourage imports", "Increase trade deficit", "Lower foreign reserves"], answer: 1, explanation: "Devaluation lowers relative price of exports and raises import prices, boosting net trade balances." },
+            { subject: "Economics", question: "The 'Paradox of Thrift' is an economic concept introduced primarily by:", options: ["Adam Smith", "Milton Friedman", "John Maynard Keynes", "David Ricardo"], answer: 2, explanation: "Keynes argued that if everyone increases savings simultaneously, aggregate demand falls, depressing output." },
+            { subject: "Economics", question: "What is the primary objective of Open Market Operations (OMOs) conducted by the RBI?", options: ["Fiscal deficit financing", "Regulating market liquidity and credit conditions", "Foreign direct investment inflows", "Tax collection"], answer: 1, explanation: "OMOs involve buying or selling government securities to infuse or absorb liquidity." },
+            { subject: "Economics", question: "The 'Engel Curve' shows the relationship between consumer income and quantity demanded of a:", options: ["Capital Good", "Particular Commodity", "Foreign Currency", "Public Asset"], answer: 1, explanation: "Developed by Ernst Engel, it depicts how household expenditure on a good varies with income." },
+            { subject: "Economics", question: "A tax that takes a larger percentage of income from high-income earners than from low-income earners is:", options: ["Regressive Tax", "Proportional Tax", "Progressive Tax", "Indirect Tax"], answer: 2, explanation: "Income tax systems with upward marginal rate brackets are progressive." },
+            { subject: "Economics", question: "The Human Development Index (HDI) is computed and published annually by:", options: ["World Bank", "UNDP", "UNESCO", "WEF"], answer: 1, explanation: "The United Nations Development Programme (UNDP) publishes the Human Development Report." },
+            { subject: "Economics", question: "Which indicator measures the responsiveness of quantity demanded to a change in the price of another good?", options: ["Price Elasticity", "Income Elasticity", "Cross-Price Elasticity", "Supply Elasticity"], answer: 2, explanation: "Cross-price elasticity measures demand shifts in Good A when the price of substitute/complement Good B shifts." },
+            { subject: "Economics", question: "A market structure characterized by a single buyer facing multiple sellers is known as a:", options: ["Monopoly", "Monopsony", "Oligopoly", "Duopoly"], answer: 1, explanation: "Monopsony exists when one entity possesses absolute market purchasing power over sellers." },
+            { subject: "Economics", question: "The Financial Stability Board (FSB) monitors and coordinates international standards for:", options: ["Venture Capital", "Global Financial System", "Cryptocurrency only", "Microfinance"], answer: 1, explanation: "The FSB was established after the 2008 G20 London summit to monitor systemic financial vulnerabilities." },
+            { subject: "Economics", question: "The acronym 'FDI' stands for:", options: ["Fiscal Domestic Investment", "Foreign Direct Investment", "Federal Derivative Index", "Financial Demand Instrument"], answer: 1, explanation: "FDI represents lasting management interest and controlling stakes by foreign entities." },
+            { subject: "Economics", question: "The 'Misery Index' is an economic indicator calculated by adding:", options: ["Poverty rate and debt ratio", "Unemployment rate and inflation rate", "Trade deficit and fiscal deficit", "Tax rate and interest rate"], answer: 1, explanation: "Formulated by Arthur Okun, the Misery Index combines unemployment and annualized inflation." },
+            { subject: "Economics", question: "Which institution acts as the 'Lender of Last Resort' to commercial banks in India?", options: ["State Bank of India", "Reserve Bank of India", "Ministry of Finance", "NABARD"], answer: 1, explanation: "The RBI provides emergency liquidity advances when solvent banks encounter short-term liquidity distress." },
+            { subject: "Economics", question: "Sovereign Gold Bonds (SGBs) in India are issued by the RBI on behalf of the:", options: ["SEBI", "Government of India", "BSE", "Bullion Federation"], answer: 1, explanation: "SGBs are government securities denominated in grams of gold issued by the RBI under the Government of India." },
+            { subject: "Economics", question: "A sustained decrease in the general price level of goods and services is termed:", options: ["Disinflation", "Deflation", "Depreciation", "Stagflation"], answer: 1, explanation: "Deflation represents negative inflation where the general price index contracts over time." },
+            { subject: "Economics", question: "The 'Tobin Tax' was originally proposed as a levy on:", options: ["Real estate appreciation", "Spot currency conversions", "Polluting industries", "Agricultural exports"], answer: 1, explanation: "Nobel laureate James Tobin proposed taxing short-term cross-currency transactions to discourage currency speculation." },
+            { subject: "Economics", question: "Which institution regulates the pension sector in India?", options: ["IRDAI", "SEBI", "PFRDA", "RBI"], answer: 2, explanation: "The Pension Fund Regulatory and Development Authority (PFRDA) supervises national pension architectures." },
+            { subject: "Economics", question: "What is an 'Open Economy'?", options: ["An economy with zero government taxes", "An economy that engages in trade and financial transactions with other nations", "An economy strictly controlled by price ceilings", "An economy relying entirely on domestic supply"], answer: 1, explanation: "An open economy conducts cross-border trade in goods, services, and capital." },
+            { subject: "Economics", question: "Real GDP differs from Nominal GDP because Real GDP adjusts for:", options: ["Population change", "Changes in price levels (inflation/deflation)", "Exchange rate swings", "Direct taxes"], answer: 1, explanation: "Real GDP measures economic output valued at constant base year prices." },
+            { subject: "Economics", question: "The 'Invisible Hand' metaphor in free-market economics was popularized by:", options: ["David Ricardo", "John Locke", "Adam Smith", "Thomas Malthus"], answer: 2, explanation: "Adam Smith presented the concept in 'The Theory of Moral Sentiments' and 'The Wealth of Nations'." },
+            { subject: "Economics", question: "Which curve shows combinations of two goods providing an identical level of utility to a consumer?", options: ["Demand Curve", "Indifference Curve", "Isoquant", "Budget Line"], answer: 1, explanation: "An indifference curve connects points on a graph where a consumer is indifferent between consumption baskets." },
+            { subject: "Economics", question: "A period of two consecutive quarters of negative real GDP growth is widely classified as a:", options: ["Depression", "Technical Recession", "Slowdown", "Correction"], answer: 1, explanation: "Two back-to-back quarterly economic contractions meet the conventional threshold of a technical recession." },
+            { subject: "Economics", question: "National Income calculated at factor cost is equal to:", options: ["GNP at market price", "NDP at market price", "NNP at factor cost", "GDP at market price"], answer: 2, explanation: "Net National Product (NNP) at Factor Cost is the standard measure of National Income." },
+            { subject: "Economics", question: "The financial ratio measuring a company's ability to cover short-term obligations with liquid assets is:", options: ["Debt-to-Equity Ratio", "Current Ratio", "Price-to-Earnings Ratio", "Return on Equity"], answer: 1, explanation: "Current Ratio = Current Assets divided by Current Liabilities." },
+            { subject: "Economics", question: "Which institution oversees insurance businesses and market conduct across India?", options: ["SEBI", "IRDAI", "RBI", "PFRDA"], answer: 1, explanation: "Insurance Regulatory and Development Authority of India (IRDAI) regulates insurers." },
+            { subject: "Economics", question: "Gresham's Law famously states that:", options: ["Supply creates its own demand", "Bad money drives out good money", "Deficits always trigger currency collapses", "Lower prices increase aggregate supply"], answer: 1, explanation: "Thomas Gresham noted that when two forms of currency circulate, people hoard the more valuable commodity currency." },
+
+            // ==================== GENERAL SCIENCE (1 to 50) ====================
+            { subject: "General Science", question: "Which electromagnetic radiation has the highest frequency and shortest wavelength?", options: ["Infrared waves", "Ultraviolet rays", "Gamma rays", "X-rays"], answer: 2, explanation: "Gamma rays carry the highest photon frequencies and energies on the electromagnetic spectrum." },
+            { subject: "General Science", question: "The powerhouse of the eukaryotic cell where ATP is generated via cellular respiration is the:", options: ["Ribosome", "Mitochondria", "Golgi apparatus", "Endoplasmic reticulum"], answer: 1, explanation: "Mitochondria synthesize adenosine triphosphate (ATP) via the Krebs cycle and oxidative phosphorylation." },
+            { subject: "General Science", question: "What is the SI unit of electric resistance?", options: ["Volt", "Ampere", "Ohm", "Siemens"], answer: 2, explanation: "Ohm (symbol: Ω) is the SI derived unit of electrical resistance." },
+            { subject: "General Science", question: "Which gas is primarily responsible for the greenhouse effect on Earth?", options: ["Methane", "Carbon Dioxide", "Water Vapor", "Nitrous Oxide"], answer: 2, explanation: "Water vapor accounts for the largest natural greenhouse warming percentage, followed by CO2." },
+            { subject: "General Science", question: "Sound waves cannot propagate through which of the following media?", options: ["Steel", "Water", "Vacuum", "Air"], answer: 2, explanation: "Sound requires a physical elastic material medium to propagate via compressions and rarefactions." },
+            { subject: "General Science", question: "Which blood group is recognized as the universal red blood cell donor?", options: ["AB positive", "AB negative", "O positive", "O negative"], answer: 3, explanation: "O negative red cells lack A, B, and Rh surface antigens, preventing immunologic transfusion reactions." },
+            { subject: "General Science", question: "What is the chemical formula for Plaster of Paris?", options: ["CaSO4·2H2O", "CaSO4·½H2O", "CaCO3", "CaOCl2"], answer: 1, explanation: "Plaster of Paris is calcium sulfate hemihydrate: CaSO4·0.5H2O." },
+            { subject: "General Science", question: "Which planet in the solar system has the highest density?", options: ["Mercury", "Earth", "Saturn", "Jupiter"], answer: 1, explanation: "Earth is the densest planet in the solar system at approximately 5.51 g/cm³." },
+            { subject: "General Science", question: "Light travels fastest in which of the following mediums?", options: ["Water", "Glass", "Diamond", "Vacuum"], answer: 3, explanation: "Light travels at its maximum speed of ~299,792,458 m/s through vacuum." },
+            { subject: "General Science", question: "Which vitamin is synthesized in the human skin through exposure to ultraviolet radiation?", options: ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin K"], answer: 2, explanation: "7-dehydrocholesterol in the skin converts into cholecalciferol (Vitamin D3) under UVB exposure." },
+            { subject: "General Science", question: "What is the main component of natural gas?", options: ["Ethane", "Propane", "Methane", "Butane"], answer: 2, explanation: "Natural gas consists predominantly of methane (CH4), typically making up 70–90%." },
+            { subject: "General Science", question: "Which human organ produces insulin?", options: ["Liver", "Gallbladder", "Pancreas", "Kidney"], answer: 2, explanation: "Beta cells within the Islets of Langerhans in the pancreas secrete insulin." },
+            { subject: "General Science", question: "Newton's First Law of Motion is also known as the Law of:", options: ["Momentum", "Inertia", "Action-Reaction", "Gravitation"], answer: 1, explanation: "It states that a body remains at rest or in uniform motion unless acted upon by an external net force." },
+            { subject: "General Science", question: "Which metal is liquid at room temperature (25°C)?", options: ["Gallium", "Mercury", "Bromine", "Cesium"], answer: 1, explanation: "Mercury (Hg) is the only metallic element that remains liquid at standard ambient conditions." },
+            { subject: "General Science", question: "What is the pH value of pure distilled water at 25°C?", options: ["5.0", "7.0", "8.5", "10.0"], answer: 1, explanation: "Pure water has a neutral pH of exactly 7.0 at 25°C." },
+            { subject: "General Science", question: "Which part of the human eye regulates the amount of light entering the pupil?", options: ["Cornea", "Retina", "Iris", "Lens"], answer: 2, explanation: "The iris adjusts its aperture via muscular contractions to control light throughput." },
+            { subject: "General Science", question: "The process of converting a solid directly into a gas without entering the liquid phase is:", options: ["Evaporation", "Condensation", "Sublimation", "Deposition"], answer: 2, explanation: "Sublimation is the direct phase transition from solid to vapor (e.g., dry ice, camphor)." },
+            { subject: "General Science", question: "Which organelle is responsible for protein synthesis in cells?", options: ["Lysosome", "Ribosome", "Vacuole", "Centrosome"], answer: 1, explanation: "Ribosomes translate messenger RNA (mRNA) into polypeptide amino acid chains." },
+            { subject: "General Science", question: "The escape velocity from the surface of the Earth is approximately:", options: ["9.8 km/s", "11.2 km/s", "15.4 km/s", "22.1 km/s"], answer: 1, explanation: "Earth's gravitational escape velocity is calculated at approximately 11.186 km/s." },
+            { subject: "General Science", question: "Which gas is released during photosynthesis by plants?", options: ["Carbon Dioxide", "Oxygen", "Nitrogen", "Hydrogen"], answer: 1, explanation: "Photolysis of water molecules during light-dependent reactions yields free oxygen." },
+            { subject: "General Science", question: "What is the chemical name of common baking soda?", options: ["Sodium Carbonate", "Sodium Bicarbonate", "Calcium Hydroxide", "Sodium Hydroxide"], answer: 1, explanation: "Baking soda is sodium bicarbonate, with the formula NaHCO3." },
+            { subject: "General Science", question: "Which atmospheric layer contains the protective ozone layer?", options: ["Troposphere", "Stratosphere", "Mesosphere", "Thermosphere"], answer: 1, explanation: "The ozone layer is concentrated in the lower stratosphere between 15 and 35 km altitude." },
+            { subject: "General Science", question: "The optical phenomenon responsible for the brilliance and sparkle of diamonds is:", options: ["Refraction", "Diffraction", "Total Internal Reflection", "Polarization"], answer: 2, explanation: "Diamonds have a high refractive index (~2.42) causing repeated total internal reflections." },
+            { subject: "General Science", question: "Which disease is caused by the deficiency of Vitamin C?", options: ["Rickets", "Scurvy", "Beriberi", "Pellagra"], answer: 1, explanation: "Vitamin C (ascorbic acid) deficiency impairs collagen synthesis, manifesting as scurvy." },
+            { subject: "General Science", question: "What type of mirror is commonly used as a rear-view mirror in motor vehicles?", options: ["Plane mirror", "Concave mirror", "Convex mirror", "Parabolic mirror"], answer: 2, explanation: "Convex mirrors produce upright, diminished virtual images offering a wider field of view." },
+            { subject: "General Science", question: "Which non-metal is a good conductor of electricity?", options: ["Diamond", "Graphite", "Sulfur", "Phosphorus"], answer: 1, explanation: "Graphite has delocalized electrons between its layered hexagonal carbon sheets." },
+            { subject: "General Science", question: "What is the primary function of white blood cells (leukocytes)?", options: ["Transport oxygen", "Defend against pathogens and infection", "Clot blood", "Regulate core temperature"], answer: 1, explanation: "Leukocytes form the cellular foundation of the immune system." },
+            { subject: "General Science", question: "The acceleration due to gravity (g) is highest at which location on Earth?", options: ["Equator", "Poles", "Tropic of Cancer", "Deep Sea Trenches"], answer: 1, explanation: "Due to Earth's oblate spheroid shape and centrifugal effects, 'g' peaks at the poles." },
+            { subject: "General Science", question: "Brass is an alloy composed primarily of:", options: ["Copper and Tin", "Copper and Zinc", "Iron and Carbon", "Aluminum and Copper"], answer: 1, explanation: "Brass is a substitutional alloy consisting of copper and zinc." },
+            { subject: "General Science", question: "Which gland in the human body is often designated as the 'Master Gland'?", options: ["Thyroid gland", "Pituitary gland", "Adrenal gland", "Pancreas"], answer: 1, explanation: "The pituitary gland controls other endocrine glands by releasing trophic hormones." },
+            { subject: "General Science", question: "What is the SI unit of luminous intensity?", options: ["Lumen", "Lux", "Candela", "Watt"], answer: 2, explanation: "Candela (symbol: cd) is the base SI unit measuring luminous intensity." },
+            { subject: "General Science", question: "Dry Ice is the solid physical state of which substance?", options: ["Water", "Carbon Monoxide", "Carbon Dioxide", "Methane"], answer: 2, explanation: "Dry ice is solid carbon dioxide (CO2) frozen at -78.5°C." },
+            { subject: "General Science", question: "Which instrument is used to record and measure earthquakes?", options: ["Barometer", "Seismograph", "Hydrometer", "Altimeter"], answer: 1, explanation: "Seismographs detect and plot seismic wave vibrations caused by earthquakes." },
+            { subject: "General Science", question: "Which hormone regulates the 'fight or flight' stress response?", options: ["Thyroxine", "Adrenaline (Epinephrine)", "Estrogen", "Melatonin"], answer: 1, explanation: "The adrenal medulla releases adrenaline in response to acute physical stressors." },
+            { subject: "General Science", question: "What is the chemical symbol for the element Gold?", options: ["Ag", "Au", "Pt", "Fe"], answer: 1, explanation: "Gold's symbol Au derives from its Latin name 'aurum'." },
+            { subject: "General Science", question: "The blue color of the sky is caused by which optical phenomenon?", options: ["Rayleigh Scattering", "Mie Scattering", "Dispersion", "Total Internal Reflection"], answer: 0, explanation: "Shorter blue wavelengths of sunlight scatter more intensely off air molecules than red wavelengths." },
+            { subject: "General Science", question: "Which constituent of human blood is essential for coagulation and clotting?", options: ["Erythrocytes", "Platelets (Thrombocytes)", "Plasma Proteins only", "Lymphocytes"], answer: 1, explanation: "Platelets aggregate at injury sites and activate the clotting cascade." },
+            { subject: "General Science", question: "What is the speed of sound in dry air at 20°C?", options: ["~150 m/s", "~343 m/s", "~500 m/s", "~1500 m/s"], answer: 1, explanation: "Sound travels at approximately 343 meters per second in air at 20°C." },
+            { subject: "General Science", question: "Which vitamin deficiency causes night blindness (Nyctalopia)?", options: ["Vitamin A", "Vitamin B12", "Vitamin D", "Vitamin E"], answer: 0, explanation: "Vitamin A is essential for synthesizing rhodopsin, the light-absorbing pigment in retinal rods." },
+            { subject: "General Science", question: "Rusting of iron is an example of what chemical process?", options: ["Reduction only", "Oxidation and Hydration", "Sublimation", "Hydrolysis only"], answer: 1, explanation: "Iron reacts with oxygen in the presence of water to form hydrated iron(III) oxide." },
+            { subject: "General Science", question: "Which planet possesses the shortest orbital period around the Sun?", options: ["Venus", "Mercury", "Mars", "Earth"], answer: 1, explanation: "Mercury orbits the Sun in roughly 88 Earth days." },
+            { subject: "General Science", question: "What is the SI unit of magnetic flux density?", options: ["Weber", "Tesla", "Henry", "Gauss"], answer: 1, explanation: "Tesla (symbol: T) is the derived SI unit of magnetic flux density." },
+            { subject: "General Science", question: "Which acid is naturally found in human stomach secretions?", options: ["Sulfuric acid", "Hydrochloric acid (HCl)", "Nitric acid", "Acetic acid"], answer: 1, explanation: "Parietal cells secrete gastric juice containing dilute hydrochloric acid." },
+            { subject: "General Science", question: "Bronze is primarily an alloy of copper and which other metal?", options: ["Zinc", "Tin", "Nickel", "Lead"], answer: 1, explanation: "Traditional bronze consists primarily of copper mixed with about 12% tin." },
+            { subject: "General Science", question: "Which is the largest internal organ in the human body?", options: ["Brain", "Heart", "Liver", "Lungs"], answer: 2, explanation: "The liver is the heaviest and largest internal glandular organ." },
+            { subject: "General Science", question: "The process by which plants lose water vapor through stomata is called:", options: ["Respiration", "Transpiration", "Guttation", "Desiccation"], answer: 1, explanation: "Transpiration is the evaporative loss of water through microscopic stomatal pores." },
+            { subject: "General Science", question: "What is the chemical name of laughing gas?", options: ["Nitric oxide", "Nitrous oxide (N2O)", "Nitrogen dioxide", "Dinitrogen tetroxide"], answer: 1, explanation: "Nitrous oxide (N2O) is used as an anesthetic and is colloquially called laughing gas." },
+            { subject: "General Science", question: "Which part of the human brain regulates heart rate, blood pressure, and breathing?", options: ["Cerebrum", "Cerebellum", "Medulla Oblongata", "Hypothalamus"], answer: 2, explanation: "The medulla oblongata within the brainstem controls vital autonomic functions." },
+            { subject: "General Science", question: "Which optical defect of vision is corrected using a concave cylindrical or spherical lens?", options: ["Myopia (Nearsightedness)", "Hypermetropia", "Presbyopia", "Cataract"], answer: 0, explanation: "Myopia causes light rays to focus in front of the retina, requiring divergent concave lenses." },
+            { subject: "General Science", question: "Absolute zero temperature corresponds to which value on the Celsius scale?", options: ["-100°C", "-212°C", "-273.15°C", "-459.67°C"], answer: 2, explanation: "0 Kelvin (absolute zero where thermodynamic motion ceases) corresponds to -273.15°C." }
+        ];
+
+        const defaultCandidates = [
+            { name: "Demo Student", id: "demo@test.com", pass: "1234" }
+        ];
+
+        let availableSubjects = JSON.parse(localStorage.getItem('tb_cbt_subjects')) || initialSubjects;
+        let questions = JSON.parse(localStorage.getItem('tb_cbt_questions')) || masterSeedQuestions;
+        let candidates = JSON.parse(localStorage.getItem('tb_cbt_candidates')) || defaultCandidates;
+        let grievances = JSON.parse(localStorage.getItem('tb_cbt_grievances')) || [];
+
+        let currentLoggedCandidate = null;
+        let activeSubject = null;
+        let currentSubjectQuestions = [];
+        let userState = [];
+        let currentIndex = 0;
+
+        function saveSubjects() { localStorage.setItem('tb_cbt_subjects', JSON.stringify(availableSubjects)); }
+        function saveQuestions() { localStorage.setItem('tb_cbt_questions', JSON.stringify(questions)); }
+        function saveCandidates() { localStorage.setItem('tb_cbt_candidates', JSON.stringify(candidates)); }
+        function saveGrievances() { localStorage.setItem('tb_cbt_grievances', JSON.stringify(grievances)); }
+
+        function resetDefaultQuestionBank() {
+            if (confirm("Reset questions to default 50 questions per subject (200 questions total)?")) {
+                questions = [...masterSeedQuestions];
+                availableSubjects = [...initialSubjects];
+                saveQuestions();
+                saveSubjects();
+                renderAdminSubjectControls();
+                renderAdminList();
+                alert("Question bank reset! 200 questions loaded across 4 subjects.");
+            }
+        }
+
+        // --- AUTH TABS & NAVIGATION[cite: 3] ---
+        function setAuthTab(tab) {
+            const tabC = document.getElementById('tabCandidate');
+            const tabA = document.getElementById('tabAdmin');
+            const formLogin = document.getElementById('candidateLoginForm');
+            const formReg = document.getElementById('candidateRegisterForm');
+            const formForgot = document.getElementById('candidateForgotForm');
+            const formAdmin = document.getElementById('adminForm');
+
+            formLogin.classList.add('hidden');
+            formReg.classList.add('hidden');
+            formForgot.classList.add('hidden');
+            formAdmin.classList.add('hidden');
+
+            if (tab === 'candidate-login') {
+                tabC.classList.add('active');
+                tabA.classList.remove('active');
+                formLogin.classList.remove('hidden');
+            } else if (tab === 'candidate-register') {
+                tabC.classList.add('active');
+                tabA.classList.remove('active');
+                formReg.classList.remove('hidden');
+            } else if (tab === 'candidate-forgot') {
+                tabC.classList.add('active');
+                tabA.classList.remove('active');
+                formForgot.classList.remove('hidden');
+            } else if (tab === 'admin') {
+                tabA.classList.add('active');
+                tabC.classList.remove('active');
+                formAdmin.classList.remove('hidden');
+            }
+        }
+
+        function handleCandidateResetPassword(e) {
+            e.preventDefault();
+            const id = document.getElementById('resetCandId').value.trim().toLowerCase();
+            const newPass = document.getElementById('resetNewPass').value;
+
+            const candidate = candidates.find(c => c.id === id);
+
+            if (!candidate) {
+                alert("No registered candidate found with this ID!");
+                return;
+            }
+
+            candidate.pass = newPass;
+            saveCandidates();
+            alert(`Credentials updated for ${candidate.name}! Proceeding to login.`);
+            document.getElementById('candidateForgotForm').reset();
+            setAuthTab('candidate-login');
+            document.getElementById('candLoginId').value = id;
+        }
+
+        function handleCandidateRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            const id = document.getElementById('regId').value.trim().toLowerCase();
+            const pass = document.getElementById('regPass').value;
+
+            if (candidates.some(c => c.id === id)) {
+                alert("This account identifier is already registered!");
+                setAuthTab('candidate-login');
+                return;
+            }
+
+            candidates.push({ name, id, pass });
+            saveCandidates();
+            alert("Enrollment successful! Please sign in.");
+            document.getElementById('candidateRegisterForm').reset();
+            setAuthTab('candidate-login');
+            document.getElementById('candLoginId').value = id;
+        }
+
+        function handleCandidateLogin(e) {
+            e.preventDefault();
+            const id = document.getElementById('candLoginId').value.trim().toLowerCase();
+            const pass = document.getElementById('candLoginPass').value;
+
+            const candidate = candidates.find(c => c.id === id && c.pass === pass);
+
+            if (!candidate) {
+                alert("Invalid Credentials.");
+                return;
+            }
+
+            currentLoggedCandidate = candidate;
+            document.getElementById('userDisplayName').innerText = `${candidate.name}`;
+            document.getElementById('authView').classList.add('hidden');
+            document.getElementById('candidateHeaderWidget').classList.remove('hidden');
+            document.getElementById('globalLogoutBtn').classList.remove('hidden');
+
+            renderSubjectSelector();
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('adminUser').value.trim();
+            const p = document.getElementById('adminPass').value;
+
+            if (u === 'hp' && p === 'noc123') {
+                document.getElementById('authView').classList.add('hidden');
+                document.getElementById('adminDashboardView').classList.remove('hidden');
+                document.getElementById('globalLogoutBtn').classList.remove('hidden');
+                renderAdminSubjectControls();
+                renderAdminList();
+                renderAdminUserList();
+                renderAdminGrievances();
+            } else {
+                alert('Invalid Administrative Credentials.');
+            }
+        }
+
+        function logout() {
+            if (confirm("Are you sure you want to end this session?")) {
+                currentLoggedCandidate = null;
+                document.getElementById('subjectView').classList.add('hidden');
+                document.getElementById('cbtView').classList.add('hidden');
+                document.getElementById('resultView').classList.add('hidden');
+                document.getElementById('adminDashboardView').classList.add('hidden');
+                document.getElementById('candidateHeaderWidget').classList.add('hidden');
+                document.getElementById('globalLogoutBtn').classList.add('hidden');
+
+                document.getElementById('candidateLoginForm').reset();
+                document.getElementById('candidateRegisterForm').reset();
+                document.getElementById('candidateForgotForm').reset();
+                document.getElementById('adminForm').reset();
+                document.getElementById('authView').classList.remove('hidden');
+                setAuthTab('candidate-login');
+            }
+        }
+
+        // --- SUBJECT SELECTION & MANAGEMENT[cite: 3] ---
+        function renderSubjectSelector() {
+            document.getElementById('cbtView').classList.add('hidden');
+            document.getElementById('resultView').classList.add('hidden');
+            document.getElementById('subjectView').classList.remove('hidden');
+
+            const container = document.getElementById('subjectsGridContainer');
+            container.innerHTML = '';
+
+            availableSubjects.forEach(subj => {
+                const count = questions.filter(q => (q.subject || 'Current Affairs') === subj.id).length;
+                const card = document.createElement('div');
+                card.className = 'subject-card';
+                card.innerHTML = `
+                    <div>
+                        <div class="subject-icon">${subj.icon}</div>
+                        <h3 style="font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 6px;">${subj.name}</h3>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.5rem;">${subj.desc}</p>
+                    </div>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <span class="code-pill">${count} Questions</span>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="startSubjectExam('${subj.id}')" ${count === 0 ? 'disabled' : ''}>
+                            ${count === 0 ? 'No Questions Yet' : 'Start Assessment'}
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function returnToSubjects() {
+            if (confirm("Return to subject selection screen? Your current test progress will be reset.")) {
+                renderSubjectSelector();
+            }
+        }
+
+        function startSubjectExam(subjectId) {
+            activeSubject = subjectId;
+            currentSubjectQuestions = questions.filter(q => (q.subject || 'Current Affairs') === subjectId);
+
+            if (currentSubjectQuestions.length === 0) {
+                alert("No items configured under this subject yet!");
+                return;
+            }
+
+            document.getElementById('subjectView').classList.add('hidden');
+            document.getElementById('activeSubjectBadge').innerText = subjectId;
+            document.getElementById('cbtView').classList.remove('hidden');
+
+            initTestState();
+        }
+
+        function handleAddSubject(e) {
+            e.preventDefault();
+            const name = document.getElementById('newSubjName').value.trim();
+            const desc = document.getElementById('newSubjDesc').value.trim();
+            const icon = document.getElementById('newSubjIcon').value.trim() || '📚';
+
+            if (availableSubjects.some(s => s.id.toLowerCase() === name.toLowerCase())) {
+                alert("A subject with this name already exists!");
+                return;
+            }
+
+            availableSubjects.push({ id: name, name, desc, icon });
+            saveSubjects();
+            e.target.reset();
+            renderAdminSubjectControls();
+            alert(`Subject "${name}" added successfully!`);
+        }
+
+        function deleteSubject(subjectId) {
+            if (availableSubjects.length <= 1) {
+                alert("At least one subject must remain active.");
+                return;
+            }
+
+            const qCount = questions.filter(q => q.subject === subjectId).length;
+            const confirmMsg = qCount > 0 
+                ? `Subject "${subjectId}" has ${qCount} questions attached. Deleting the subject will delete these questions too. Proceed?` 
+                : `Remove subject "${subjectId}"?`;
+
+            if (confirm(confirmMsg)) {
+                availableSubjects = availableSubjects.filter(s => s.id !== subjectId);
+                questions = questions.filter(q => q.subject !== subjectId);
+                saveSubjects();
+                saveQuestions();
+                renderAdminSubjectControls();
+                renderAdminList();
+            }
+        }
+
+        function renderAdminSubjectControls() {
+            const select = document.getElementById('adSubjectSelect');
+            select.innerHTML = '';
+            availableSubjects.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s.id;
+                opt.textContent = `${s.icon} ${s.name}`;
+                select.appendChild(opt);
+            });
+
+            const chipsContainer = document.getElementById('adminSubjectChips');
+            chipsContainer.innerHTML = '';
+            availableSubjects.forEach(s => {
+                const chip = document.createElement('span');
+                chip.style.display = 'inline-flex';
+                chip.style.alignItems = 'center';
+                chip.style.gap = '6px';
+                chip.style.background = '#f1f5f9';
+                chip.style.padding = '5px 10px';
+                chip.style.borderRadius = '20px';
+                chip.style.fontSize = '0.82rem';
+                chip.style.border = '1px solid var(--border)';
+                chip.innerHTML = `
+                    <span>${s.icon} ${s.name}</span>
+                    <button onclick="deleteSubject('${s.id}')" style="background:none; border:none; cursor:pointer; color:var(--red); font-size:1rem; line-height:1;">×</button>
+                `;
+                chipsContainer.appendChild(chip);
+            });
+        }
+
+        // --- CBT CORE RUNTIME[cite: 3] ---
+        function initTestState() {
+            userState = currentSubjectQuestions.map(() => ({ status: 'not-visited', selected: null }));
+            if (userState.length > 0) userState[0].status = 'not-answered';
+            currentIndex = 0;
+            renderPalette();
+            loadQuestion(0);
+        }
+
+        function loadQuestion(idx) {
+            currentIndex = idx;
+            const q = currentSubjectQuestions[idx];
+            document.getElementById('qNumText').innerText = `Question ${String(idx + 1).padStart(2, '0')} of ${currentSubjectQuestions.length}`;
+            document.getElementById('qText').innerText = q.question;
+
+            const optBox = document.getElementById('optionsContainer');
+            optBox.innerHTML = '';
+
+            q.options.forEach((opt, optIdx) => {
+                const isChecked = userState[idx].selected === optIdx;
+                const optElement = document.createElement('label');
+                optElement.className = `option-label ${isChecked ? 'selected' : ''}`;
+                optElement.innerHTML = `
+                    <input type="radio" name="cbtOption" value="${optIdx}" ${isChecked ? 'checked' : ''} onchange="selectOption(${optIdx})">
+                    <span class="option-text">${String.fromCharCode(65 + optIdx)}. ${opt}</span>
+                `;
+                optBox.appendChild(optElement);
+            });
+
+            if (userState[idx].status === 'not-visited') {
+                userState[idx].status = 'not-answered';
+            }
+            renderPalette();
+        }
+
+        function selectOption(optIdx) {
+            userState[currentIndex].selected = optIdx;
+            const labels = document.querySelectorAll('.option-label');
+            labels.forEach((l, i) => {
+                l.classList.toggle('selected', i === optIdx);
+            });
+        }
+
+        function saveAndNext() {
+            if (userState[currentIndex].selected !== null) {
+                userState[currentIndex].status = 'answered';
+            } else {
+                userState[currentIndex].status = 'not-answered';
+            }
+            goToNext();
+        }
+
+        function markForReview() {
+            userState[currentIndex].status = 'marked';
+            goToNext();
+        }
+
+        function clearResponse() {
+            userState[currentIndex].selected = null;
+            userState[currentIndex].status = 'not-answered';
+            loadQuestion(currentIndex);
+        }
+
+        function goToNext() {
+            if (currentIndex + 1 < currentSubjectQuestions.length) {
+                loadQuestion(currentIndex + 1);
+            } else {
+                renderPalette();
+            }
+        }
+
+        function renderPalette() {
+            const grid = document.getElementById('paletteGrid');
+            grid.innerHTML = '';
+            let counts = { answered: 0, notAnswered: 0, marked: 0, notVisited: 0 };
+
+            userState.forEach((st, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `palette-btn ${st.status}`;
+                if (idx === currentIndex) btn.classList.add('current');
+                btn.innerText = idx + 1;
+                btn.onclick = () => loadQuestion(idx);
+                grid.appendChild(btn);
+
+                if (st.status === 'answered') counts.answered++;
+                else if (st.status === 'not-answered') counts.notAnswered++;
+                else if (st.status === 'marked') counts.marked++;
+                else counts.notVisited++;
+            });
+
+            document.getElementById('legAnswered').innerText = counts.answered;
+            document.getElementById('legNotAnswered').innerText = counts.notAnswered;
+            document.getElementById('legMarked').innerText = counts.marked;
+            document.getElementById('legNotVisited').innerText = counts.notVisited;
+        }
+
+        function submitTest() {
+            if (!confirm("Are you sure you want to end and submit the test?")) return;
+
+            let score = 0;
+            let attempted = 0;
+            let correct = 0;
+
+            const solList = document.getElementById('solutionList');
+            solList.innerHTML = '';
+
+            currentSubjectQuestions.forEach((q, idx) => {
+                const sel = userState[idx].selected;
+                let isRight = false;
+
+                if (sel !== null) {
+                    attempted++;
+                    if (sel === q.answer) {
+                        score += 1.0;
+                        correct++;
+                        isRight = true;
+                    } else {
+                        score -= 0.25;
+                    }
+                }
+
+                // Sanitize question string for modal call
+                const escapedQ = q.question.replace(/'/g, "\\'");
+                const escapedSubj = (q.subject || activeSubject).replace(/'/g, "\\'");
+
+                solList.innerHTML += `
+                    <div style="border: 1px solid var(--border); padding: 1.25rem; border-radius: 12px; background: #fafafa; position: relative;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                            <p style="font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Q${idx + 1}: ${q.question}</p>
+                            <button class="btn btn-outline" style="padding: 3px 8px; font-size: 0.75rem; color: var(--red); border-color: var(--border);" onclick="openGrievanceModal('${escapedSubj}', '${escapedQ}')">⚠️ Report</button>
+                        </div>
+                        <p style="margin: 4px 0; font-size: 0.88rem;">
+                            Your Answer: <span style="color: ${sel === null ? 'var(--text-muted)' : isRight ? 'var(--green)' : 'var(--red)'}; font-weight: 700;">
+                                ${sel !== null ? q.options[sel] : 'Skipped'}
+                            </span>
+                        </p>
+                        <p style="margin: 4px 0; font-size: 0.88rem; color: var(--green); font-weight: 700;">
+                            Correct Key: ${q.options[q.answer]}
+                        </p>
+                        <div style="font-size: 0.85rem; color: #475569; background: #ffffff; border: 1px solid var(--border); padding: 10px 14px; border-radius: 8px; margin-top: 8px;">
+                            <strong>Context Rationale:</strong> ${q.explanation || 'No rationale available.'}
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('cbtView').classList.add('hidden');
+            document.getElementById('resultView').classList.remove('hidden');
+
+            document.getElementById('resScore').innerText = score.toFixed(2);
+            document.getElementById('resAttempted').innerText = `${attempted}/${currentSubjectQuestions.length}`;
+            document.getElementById('resAccuracy').innerText = attempted > 0 ? `${Math.round((correct / attempted) * 100)}%` : '0%';
+        }
+
+        function restartTest() {
+            document.getElementById('resultView').classList.add('hidden');
+            document.getElementById('cbtView').classList.remove('hidden');
+            initTestState();
+        }
+
+        // --- CANDIDATE GRIEVANCE / CUSTOMER SERVICE LOGIC (NEW) ---
+        function openGrievanceModalForCurrentQuestion() {
+            const q = currentSubjectQuestions[currentIndex];
+            openGrievanceModal(q.subject || activeSubject, q.question);
+        }
+
+        function openGrievanceModal(subject, questionText) {
+            document.getElementById('reportQSubject').value = subject;
+            document.getElementById('reportQStatement').value = questionText;
+            document.getElementById('reportQPreview').innerText = `[${subject}] ${questionText}`;
+            document.getElementById('reportQDetails').value = '';
+            document.getElementById('grievanceModal').classList.remove('hidden');
+        }
+
+        function closeGrievanceModal() {
+            document.getElementById('grievanceModal').classList.add('hidden');
+        }
+
+        function handleSubmitGrievance(e) {
+            e.preventDefault();
+
+            const candName = currentLoggedCandidate ? currentLoggedCandidate.name : "Anonymous Candidate";
+            const candId = currentLoggedCandidate ? currentLoggedCandidate.id : "guest@cbt.com";
+
+            const ticket = {
+                id: 'TKT-' + Date.now().toString().slice(-6),
+                candidateName: candName,
+                candidateId: candId,
+                subject: document.getElementById('reportQSubject').value,
+                question: document.getElementById('reportQStatement').value,
+                issue: document.getElementById('reportQIssue').value,
+                details: document.getElementById('reportQDetails').value.trim(),
+                date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+
+            grievances.unshift(ticket);
+            saveGrievances();
+            closeGrievanceModal();
+            alert(`Thank you! Grievance registered under Reference ${ticket.id}. The admin team will review this question.`);
+        }
+
+        // --- ADMIN GRIEVANCE INBOX (NEW) ---
+        function renderAdminGrievances() {
+            document.getElementById('grievanceCountBadge').innerText = `${grievances.length} tickets`;
+            const tbody = document.getElementById('adminGrievanceTableBody');
+            tbody.innerHTML = '';
+
+            if (grievances.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted); padding:1.5rem;">No open question grievances logged.</td></tr>`;
+                return;
+            }
+
+            grievances.forEach((t, idx) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>
+                            <strong>${t.candidateName}</strong><br>
+                            <span style="font-size:0.75rem; color:var(--text-muted);">${t.candidateId}</span>
+                        </td>
+                        <td style="max-width:280px;">
+                            <span class="code-pill" style="font-size:0.75rem;">${t.subject}</span>
+                            <div style="font-size:0.85rem; font-weight:600; margin-top:4px; color:#1e293b;">${t.question}</div>
+                            <span style="font-size:0.72rem; color:var(--text-muted);">${t.date}</span>
+                        </td>
+                        <td>
+                            <span style="background:#fee2e2; color:#b91c1c; padding:3px 8px; border-radius:6px; font-weight:700; font-size:0.78rem;">
+                                ${t.issue}
+                            </span>
+                        </td>
+                        <td style="font-size:0.85rem; color:#475569; max-width:220px;">
+                            ${t.details}
+                        </td>
+                        <td style="text-align: right; white-space: nowrap;">
+                            <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.78rem; color: var(--green); margin-right:4px;" onclick="resolveGrievance(${idx})">Resolve</button>
+                            <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.78rem; color: var(--red);" onclick="dismissGrievance(${idx})">Dismiss</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function resolveGrievance(idx) {
+            const ticket = grievances[idx];
+            const action = prompt(`Reviewing Grievance ${ticket.id}:\n\nCandidate Remark: "${ticket.details}"\n\nEnter response or resolution note (this marks the ticket resolved):`, "Verified and updated question bank.");
+            if (action !== null) {
+                grievances.splice(idx, 1);
+                saveGrievances();
+                renderAdminGrievances();
+                alert(`Ticket ${ticket.id} marked resolved.`);
+            }
+        }
+
+        function dismissGrievance(idx) {
+            if (confirm("Dismiss this grievance without altering questions?")) {
+                grievances.splice(idx, 1);
+                saveGrievances();
+                renderAdminGrievances();
+            }
+        }
+
+        // --- ADMIN DASHBOARD[cite: 3] ---
+        function handleAddQuestion(e) {
+            e.preventDefault();
+            const newQ = {
+                subject: document.getElementById('adSubjectSelect').value,
+                question: document.getElementById('adQuestion').value,
+                options: [
+                    document.getElementById('adOpt0').value,
+                    document.getElementById('adOpt1').value,
+                    document.getElementById('adOpt2').value,
+                    document.getElementById('adOpt3').value
+                ],
+                answer: parseInt(document.getElementById('adCorrect').value),
+                explanation: document.getElementById('adExplanation').value
+            };
+            questions.push(newQ);
+            saveQuestions();
+            e.target.reset();
+            renderAdminList();
+            alert('Item published successfully under ' + newQ.subject + '!');
+        }
+
+        function deleteQuestion(idx) {
+            if (confirm("Remove this question from active rotation?")) {
+                questions.splice(idx, 1);
+                saveQuestions();
+                renderAdminList();
+            }
+        }
+
+        function renderAdminList() {
+            document.getElementById('qCountBadge').innerText = `${questions.length} active items`;
+            const list = document.getElementById('adminQuestionList');
+            list.innerHTML = '';
+            questions.forEach((q, idx) => {
+                list.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border:1px solid var(--border); border-radius:10px; background:#fafafa;">
+                        <div>
+                            <span class="code-pill" style="margin-right: 8px;">${q.subject || 'General'}</span>
+                            <span style="font-size:0.9rem; font-weight:600; color:#334155;">${idx + 1}. ${q.question}</span>
+                        </div>
+                        <button class="btn btn-outline" style="color:var(--red); padding: 4px 10px; font-size: 0.8rem;" onclick="deleteQuestion(${idx})">Remove</button>
+                    </div>
+                `;
+            });
+        }
+
+        function adminResetUserPassword(idx) {
+            const user = candidates[idx];
+            const newPass = prompt(`Set a new secret for examinee "${user.name}" (${user.id}):`, "1234");
+            if (newPass !== null && newPass.trim() !== "") {
+                user.pass = newPass.trim();
+                saveCandidates();
+                renderAdminUserList();
+                alert(`Password updated for ${user.name}`);
+            }
+        }
+
+        function adminDeleteUser(idx) {
+            if (confirm(`Remove examinee record for "${candidates[idx].name}"?`)) {
+                candidates.splice(idx, 1);
+                saveCandidates();
+                renderAdminUserList();
+            }
+        }
+
+        function renderAdminUserList() {
+            document.getElementById('userCountBadge').innerText = `${candidates.length} registered`;
+            const tbody = document.getElementById('adminUserTableBody');
+            tbody.innerHTML = '';
+
+            candidates.forEach((u, idx) => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="font-weight:600;">${u.name}</td>
+                        <td><span class="code-pill">${u.id}</span></td>
+                        <td><span class="code-pill">${u.pass}</span></td>
+                        <td style="text-align: right;">
+                            <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.8rem;" onclick="adminResetUserPassword(${idx})">Change Secret</button>
+                            <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.8rem; color: var(--red);" onclick="adminDeleteUser(${idx})">Revoke</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
