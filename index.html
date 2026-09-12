@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNKNOWN CBT Portal - Test Series</title>
+    <title>UNKNOWN CBT Portal - Test Series & Learning Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
@@ -20,6 +20,8 @@
             --border-focus: #818cf8;
             --text-main: #0f172a;
             --text-muted: #64748b;
+            --bg-base: #f8fafc;
+            --table-header-bg: #f8fafc;
             
             --green: #10b981;
             --green-glow: rgba(16, 185, 129, 0.2);
@@ -34,10 +36,23 @@
             --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
         }
 
+        body.dark-theme {
+            --bg-base: #090d16;
+            --surface-card: rgba(17, 24, 39, 0.9);
+            --dark-surface: #030712;
+            --dark-elevated: #1f2937;
+            --border: #374151;
+            --border-focus: #6366f1;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --primary-light: #1e1b4b;
+            --table-header-bg: rgba(255, 255, 255, 0.04);
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
         
         body {
-            background-color: #f8fafc;
+            background-color: var(--bg-base);
             background-image: 
                 radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.05) 0px, transparent 50%);
@@ -46,6 +61,7 @@
             display: flex;
             flex-direction: column;
             -webkit-font-smoothing: antialiased;
+            transition: background-color 0.25s ease, color 0.25s ease;
         }
 
         .hidden { display: none !important; }
@@ -89,7 +105,7 @@
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
         .nav-tab-btn {
             background: rgba(255, 255, 255, 0.08);
@@ -145,6 +161,9 @@
             position: relative;
             overflow: hidden;
         }
+        body.dark-theme .auth-card {
+            border: 1px solid var(--border);
+        }
         .auth-card::before {
             content: '';
             position: absolute;
@@ -161,6 +180,9 @@
             padding: 4px;
             border-radius: 12px;
             margin-bottom: 2rem;
+        }
+        body.dark-theme .tab-group {
+            background: rgba(255, 255, 255, 0.05);
         }
         .tab-btn {
             flex: 1;
@@ -179,6 +201,10 @@
             color: var(--primary);
             box-shadow: var(--shadow-sm);
         }
+        body.dark-theme .tab-btn.active {
+            background: #1e293b;
+            color: #ffffff;
+        }
 
         .form-row { margin-bottom: 1.25rem; }
         .form-row label {
@@ -186,7 +212,7 @@
             margin-bottom: 0.45rem;
             font-weight: 600;
             font-size: 0.82rem;
-            color: #334155;
+            color: var(--text-main);
             letter-spacing: -0.01em;
         }
         .form-row input, .form-row select, .form-row textarea {
@@ -195,7 +221,7 @@
             border: 1.5px solid var(--border);
             border-radius: 10px;
             font-size: 0.95rem;
-            background: #ffffff;
+            background: var(--surface-card);
             color: var(--text-main);
             transition: all 0.2s ease;
         }
@@ -250,13 +276,17 @@
         .btn-warning { background: var(--amber); color: white; }
         .btn-warning:hover { background: #d97706; }
         .btn-outline {
-            background: white;
+            background: var(--surface-card);
             border: 1px solid var(--border);
-            color: #334155;
+            color: var(--text-main);
         }
         .btn-outline:hover {
-            background: #f8fafc;
+            background: rgba(0, 0, 0, 0.03);
             border-color: #cbd5e1;
+        }
+        body.dark-theme .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--border-focus);
         }
         .btn-danger {
             background: var(--red);
@@ -272,7 +302,7 @@
             margin-top: 1.5rem;
         }
         .subject-card {
-            background: #ffffff;
+            background: var(--surface-card);
             border: 1.5px solid var(--border);
             border-radius: 16px;
             padding: 1.75rem;
@@ -300,9 +330,23 @@
             margin-bottom: 1rem;
         }
 
-        /* E-Books / Library Cards */
+        /* Daily 20 Banner Card */
+        .daily-banner-card {
+            background: linear-gradient(135deg, #312e81, #4f46e5);
+            color: #ffffff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: var(--shadow-md);
+        }
+
         .book-card {
-            background: #ffffff;
+            background: var(--surface-card);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 1.5rem;
@@ -317,12 +361,52 @@
             box-shadow: var(--shadow-md);
         }
 
-        /* Dedicated Reading Screen */
+        .study-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s;
+        }
+        .study-card:hover {
+            border-color: var(--border-focus);
+            box-shadow: var(--shadow-md);
+        }
+        .answer-key-box {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin: 10px 0;
+            color: #065f46;
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+        body.dark-theme .answer-key-box {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #34d399;
+        }
+        .explanation-box {
+            background: rgba(0, 0, 0, 0.02);
+            border-left: 3px solid var(--primary);
+            padding: 10px 14px;
+            border-radius: 4px;
+            font-size: 0.88rem;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+        body.dark-theme .explanation-box {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
         .reader-container {
             max-width: 820px;
             margin: 2rem auto;
             width: 100%;
-            background: #ffffff;
+            background: var(--surface-card);
             border-radius: 16px;
             padding: 3rem;
             border: 1px solid var(--border);
@@ -332,12 +416,12 @@
             font-family: 'Merriweather', serif;
             font-size: 1.08rem;
             line-height: 1.85;
-            color: #27272a;
+            color: var(--text-main);
         }
         .reader-content h2, .reader-content h3 {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 800;
-            color: #0f172a;
+            color: var(--text-main);
             margin: 1.75rem 0 0.75rem;
         }
         .reader-content p { margin-bottom: 1.25rem; }
@@ -354,14 +438,14 @@
         .quiz-area {
             display: flex;
             flex-direction: column;
-            background: #ffffff;
+            background: var(--surface-card);
             border-right: 1px solid var(--border);
             height: 100%;
             overflow: hidden;
         }
         .meta-bar {
             padding: 1rem 2rem;
-            background: #fafafa;
+            background: rgba(0, 0, 0, 0.02);
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
@@ -369,11 +453,17 @@
             font-size: 0.85rem;
             font-weight: 600;
         }
+        body.dark-theme .meta-bar {
+            background: rgba(255, 255, 255, 0.02);
+        }
         .meta-bar span.pill {
-            background: #f1f5f9;
+            background: rgba(0, 0, 0, 0.05);
             padding: 4px 10px;
             border-radius: 6px;
-            color: #475569;
+            color: var(--text-main);
+        }
+        body.dark-theme .meta-bar span.pill {
+            background: rgba(255, 255, 255, 0.08);
         }
         .meta-bar span.marks {
             color: var(--green);
@@ -392,7 +482,7 @@
             font-weight: 700;
             line-height: 1.6;
             margin-bottom: 2rem;
-            color: #1e293b;
+            color: var(--text-main);
         }
 
         .options-wrapper { display: flex; flex-direction: column; gap: 12px; }
@@ -405,12 +495,12 @@
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s ease;
-            background: #ffffff;
+            background: var(--surface-card);
             user-select: none;
         }
         .option-label:hover {
             border-color: var(--primary);
-            background: #fafbff;
+            background: var(--primary-light);
             transform: translateY(-1px);
             box-shadow: var(--shadow-sm);
         }
@@ -427,7 +517,7 @@
         .option-text {
             font-weight: 500;
             font-size: 0.95rem;
-            color: #334155;
+            color: var(--text-main);
         }
 
         .footer-controls {
@@ -436,11 +526,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #ffffff;
+            background: var(--surface-card);
         }
 
         .sidebar {
-            background: #f8fafc;
+            background: var(--surface-card);
             display: flex;
             flex-direction: column;
             padding: 1.5rem;
@@ -451,7 +541,7 @@
             font-weight: 700;
             font-size: 0.95rem;
             margin-bottom: 1.25rem;
-            color: #1e293b;
+            color: var(--text-main);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -461,13 +551,13 @@
             grid-template-columns: 1fr 1fr;
             gap: 10px;
             margin-bottom: 1.5rem;
-            background: #ffffff;
+            background: var(--surface-card);
             padding: 12px;
             border-radius: 12px;
             border: 1px solid var(--border);
             font-size: 0.75rem;
             font-weight: 600;
-            color: #64748b;
+            color: var(--text-muted);
         }
         .legend-item { display: flex; align-items: center; gap: 8px; }
         .badge {
@@ -498,11 +588,11 @@
             height: 42px;
             border: 1.5px solid var(--border);
             border-radius: 8px;
-            background: #ffffff;
+            background: var(--surface-card);
             cursor: pointer;
             font-weight: 700;
             font-size: 0.85rem;
-            color: #475569;
+            color: var(--text-main);
             transition: all 0.15s ease;
         }
         .palette-btn:hover { border-color: var(--primary); color: var(--primary); }
@@ -536,7 +626,7 @@
             padding: 0 1.5rem;
         }
         .card {
-            background: #ffffff;
+            background: var(--surface-card);
             border-radius: 16px;
             padding: 2.5rem;
             border: 1px solid var(--border);
@@ -549,11 +639,14 @@
             margin: 2rem 0;
         }
         .metric-card {
-            background: #f8fafc;
+            background: rgba(0, 0, 0, 0.02);
             padding: 1.5rem;
             border-radius: 12px;
             border: 1px solid var(--border);
             text-align: center;
+        }
+        body.dark-theme .metric-card {
+            background: rgba(255, 255, 255, 0.02);
         }
         .metric-value {
             font-size: 2rem;
@@ -582,8 +675,8 @@
             text-align: left;
         }
         .admin-table th {
-            background: #f8fafc;
-            color: #475569;
+            background: var(--table-header-bg);
+            color: var(--text-muted);
             padding: 12px 16px;
             font-weight: 600;
             border-bottom: 1px solid var(--border);
@@ -591,18 +684,22 @@
         .admin-table td {
             padding: 14px 16px;
             border-bottom: 1px solid var(--border);
-            color: #334155;
+            color: var(--text-main);
         }
         .admin-table tr:last-child td { border-bottom: none; }
-        .admin-table tr:hover td { background: #fafafa; }
+        .admin-table tr:hover td { background: rgba(0, 0, 0, 0.02); }
+        body.dark-theme .admin-table tr:hover td { background: rgba(255, 255, 255, 0.03); }
         
         .code-pill {
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            background: #f1f5f9;
+            background: rgba(0, 0, 0, 0.05);
             padding: 4px 8px;
             border-radius: 6px;
             font-size: 0.82rem;
-            color: #0f172a;
+            color: var(--text-main);
+        }
+        body.dark-theme .code-pill {
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .modal-overlay {
@@ -617,28 +714,30 @@
             padding: 1rem;
         }
         .modal-content {
-            background: #ffffff;
+            background: var(--surface-card);
             width: 100%;
             max-width: 520px;
             border-radius: 16px;
             padding: 2rem;
             box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
             position: relative;
         }
 
         /* Digital Scratchpad / Rough Canvas Sheet */
         .scratchpad-sheet {
-            background: #ffffff;
+            background: var(--surface-card);
             width: 100%;
             max-width: 800px;
             border-radius: 16px;
+            border: 1px solid var(--border);
             box-shadow: var(--shadow-xl);
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
         .scratchpad-toolbar {
-            background: #f8fafc;
+            background: rgba(0, 0, 0, 0.02);
             border-bottom: 1px solid var(--border);
             padding: 10px 18px;
             display: flex;
@@ -647,12 +746,29 @@
             flex-wrap: wrap;
             gap: 10px;
         }
+        body.dark-theme .scratchpad-toolbar {
+            background: rgba(255, 255, 255, 0.02);
+        }
         .canvas-area {
             background-color: #fdfdfd;
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
             background-size: 20px 20px;
             cursor: crosshair;
             touch-action: none;
+        }
+
+        /* Weekly Leaderboard Meta Banner */
+        .leaderboard-meta-strip {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--primary-light);
+            padding: 0.85rem 1.25rem;
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
         }
     </style>
 </head>
@@ -667,8 +783,15 @@
         </div>
         
         <div style="display: flex; align-items: center; gap: 1.2rem;">
+            <!-- Persistent Dark / Light Theme Button -->
+            <button class="nav-tab-btn" id="themeToggleBtn" onclick="toggleTheme()">🌓 Dark</button>
+
+            <!-- Mode Switcher Navigation -->
             <div id="studentNavHub" class="hidden nav-links">
                 <button class="nav-tab-btn active" id="navBtnMCQ" onclick="switchToPortalMode('tests')">📝 Exam Portal</button>
+                <button class="nav-tab-btn" id="navBtnDaily20" onclick="switchToPortalMode('daily20')">⚡ Daily 20 Quiz</button>
+                <button class="nav-tab-btn" id="navBtnLeaderboard" onclick="switchToPortalMode('leaderboard')">🏆 Leaderboard</button>
+                <button class="nav-tab-btn" id="navBtnStudyBook" onclick="switchToPortalMode('studybook')">📖 Study Book &amp; Concepts</button>
                 <button class="nav-tab-btn" id="navBtnBooks" onclick="switchToPortalMode('library')">📚 E-Library &amp; Notes</button>
             </div>
 
@@ -691,7 +814,7 @@
             <form id="candidateLoginForm" onsubmit="handleCandidateLogin(event)">
                 <div style="margin-bottom: 1.5rem;">
                     <h2 style="font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;">Welcome Back</h2>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Sign in to access 600+ practice questions and textbooks.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Learn key concepts and take daily shuffled 20 quizzes.</p>
                 </div>
                 <div class="form-row">
                     <label>Email / Roll Number</label>
@@ -779,10 +902,26 @@
     <!-- 2. SUBJECT SELECTION DASHBOARD (TESTS) -->
     <div id="subjectView" class="full-view hidden">
         <div class="card">
+            <!-- Daily 20 Callout Banner -->
+            <div class="daily-banner-card">
+                <div>
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <span style="background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">DAILY PRACTICE</span>
+                        <span id="dailyDateText" style="font-size: 0.85rem; opacity: 0.9;">Today</span>
+                    </div>
+                    <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em;">⚡ Today's Daily 20 Challenge</h2>
+                    <p style="font-size: 0.88rem; opacity: 0.85; margin-top: 4px;">20 random questions shuffled across all subjects every midnight. Test your daily readiness!</p>
+                </div>
+                <button class="btn btn-success" style="padding: 12px 24px; font-size: 0.95rem;" onclick="startDaily20Exam()">Start Daily 20 Quiz →</button>
+            </div>
+
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;">
                 <div>
-                    <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em;">CBT Assessment Modules</h2>
+                    <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em;">Subject-Wise CBT Assessment Modules</h2>
                     <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">Select an assessment subject to initiate timed practice questions (100 Qs per subject).</p>
+                </div>
+                <div>
+                    <button class="btn btn-outline" style="border-color: var(--primary); color: var(--primary);" onclick="switchToPortalMode('studybook')">📖 Study Questions First</button>
                 </div>
             </div>
 
@@ -790,16 +929,77 @@
         </div>
     </div>
 
-    <!-- 3. E-LIBRARY & READING HUB -->
+    <!-- 2.5 WEEKLY RESETTABLE DAILY 20 LEADERBOARD -->
+    <div id="leaderboardView" class="full-view hidden">
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 12px;">
+                <div>
+                    <h2 style="font-size: 1.4rem; font-weight: 800;">🏆 Daily 20 Weekly Leaderboard</h2>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Resets automatically every Monday 00:00 UTC. View active or past archived weeks.</p>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <select id="leaderboardWeekSelector" onchange="renderLeaderboard()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.84rem; background: var(--surface-card); color: var(--text-main); font-weight: 600;"></select>
+                    <button class="btn btn-primary" onclick="startDaily20Exam()">Take Today's Quiz</button>
+                </div>
+            </div>
+
+            <div class="leaderboard-meta-strip">
+                <div>Selected Cycle: <span id="lbCycleLabel" style="font-weight: 800;">Current Week</span></div>
+                <div>Reset Cycle: Every Monday @ 00:00 UTC</div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Candidate</th>
+                            <th>Score</th>
+                            <th>Time</th>
+                            <th>Completed On</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. PRE-EXAM STUDY BOOK & REVISION PAGE -->
+    <div id="studyBookView" class="full-view hidden">
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; flex-wrap: wrap; gap: 12px;">
+                <div>
+                    <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em;">📖 Pre-Exam Question Study Book</h2>
+                    <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">Learn every question statement, confirmed answer key, and in-depth concept before starting the test.</p>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <select id="studySubjectFilter" onchange="renderStudyBook()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; background: var(--surface-card); color: var(--text-main);">
+                        <option value="All">All Subjects</option>
+                    </select>
+                    <input type="text" id="studySearchInput" oninput="renderStudyBook()" placeholder="🔍 Search topic or formula..." style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; width: 220px; background: var(--surface-card); color: var(--text-main);">
+                </div>
+            </div>
+
+            <div style="margin: 1.25rem 0; display: flex; justify-content: space-between; align-items: center;">
+                <span id="studyItemCountBadge" class="code-pill">Loading study items...</span>
+                <button class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem;" onclick="switchToPortalMode('tests')">Ready to Test? Go to Exam Portal →</button>
+            </div>
+
+            <div id="studyBookContainer"></div>
+        </div>
+    </div>
+
+    <!-- 4. E-LIBRARY & READING HUB -->
     <div id="libraryView" class="full-view hidden">
         <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;">
                 <div>
                     <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em;">E-Library &amp; Study Textbooks</h2>
-                    <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">In-depth theory, formulas, and concepts for continuous learning.</p>
+                    <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">In-depth theory, chapters, formulas, and concepts for continuous learning.</p>
                 </div>
                 <div style="display: flex; gap: 8px;">
-                    <select id="libraryFilterSelect" onchange="filterLibraryBooks()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem;">
+                    <select id="libraryFilterSelect" onchange="filterLibraryBooks()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; background: var(--surface-card); color: var(--text-main);">
                         <option value="All">All Categories</option>
                     </select>
                 </div>
@@ -809,7 +1009,7 @@
         </div>
     </div>
 
-    <!-- 4. DISTRACTION-FREE BOOK READER SCREEN -->
+    <!-- 5. DISTRACTION-FREE BOOK READER SCREEN -->
     <div id="bookReaderView" class="full-view hidden">
         <div style="margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center;">
             <button class="btn btn-outline" onclick="switchToPortalMode('library')">← Back to E-Library</button>
@@ -823,7 +1023,7 @@
         <article class="reader-container">
             <header style="border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-bottom: 2rem;">
                 <span class="code-pill" id="readBookCategory">Category</span>
-                <h1 id="readBookTitle" style="font-size: 2rem; font-weight: 800; margin: 12px 0 6px; letter-spacing: -0.02em; color: #0f172a;">Book Title</h1>
+                <h1 id="readBookTitle" style="font-size: 2rem; font-weight: 800; margin: 12px 0 6px; letter-spacing: -0.02em; color: var(--text-main);">Book Title</h1>
                 <p id="readBookMeta" style="font-size: 0.85rem; color: var(--text-muted);">Est. Reading Time: 15 mins</p>
             </header>
             
@@ -838,17 +1038,17 @@
         </article>
     </div>
 
-    <!-- 5. MODERN CBT DESKTOP -->
+    <!-- 6. MODERN CBT DESKTOP -->
     <div id="cbtView" class="cbt-container hidden">
         <div class="quiz-area">
             <div class="meta-bar">
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem;" onclick="returnToSubjects()">← Change Subject</button>
+                    <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem;" onclick="returnToSubjects()">← Exit Quiz</button>
                     <span class="pill" id="activeSubjectBadge">Subject</span>
                     <span class="pill" id="qNumText">Question 01</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px;">
-                    <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.78rem; font-weight: 700; color: var(--primary); border-color: var(--border-focus); background: #fdfaff;" onclick="openScratchpad()">📝 Scratchpad / Rough Work</button>
+                    <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.78rem; font-weight: 700; color: var(--primary); border-color: var(--border-focus);" onclick="openScratchpad()">📝 Scratchpad / Rough Work</button>
                     <span class="marks">+1.00 Mark &nbsp;|&nbsp; -0.25 Negative</span>
                     <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.75rem; color: var(--red); border-color: var(--border);" onclick="openGrievanceModalForCurrentQuestion()">⚠️ Report</button>
                 </div>
@@ -886,7 +1086,7 @@
         </div>
     </div>
 
-    <!-- 6. SCORECARD & DETAILED SUMMARY -->
+    <!-- 7. SCORECARD & DETAILED SUMMARY -->
     <div id="resultView" class="full-view hidden">
         <div class="card">
             <h2 style="font-size: 1.5rem; font-weight: 800; text-align: center; letter-spacing: -0.02em;">Examination Report</h2>
@@ -910,13 +1110,13 @@
             <div id="solutionList" style="display: flex; flex-direction: column; gap: 1rem;"></div>
 
             <div style="display: flex; justify-content: center; gap: 12px; margin-top: 2.5rem;">
-                <button class="btn btn-primary" onclick="restartTest()">Re-take Subject Test</button>
-                <button class="btn btn-outline" onclick="returnToSubjects()">Switch Subject</button>
+                <button class="btn btn-primary" onclick="restartTest()">Re-take Quiz</button>
+                <button class="btn btn-outline" onclick="returnToSubjects()">Back to Dashboard</button>
             </div>
         </div>
     </div>
 
-    <!-- 7. MODERN ADMIN CMS -->
+    <!-- 8. MODERN ADMIN CMS -->
     <div id="adminDashboardView" class="full-view hidden">
         <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.25rem;">
@@ -927,6 +1127,45 @@
                 <div style="display: flex; gap: 8px;">
                     <button class="btn btn-warning" onclick="resetDefaultQuestionBank()">Reset Default 600-Q Banks</button>
                     <button class="btn btn-danger" onclick="logout()">Sign Out</button>
+                </div>
+            </div>
+
+            <!-- BULK QUESTION IMPORTER SECTION (JSON / CSV / TXT) -->
+            <div style="border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem;">
+                <div style="margin-bottom: 1rem;">
+                    <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--primary);">📥 Bulk Question Importer (.JSON / .CSV / .TXT)</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">
+                        Upload hundreds of questions at once via file or direct copy-paste.
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 1.25rem;">
+                    <div style="background: rgba(0,0,0,0.02); padding: 14px; border-radius: 10px; border: 1px solid var(--border);">
+                        <label style="font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 6px;">1. Upload File (.json, .csv, .txt)</label>
+                        <input type="file" id="bulkUploadFileInput" accept=".json,.csv,.txt" style="font-size: 0.85rem; width: 100%; margin-bottom: 10px;">
+                        <button type="button" class="btn btn-outline" style="width: 100%;" onclick="handleBulkFileUpload()">Read &amp; Load File into Editor</button>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.02); padding: 14px; border-radius: 10px; border: 1px solid var(--border);">
+                        <label style="font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 6px;">2. Target Subject (for TXT / fallback)</label>
+                        <select id="bulkTargetSubjectSelect" style="padding: 8px 12px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 0.85rem; width: 100%; background: var(--surface-card); color: var(--text-main); margin-bottom: 10px;"></select>
+                        <div style="display: flex; gap: 6px;">
+                            <button type="button" class="btn btn-outline" style="font-size: 0.75rem; flex: 1;" onclick="loadBulkTemplate('json')">JSON Sample</button>
+                            <button type="button" class="btn btn-outline" style="font-size: 0.75rem; flex: 1;" onclick="loadBulkTemplate('csv')">CSV Sample</button>
+                            <button type="button" class="btn btn-outline" style="font-size: 0.75rem; flex: 1;" onclick="loadBulkTemplate('txt')">TXT Sample</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row" style="margin-bottom: 1rem;">
+                    <label>Paste / Verify Data Below:</label>
+                    <textarea id="bulkImportRawText" rows="6" placeholder="Paste JSON array, CSV rows, or Q/A TXT blocks here..." style="font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.82rem; line-height: 1.4;"></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.78rem; color: var(--text-muted);">
+                        💡 <strong>Format Guide:</strong> CSV: <code>Subject,Question,OptA,OptB,OptC,OptD,AnswerIndex(0-3),Explanation</code> | TXT: <code>Q:, A), B), C), D), Answer:, Exp:</code>
+                    </span>
+                    <button type="button" class="btn btn-success" style="padding: 10px 20px;" onclick="processBulkQuestionImport()">🚀 Process &amp; Import All Questions</button>
                 </div>
             </div>
 
@@ -1140,21 +1379,33 @@
                 </div>
             </div>
 
-            <!-- Published List -->
+            <!-- Published Question Pool with Search and Filter Toolbar -->
             <div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                    <h3 style="font-size: 1.05rem; font-weight: 700;">Published Question Pool</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <h3 style="font-size: 1.05rem; font-weight: 700;">Published Question Pool</h3>
+                        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Filter or search through active examination questions</p>
+                    </div>
                     <span class="code-pill" id="qCountBadge">0 active items</span>
                 </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 220px auto; gap: 10px; margin-bottom: 1.25rem; align-items: center;">
+                    <input type="text" id="adminQSearchInput" oninput="renderAdminList()" placeholder="🔍 Search question statement, choice or solution..." style="padding: 10px 14px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 0.9rem; background: var(--surface-card); color: var(--text-main);">
+                    <select id="adminQSubjectFilter" onchange="renderAdminList()" style="padding: 10px 14px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 0.9rem; background: var(--surface-card); color: var(--text-main);">
+                        <option value="All">All Categories</option>
+                    </select>
+                    <button type="button" class="btn btn-primary" style="height: 42px;" onclick="renderAdminList()">Search / Filter</button>
+                </div>
+
                 <div id="adminQuestionList" style="display: flex; flex-direction: column; gap: 8px;"></div>
             </div>
         </div>
     </div>
 
-    <!-- 8. COMPLAINT / GRIEVANCE MODAL -->
+    <!-- 9. COMPLAINT / GRIEVANCE MODAL -->
     <div id="grievanceModal" class="modal-overlay hidden">
         <div class="modal-content">
-            <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; color: #0f172a;">Question Grievance Form</h3>
+            <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; color: var(--text-main);">Question Grievance Form</h3>
             <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.25rem;">
                 Flag an inaccurate answer key, typographical error, or flawed question statement for the academic admin team to review.
             </p>
@@ -1165,7 +1416,7 @@
 
                 <div class="form-row">
                     <label>Target Question</label>
-                    <p id="reportQPreview" style="font-size: 0.85rem; font-weight: 600; color: #334155; background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); max-height: 80px; overflow-y: auto;"></p>
+                    <p id="reportQPreview" style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); background: rgba(0, 0, 0, 0.02); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); max-height: 80px; overflow-y: auto;"></p>
                 </div>
 
                 <div class="form-row">
@@ -1192,12 +1443,12 @@
         </div>
     </div>
 
-    <!-- 9. DIGITAL SCRATCHPAD / ROUGH WORK SHEET MODAL -->
+    <!-- 10. DIGITAL SCRATCHPAD / ROUGH WORK SHEET MODAL -->
     <div id="scratchpadModal" class="modal-overlay hidden">
         <div class="scratchpad-sheet">
             <div class="scratchpad-toolbar">
                 <div style="display: flex; align-items: center; gap: 12px;">
-                    <span style="font-weight: 800; font-size: 1rem; color: #0f172a;">📐 Candidate Rough Sheet</span>
+                    <span style="font-weight: 800; font-size: 1rem; color: var(--text-main);">📐 Candidate Rough Sheet</span>
                     <div style="display: flex; align-items: center; gap: 6px;">
                         <button type="button" class="btn btn-outline" style="padding: 4px 10px; font-size: 0.78rem;" id="penModeBtn" onclick="setPadMode('draw')">✏️ Pen</button>
                         <button type="button" class="btn btn-outline" style="padding: 4px 10px; font-size: 0.78rem;" id="eraserModeBtn" onclick="setPadMode('erase')">🧹 Eraser</button>
@@ -1206,7 +1457,7 @@
 
                 <div style="display: flex; align-items: center; gap: 10px;">
                     <input type="color" id="padColor" value="#1e293b" title="Pen Color" style="width: 28px; height: 28px; border: none; border-radius: 50%; cursor: pointer;">
-                    <select id="padSize" style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.8rem;">
+                    <select id="padSize" style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.8rem; background: var(--surface-card); color: var(--text-main);">
                         <option value="2">Fine (2px)</option>
                         <option value="4" selected>Normal (4px)</option>
                         <option value="8">Bold (8px)</option>
@@ -1218,13 +1469,22 @@
             </div>
 
             <canvas id="scratchCanvas" class="canvas-area" width="800" height="480"></canvas>
-            <div style="background: #f8fafc; padding: 6px 16px; font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid var(--border);">
+            <div style="background: rgba(0, 0, 0, 0.02); padding: 6px 16px; font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid var(--border);">
                 💡 Tip: Your drawings/calculations stay saved on this scratchpad during your active exam.
             </div>
         </div>
     </div>
 
     <script>
+        // --- ISO WEEK KEY CALCULATOR (ISO standard: Weeks start on Monday) ---
+        function getIsoWeekKey(d = new Date()) {
+            const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+            date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
+            const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+            const weekNo = Math.ceil((((date - yearStart) / 86400000) + 1) / 7);
+            return `${date.getUTCFullYear()}-W${String(weekNo).padStart(2, '0')}`;
+        }
+
         const initialSubjects = [
             { id: "Current Affairs", name: "Current Affairs", desc: "Global Summits, Treaties & International Organizations", icon: "🌐" },
             { id: "Indian Polity", name: "Indian Polity & Governance", desc: "Constitution, Executive, Judiciary & Rights", icon: "⚖️" },
@@ -1355,7 +1615,7 @@
             }
         ];
 
-        // Generator: Populates 100 Questions for each of the 6 Categories (600 Total)
+        // Generator: 100 Questions per Category (600 in total)
         function buildFullQuestionBank() {
             const pool = [];
 
@@ -1572,13 +1832,16 @@
         let adminAccounts = JSON.parse(localStorage.getItem('tb_cbt_admins')) || defaultAdmins;
         let grievances = JSON.parse(localStorage.getItem('tb_cbt_grievances')) || [];
         let books = JSON.parse(localStorage.getItem('tb_cbt_books')) || initialBooks;
+        let weeklyLeaderboards = JSON.parse(localStorage.getItem('tb_cbt_weekly_leaderboard')) || {};
 
         let currentLoggedCandidate = null;
         let activeSubject = null;
+        let isDaily20Quiz = false;
         let currentSubjectQuestions = [];
         let userState = [];
         let currentIndex = 0;
         let currentReaderFontSize = 1.08;
+        let testStartTime = null;
 
         // Scratchpad / Canvas State
         let padCanvas, padCtx;
@@ -1591,6 +1854,31 @@
         function saveAdminAccounts() { localStorage.setItem('tb_cbt_admins', JSON.stringify(adminAccounts)); }
         function saveGrievances() { localStorage.setItem('tb_cbt_grievances', JSON.stringify(grievances)); }
         function saveBooks() { localStorage.setItem('tb_cbt_books', JSON.stringify(books)); }
+        function saveWeeklyLeaderboard() { localStorage.setItem('tb_cbt_weekly_leaderboard', JSON.stringify(weeklyLeaderboards)); }
+
+        // --- PERSISTENT DARK & LIGHT THEME ENGINE ---
+        function initTheme() {
+            const savedTheme = localStorage.getItem('tb_cbt_theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+            }
+            updateThemeButtonText();
+        }
+
+        function toggleTheme() {
+            const isDark = document.body.classList.toggle('dark-theme');
+            localStorage.setItem('tb_cbt_theme', isDark ? 'dark' : 'light');
+            updateThemeButtonText();
+        }
+
+        function updateThemeButtonText() {
+            const btn = document.getElementById('themeToggleBtn');
+            if (!btn) return;
+            const isDark = document.body.classList.contains('dark-theme');
+            btn.innerHTML = isDark ? '☀️ Light' : '🌓 Dark';
+        }
 
         function resetDefaultQuestionBank() {
             if (confirm("Reset questions & books to standard defaults (100 Qs per subject / 600 total)?")) {
@@ -1603,6 +1891,7 @@
                 renderAdminSubjectControls();
                 renderAdminBooksList();
                 renderAdminList();
+                renderStudyBook();
                 alert("Bank reset! 600 questions (100 in each of the 6 subjects) are ready.");
             }
         }
@@ -1699,6 +1988,10 @@
             document.getElementById('studentNavHub').classList.remove('hidden');
             document.getElementById('globalLogoutBtn').classList.remove('hidden');
 
+            const todayStr = new Date().toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
+            const dateBadge = document.getElementById('dailyDateText');
+            if (dateBadge) dateBadge.innerText = todayStr;
+
             switchToPortalMode('tests');
         }
 
@@ -1728,6 +2021,8 @@
             if (confirm("Are you sure you want to end this session?")) {
                 currentLoggedCandidate = null;
                 document.getElementById('subjectView').classList.add('hidden');
+                document.getElementById('leaderboardView').classList.add('hidden');
+                document.getElementById('studyBookView').classList.add('hidden');
                 document.getElementById('libraryView').classList.add('hidden');
                 document.getElementById('bookReaderView').classList.add('hidden');
                 document.getElementById('cbtView').classList.add('hidden');
@@ -1746,28 +2041,243 @@
             }
         }
 
+        // --- PSEUDO-RANDOM DAILY SEED GENERATOR ---
+        function getDaily20Questions() {
+            if (questions.length === 0) return [];
+            
+            const now = new Date();
+            const dateSeedStr = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+            
+            let h = 1779033703 ^ dateSeedStr.length;
+            for (let i = 0; i < dateSeedStr.length; i++) {
+                h = Math.imul(h ^ dateSeedStr.charCodeAt(i), 3432918353);
+                h = h << 13 | h >>> 19;
+            }
+            
+            function mulberry32(a) {
+                return function() {
+                    let t = a += 0x6D2B79F5;
+                    t = Math.imul(t ^ t >>> 15, t | 1);
+                    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+                    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+                }
+            }
+
+            const rng = mulberry32(h);
+
+            const shuffled = [...questions];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(rng() * (i + 1));
+                const temp = shuffled[i];
+                shuffled[i] = shuffled[j];
+                shuffled[j] = temp;
+            }
+
+            return shuffled.slice(0, Math.min(20, shuffled.length));
+        }
+
+        function startDaily20Exam() {
+            const dailyPool = getDaily20Questions();
+            if (dailyPool.length === 0) {
+                alert("No questions configured in pool!");
+                return;
+            }
+
+            isDaily20Quiz = true;
+            activeSubject = "Daily 20 Challenge";
+            currentSubjectQuestions = dailyPool;
+
+            document.getElementById('subjectView').classList.add('hidden');
+            document.getElementById('leaderboardView').classList.add('hidden');
+            document.getElementById('studyBookView').classList.add('hidden');
+            document.getElementById('libraryView').classList.add('hidden');
+            document.getElementById('bookReaderView').classList.add('hidden');
+            document.getElementById('resultView').classList.add('hidden');
+
+            document.getElementById('activeSubjectBadge').innerText = `⚡ Daily 20 Quiz (${new Date().toLocaleDateString()})`;
+            document.getElementById('cbtView').classList.remove('hidden');
+
+            initTestState();
+        }
+
         // --- PORTAL MODE SWITCHER ---
         function switchToPortalMode(mode) {
             const btnMCQ = document.getElementById('navBtnMCQ');
+            const btnDaily = document.getElementById('navBtnDaily20');
+            const btnLeaderboard = document.getElementById('navBtnLeaderboard');
+            const btnStudyBook = document.getElementById('navBtnStudyBook');
             const btnBooks = document.getElementById('navBtnBooks');
 
             document.getElementById('cbtView').classList.add('hidden');
             document.getElementById('resultView').classList.add('hidden');
             document.getElementById('bookReaderView').classList.add('hidden');
+            document.getElementById('subjectView').classList.add('hidden');
+            document.getElementById('leaderboardView').classList.add('hidden');
+            document.getElementById('studyBookView').classList.add('hidden');
+            document.getElementById('libraryView').classList.add('hidden');
+
+            btnMCQ.classList.remove('active');
+            if (btnDaily) btnDaily.classList.remove('active');
+            if (btnLeaderboard) btnLeaderboard.classList.remove('active');
+            btnStudyBook.classList.remove('active');
+            btnBooks.classList.remove('active');
 
             if (mode === 'tests') {
                 btnMCQ.classList.add('active');
-                btnBooks.classList.remove('active');
-                document.getElementById('libraryView').classList.add('hidden');
                 document.getElementById('subjectView').classList.remove('hidden');
                 renderSubjectSelector();
+            } else if (mode === 'daily20') {
+                if (btnDaily) btnDaily.classList.add('active');
+                startDaily20Exam();
+            } else if (mode === 'leaderboard') {
+                if (btnLeaderboard) btnLeaderboard.classList.add('active');
+                document.getElementById('leaderboardView').classList.remove('hidden');
+                populateLeaderboardWeekDropdown();
+                renderLeaderboard();
+            } else if (mode === 'studybook') {
+                btnStudyBook.classList.add('active');
+                document.getElementById('studyBookView').classList.remove('hidden');
+                populateStudySubjectFilter();
+                renderStudyBook();
             } else if (mode === 'library') {
                 btnBooks.classList.add('active');
-                btnMCQ.classList.remove('active');
-                document.getElementById('subjectView').classList.add('hidden');
                 document.getElementById('libraryView').classList.remove('hidden');
                 renderLibraryBooks();
             }
+        }
+
+        // --- WEEKLY LEADERBOARD SYSTEM ---
+        function populateLeaderboardWeekDropdown() {
+            const selector = document.getElementById('leaderboardWeekSelector');
+            const currentWeek = getIsoWeekKey();
+            
+            const weeksSet = new Set(Object.keys(weeklyLeaderboards));
+            weeksSet.add(currentWeek);
+            const sortedWeeks = Array.from(weeksSet).sort().reverse();
+
+            selector.innerHTML = '';
+            sortedWeeks.forEach(w => {
+                const opt = document.createElement('option');
+                opt.value = w;
+                opt.innerText = (w === currentWeek) ? `${w} (Current Week)` : `${w} (Archived)`;
+                selector.appendChild(opt);
+            });
+            selector.value = currentWeek;
+        }
+
+        function renderLeaderboard() {
+            const selector = document.getElementById('leaderboardWeekSelector');
+            const selectedWeek = selector ? selector.value : getIsoWeekKey();
+            const currentWeek = getIsoWeekKey();
+            const isCurrent = (selectedWeek === currentWeek);
+            
+            const cycleLabel = document.getElementById('lbCycleLabel');
+            if (cycleLabel) {
+                cycleLabel.innerText = isCurrent ? `${selectedWeek} (Active Current Week)` : `${selectedWeek} (Archived Past Results)`;
+            }
+            
+            const tbody = document.getElementById('leaderboardTableBody');
+            tbody.innerHTML = '';
+
+            const weekEntries = weeklyLeaderboards[selectedWeek] || [];
+
+            if (weekEntries.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 2rem; color:var(--text-muted);">No records logged yet for ${selectedWeek}.</td></tr>`;
+                return;
+            }
+
+            weekEntries.forEach((entry, i) => {
+                const rankMedal = i === 0 ? '🥇 #1' : i === 1 ? '🥈 #2' : i === 2 ? '🥉 #3' : `#${i + 1}`;
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${rankMedal}</strong></td>
+                        <td><strong>${entry.name}</strong></td>
+                        <td><span class="code-pill" style="color:var(--primary); font-weight:700;">${parseFloat(entry.score).toFixed(2)}</span></td>
+                        <td>${entry.time}</td>
+                        <td style="color:var(--text-muted); font-size:0.82rem;">${entry.date} ${entry.timestamp}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        // --- PRE-EXAM QUESTION STUDY BOOK ---
+        function populateStudySubjectFilter() {
+            const select = document.getElementById('studySubjectFilter');
+            const currentVal = select.value;
+            select.innerHTML = `<option value="All">All Subjects (600 Qs)</option>`;
+            availableSubjects.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s.id;
+                opt.textContent = `${s.icon} ${s.name}`;
+                select.appendChild(opt);
+            });
+            if (currentVal) select.value = currentVal;
+        }
+
+        function renderStudyBook() {
+            const container = document.getElementById('studyBookContainer');
+            const filterSubject = document.getElementById('studySubjectFilter').value;
+            const searchTerm = document.getElementById('studySearchInput').value.trim().toLowerCase();
+            container.innerHTML = '';
+
+            let filteredList = questions;
+
+            if (filterSubject !== "All") {
+                filteredList = filteredList.filter(q => (q.subject || 'Current Affairs') === filterSubject);
+            }
+
+            if (searchTerm !== "") {
+                filteredList = filteredList.filter(q => 
+                    q.question.toLowerCase().includes(searchTerm) ||
+                    (q.explanation && q.explanation.toLowerCase().includes(searchTerm)) ||
+                    q.options.some(opt => opt.toLowerCase().includes(searchTerm))
+                );
+            }
+
+            document.getElementById('studyItemCountBadge').innerText = `${filteredList.length} concepts & questions displayed`;
+
+            if (filteredList.length === 0) {
+                container.innerHTML = `<p style="padding: 2.5rem; text-align: center; color: var(--text-muted);">No study questions match your filter criteria.</p>`;
+                return;
+            }
+
+            filteredList.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'study-card';
+                
+                const optionsHtml = q.options.map((opt, oIdx) => {
+                    const isCorrect = oIdx === q.answer;
+                    return `
+                        <div style="padding: 6px 12px; margin: 4px 0; border-radius: 6px; font-size: 0.88rem; display: flex; align-items: center; justify-content: space-between; background: ${isCorrect ? 'rgba(16, 185, 129, 0.15)' : 'rgba(0, 0, 0, 0.02)'}; border: 1px solid ${isCorrect ? 'rgba(16, 185, 129, 0.4)' : 'var(--border)'}; color: ${isCorrect ? 'var(--green)' : 'var(--text-main)'}; font-weight: ${isCorrect ? '700' : '500'};">
+                            <span><strong>${String.fromCharCode(65 + oIdx)}.</strong> ${opt}</span>
+                            ${isCorrect ? '<span style="font-size: 0.75rem; background: var(--green); color: white; padding: 2px 6px; border-radius: 4px;">Correct Key</span>' : ''}
+                        </div>
+                    `;
+                }).join('');
+
+                card.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                        <span class="code-pill">${q.subject || 'General'}</span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Question #${idx + 1}</span>
+                    </div>
+
+                    <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-main); line-height: 1.5; margin-bottom: 12px;">${q.question}</h3>
+
+                    <div style="margin-bottom: 12px;">
+                        ${optionsHtml}
+                    </div>
+
+                    <div class="answer-key-box">
+                        ✓ Correct Answer: ${String.fromCharCode(65 + q.answer)}. ${q.options[q.answer]}
+                    </div>
+
+                    <div class="explanation-box">
+                        <strong>Concept &amp; Explanation:</strong> ${q.explanation || 'Direct factual and analytical key concept for exam revision.'}
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
         }
 
         // --- E-LIBRARY & READING ENGINE ---
@@ -1801,7 +2311,7 @@
                             <span class="code-pill">${book.category}</span>
                             <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">⏱️ ${book.time}</span>
                         </div>
-                        <h3 style="font-size: 1.15rem; font-weight: 700; color: #1e293b; margin-bottom: 8px;">${book.title}</h3>
+                        <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px;">${book.title}</h3>
                         <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.5rem;">${book.summary}</p>
                     </div>
                     <div>
@@ -1822,7 +2332,9 @@
             if (!book) return;
 
             document.getElementById('libraryView').classList.add('hidden');
+            document.getElementById('studyBookView').classList.add('hidden');
             document.getElementById('subjectView').classList.add('hidden');
+            document.getElementById('leaderboardView').classList.add('hidden');
             document.getElementById('cbtView').classList.add('hidden');
             document.getElementById('bookReaderView').classList.remove('hidden');
 
@@ -1925,6 +2437,239 @@
             if (confirm("Clear all rough work on this sheet?")) {
                 padCtx.clearRect(0, 0, padCanvas.width, padCanvas.height);
             }
+        }
+
+        // --- BULK QUESTION IMPORTER LOGIC (JSON, CSV, TXT) ---
+        function populateBulkTargetSubjects() {
+            const sel = document.getElementById('bulkTargetSubjectSelect');
+            if (!sel) return;
+            sel.innerHTML = '';
+            availableSubjects.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s.id;
+                opt.textContent = `${s.icon} ${s.name}`;
+                sel.appendChild(opt);
+            });
+        }
+
+        function handleBulkFileUpload() {
+            const fileInput = document.getElementById('bulkUploadFileInput');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("Please select a .json, .csv, or .txt file first!");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('bulkImportRawText').value = e.target.result;
+                alert(`File "${file.name}" loaded into editor! Click "Process & Import All Questions" to finish.`);
+            };
+            reader.onerror = function() {
+                alert("Error reading file!");
+            };
+            reader.readAsText(file);
+        }
+
+        function loadBulkTemplate(format) {
+            const area = document.getElementById('bulkImportRawText');
+            const defSub = availableSubjects[0] ? availableSubjects[0].id : "Current Affairs";
+
+            if (format === 'json') {
+                area.value = JSON.stringify([
+                    {
+                        "subject": defSub,
+                        "question": "Sample Question: What is the capital of France?",
+                        "options": ["Rome", "Paris", "Berlin", "Madrid"],
+                        "answer": 1,
+                        "explanation": "Paris is the capital of France."
+                    },
+                    {
+                        "subject": defSub,
+                        "question": "Sample Question: Which gas is essential for human respiration?",
+                        "options": ["Nitrogen", "Hydrogen", "Oxygen", "Carbon Dioxide"],
+                        "answer": 2,
+                        "explanation": "Oxygen is essential for human aerobic cellular respiration."
+                    }
+                ], null, 2);
+            } else if (format === 'csv') {
+                area.value = 
+`Subject,Question,OptionA,OptionB,OptionC,OptionD,AnswerIndex,Explanation
+${defSub},"What is the chemical symbol for Gold?",Ag,Au,Pb,Fe,1,"Au comes from the Latin word Aurum."
+${defSub},"Which planet is known as the Red Planet?",Earth,Venus,Mars,Jupiter,2,"Mars appears red due to iron oxide on its surface."`;
+            } else if (format === 'txt') {
+                area.value = 
+`Q: What is the largest ocean on Earth?
+A) Atlantic Ocean
+B) Indian Ocean
+C) Arctic Ocean
+D) Pacific Ocean
+Answer: D
+Exp: Pacific Ocean covers more than 30% of the Earth's surface.
+
+Q: How many bones are present in an adult human body?
+A) 206
+B) 210
+C) 198
+D) 300
+Answer: A
+Exp: An adult human skeleton comprises 206 distinct bones.`;
+            }
+        }
+
+        function parseCsvRow(rowText) {
+            const result = [];
+            let insideQuote = false;
+            let currentStr = '';
+            for (let i = 0; i < rowText.length; i++) {
+                const char = rowText[i];
+                if (char === '"') {
+                    if (insideQuote && rowText[i + 1] === '"') {
+                        currentStr += '"';
+                        i++;
+                    } else {
+                        insideQuote = !insideQuote;
+                    }
+                } else if (char === ',' && !insideQuote) {
+                    result.push(currentStr.trim());
+                    currentStr = '';
+                } else {
+                    currentStr += char;
+                }
+            }
+            result.push(currentStr.trim());
+            return result;
+        }
+
+        function processBulkQuestionImport() {
+            const raw = document.getElementById('bulkImportRawText').value.trim();
+            const fallbackSubject = document.getElementById('bulkTargetSubjectSelect').value || "Current Affairs";
+
+            if (!raw) {
+                alert("The editor is empty. Paste data or choose a file first.");
+                return;
+            }
+
+            let parsedQuestions = [];
+
+            // Attempt 1: Parse as JSON
+            if (raw.startsWith('[') || raw.startsWith('{')) {
+                try {
+                    const data = JSON.parse(raw);
+                    const list = Array.isArray(data) ? data : [data];
+                    list.forEach((item, idx) => {
+                        if (item.question && Array.isArray(item.options) && item.options.length >= 2) {
+                            let ans = parseInt(item.answer);
+                            if (isNaN(ans) || ans < 0 || ans >= item.options.length) ans = 0;
+                            parsedQuestions.push({
+                                subject: item.subject || fallbackSubject,
+                                question: String(item.question).trim(),
+                                options: item.options.map(o => String(o).trim()),
+                                answer: ans,
+                                explanation: item.explanation ? String(item.explanation).trim() : "Imported via bulk upload."
+                            });
+                        }
+                    });
+                } catch (jsonErr) {
+                    console.warn("JSON parse unsuccessful, attempting CSV/TXT:", jsonErr);
+                }
+            }
+
+            // Attempt 2: Parse as CSV
+            if (parsedQuestions.length === 0 && raw.includes(',')) {
+                const lines = raw.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+                lines.forEach((line, lineIdx) => {
+                    // Skip potential header row
+                    if (lineIdx === 0 && (line.toLowerCase().includes('question') || line.toLowerCase().includes('optiona'))) {
+                        return;
+                    }
+                    const parts = parseCsvRow(line);
+                    // Format: Subject, Question, Opt0, Opt1, Opt2, Opt3, CorrectIdx, Explanation (8 parts)
+                    // Or: Question, Opt0, Opt1, Opt2, Opt3, CorrectIdx, Explanation (7 parts)
+                    if (parts.length >= 7) {
+                        let subj, q, optA, optB, optC, optD, ansRaw, exp;
+                        if (parts.length >= 8) {
+                            [subj, q, optA, optB, optC, optD, ansRaw, exp] = parts;
+                        } else {
+                            subj = fallbackSubject;
+                            [q, optA, optB, optC, optD, ansRaw, exp] = parts;
+                        }
+
+                        let ans = parseInt(ansRaw);
+                        if (isNaN(ans)) {
+                            // Check if letter A-D
+                            const letterMap = { 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
+                            ans = letterMap[String(ansRaw).trim().toLowerCase()] ?? 0;
+                        }
+
+                        parsedQuestions.push({
+                            subject: subj || fallbackSubject,
+                            question: q.replace(/^"|"$/g, '').trim(),
+                            options: [optA, optB, optC, optD].map(o => (o || '').replace(/^"|"$/g, '').trim()),
+                            answer: Math.max(0, Math.min(3, ans)),
+                            explanation: (exp || "Imported via CSV.").replace(/^"|"$/g, '').trim()
+                        });
+                    }
+                });
+            }
+
+            // Attempt 3: Parse as Structured Plain Text Blocks (Q: / A) / Answer:)
+            if (parsedQuestions.length === 0) {
+                const blocks = raw.split(/\n\s*\n/);
+                blocks.forEach(block => {
+                    const lines = block.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+                    let qText = "";
+                    let opts = [];
+                    let ansIdx = 0;
+                    let expText = "Imported via TXT.";
+
+                    lines.forEach(line => {
+                        const lower = line.toLowerCase();
+                        if (lower.startsWith('q:') || lower.startsWith('question:')) {
+                            qText = line.substring(line.indexOf(':') + 1).trim();
+                        } else if (/^[a-d][\)\.\:]/i.test(line)) {
+                            opts.push(line.replace(/^[a-d][\)\.\:]\s*/i, '').trim());
+                        } else if (lower.startsWith('answer:') || lower.startsWith('ans:')) {
+                            const val = line.substring(line.indexOf(':') + 1).trim().toUpperCase();
+                            const letterMap = { 'A': 0, 'B': 1, 'C': 2, 'D': 3 };
+                            ansIdx = letterMap[val[0]] !== undefined ? letterMap[val[0]] : (parseInt(val) || 0);
+                        } else if (lower.startsWith('exp:') || lower.startsWith('explanation:')) {
+                            expText = line.substring(line.indexOf(':') + 1).trim();
+                        }
+                    });
+
+                    if (qText && opts.length >= 2) {
+                        while (opts.length < 4) opts.push(`Option ${opts.length + 1}`);
+                        parsedQuestions.push({
+                            subject: fallbackSubject,
+                            question: qText,
+                            options: opts.slice(0, 4),
+                            answer: Math.max(0, Math.min(3, ansIdx)),
+                            explanation: expText
+                        });
+                    }
+                });
+            }
+
+            if (parsedQuestions.length === 0) {
+                alert("Could not parse any valid questions from the provided input.\n\nPlease check the formatting or click one of the Sample Template buttons (JSON, CSV, TXT) to inspect the expected syntax.");
+                return;
+            }
+
+            // Add parsed questions to master question collection
+            questions.push(...parsedQuestions);
+            saveQuestions();
+
+            // Refresh dashboards and interfaces
+            renderAdminList();
+            renderStudyBook();
+            renderSubjectSelector();
+
+            document.getElementById('bulkImportRawText').value = '';
+            const fileInput = document.getElementById('bulkUploadFileInput');
+            if (fileInput) fileInput.value = '';
+
+            alert(`🎉 Success! Successfully imported ${parsedQuestions.length} questions into the examination question pool.`);
         }
 
         // --- ADMIN BOOK MANAGER ---
@@ -2052,29 +2797,39 @@
                 card.innerHTML = `
                     <div>
                         <div class="subject-icon">${subj.icon}</div>
-                        <h3 style="font-size: 1.1rem; font-weight: 700; color: #1e293b; margin-bottom: 6px;">${subj.name}</h3>
+                        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">${subj.name}</h3>
                         <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.5rem;">${subj.desc}</p>
                     </div>
                     <div>
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                             <span class="code-pill">${count} Questions</span>
                         </div>
-                        <button class="btn btn-primary" style="width: 100%;" onclick="startSubjectExam('${subj.id}')" ${count === 0 ? 'disabled' : ''}>
-                            ${count === 0 ? 'No Questions Yet' : 'Start Assessment'}
-                        </button>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                            <button class="btn btn-outline" style="font-size: 0.78rem;" onclick="openSubjectStudyBook('${subj.id}')">📖 Learn</button>
+                            <button class="btn btn-primary" style="font-size: 0.78rem;" onclick="startSubjectExam('${subj.id}')" ${count === 0 ? 'disabled' : ''}>
+                                ${count === 0 ? 'Empty' : 'Take Exam'}
+                            </button>
+                        </div>
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
 
+        function openSubjectStudyBook(subjectId) {
+            switchToPortalMode('studybook');
+            document.getElementById('studySubjectFilter').value = subjectId;
+            renderStudyBook();
+        }
+
         function returnToSubjects() {
-            if (confirm("Return to subject selection screen? Your current test progress will be reset.")) {
+            if (confirm("Return to dashboard? Your current quiz progress will be reset.")) {
                 switchToPortalMode('tests');
             }
         }
 
         function startSubjectExam(subjectId) {
+            isDaily20Quiz = false;
             activeSubject = subjectId;
             currentSubjectQuestions = questions.filter(q => (q.subject || 'Current Affairs') === subjectId);
 
@@ -2084,6 +2839,7 @@
             }
 
             document.getElementById('subjectView').classList.add('hidden');
+            document.getElementById('leaderboardView').classList.add('hidden');
             document.getElementById('activeSubjectBadge').innerText = subjectId;
             document.getElementById('cbtView').classList.remove('hidden');
 
@@ -2106,6 +2862,8 @@
             e.target.reset();
             renderAdminSubjectControls();
             renderAdminBooksList();
+            populateStudySubjectFilter();
+            populateBulkTargetSubjects();
             alert(`Subject "${name}" added successfully!`);
         }
 
@@ -2128,18 +2886,39 @@
                 renderAdminSubjectControls();
                 renderAdminBooksList();
                 renderAdminList();
+                populateStudySubjectFilter();
+                populateBulkTargetSubjects();
+                renderStudyBook();
             }
         }
 
         function renderAdminSubjectControls() {
             const select = document.getElementById('adSubjectSelect');
+            const adminFilterSelect = document.getElementById('adminQSubjectFilter');
+            const currentFilterVal = adminFilterSelect ? adminFilterSelect.value : "All";
+
             select.innerHTML = '';
+            if (adminFilterSelect) {
+                adminFilterSelect.innerHTML = `<option value="All">All Categories</option>`;
+            }
+
             availableSubjects.forEach(s => {
                 const opt = document.createElement('option');
                 opt.value = s.id;
                 opt.textContent = `${s.icon} ${s.name}`;
                 select.appendChild(opt);
+
+                if (adminFilterSelect) {
+                    const filterOpt = document.createElement('option');
+                    filterOpt.value = s.id;
+                    filterOpt.textContent = `${s.icon} ${s.name}`;
+                    adminFilterSelect.appendChild(filterOpt);
+                }
             });
+
+            if (adminFilterSelect && currentFilterVal) {
+                adminFilterSelect.value = currentFilterVal;
+            }
 
             const chipsContainer = document.getElementById('adminSubjectChips');
             chipsContainer.innerHTML = '';
@@ -2148,7 +2927,7 @@
                 chip.style.display = 'inline-flex';
                 chip.style.alignItems = 'center';
                 chip.style.gap = '6px';
-                chip.style.background = '#f1f5f9';
+                chip.style.background = 'rgba(0,0,0,0.05)';
                 chip.style.padding = '5px 10px';
                 chip.style.borderRadius = '20px';
                 chip.style.fontSize = '0.82rem';
@@ -2159,6 +2938,8 @@
                 `;
                 chipsContainer.appendChild(chip);
             });
+
+            populateBulkTargetSubjects();
         }
 
         // --- CBT CORE RUNTIME ---
@@ -2166,6 +2947,7 @@
             userState = currentSubjectQuestions.map(() => ({ status: 'not-visited', selected: null }));
             if (userState.length > 0) userState[0].status = 'not-answered';
             currentIndex = 0;
+            testStartTime = Date.now();
             renderPalette();
             loadQuestion(0);
         }
@@ -2260,6 +3042,7 @@
         function submitTest() {
             if (!confirm("Are you sure you want to end and submit the test?")) return;
 
+            const elapsedSeconds = testStartTime ? Math.round((Date.now() - testStartTime) / 1000) : 0;
             let score = 0;
             let attempted = 0;
             let correct = 0;
@@ -2286,9 +3069,9 @@
                 const escapedSubj = (q.subject || activeSubject).replace(/'/g, "\\'");
 
                 solList.innerHTML += `
-                    <div style="border: 1px solid var(--border); padding: 1.25rem; border-radius: 12px; background: #fafafa; position: relative;">
+                    <div style="border: 1px solid var(--border); padding: 1.25rem; border-radius: 12px; background: rgba(0,0,0,0.02); position: relative;">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                            <p style="font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Q${idx + 1}: ${q.question}</p>
+                            <p style="font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Q${idx + 1}: ${q.question}</p>
                             <button class="btn btn-outline" style="padding: 3px 8px; font-size: 0.75rem; color: var(--red); border-color: var(--border);" onclick="openGrievanceModal('${escapedSubj}', '${escapedQ}')">⚠️ Report</button>
                         </div>
                         <p style="margin: 4px 0; font-size: 0.88rem;">
@@ -2299,12 +3082,32 @@
                         <p style="margin: 4px 0; font-size: 0.88rem; color: var(--green); font-weight: 700;">
                             Correct Key: ${q.options[q.answer]}
                         </p>
-                        <div style="font-size: 0.85rem; color: #475569; background: #ffffff; border: 1px solid var(--border); padding: 10px 14px; border-radius: 8px; margin-top: 8px;">
+                        <div style="font-size: 0.85rem; color: var(--text-muted); background: var(--surface-card); border: 1px solid var(--border); padding: 10px 14px; border-radius: 8px; margin-top: 8px;">
                             <strong>Context Rationale:</strong> ${q.explanation || 'No rationale available.'}
                         </div>
                     </div>
                 `;
             });
+
+            // Save candidate result into weekly ISO bucket for Daily 20 Challenge
+            if (isDaily20Quiz && currentLoggedCandidate) {
+                const currentWeek = getIsoWeekKey();
+                if (!weeklyLeaderboards[currentWeek]) {
+                    weeklyLeaderboards[currentWeek] = [];
+                }
+                weeklyLeaderboards[currentWeek].push({
+                    name: currentLoggedCandidate.name,
+                    score: parseFloat(score.toFixed(2)),
+                    rawSeconds: elapsedSeconds,
+                    time: `${Math.floor(elapsedSeconds / 60)}m ${elapsedSeconds % 60}s`,
+                    date: new Date().toLocaleDateString(),
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                });
+
+                // Rank by highest score, then by fastest completion time
+                weeklyLeaderboards[currentWeek].sort((a, b) => b.score - a.score || a.rawSeconds - b.rawSeconds);
+                saveWeeklyLeaderboard();
+            }
 
             document.getElementById('cbtView').classList.add('hidden');
             document.getElementById('resultView').classList.remove('hidden');
@@ -2316,8 +3119,12 @@
 
         function restartTest() {
             document.getElementById('resultView').classList.add('hidden');
-            document.getElementById('cbtView').classList.remove('hidden');
-            initTestState();
+            if (isDaily20Quiz) {
+                startDaily20Exam();
+            } else {
+                document.getElementById('cbtView').classList.remove('hidden');
+                initTestState();
+            }
         }
 
         // --- CANDIDATE GRIEVANCE LOGIC ---
@@ -2381,7 +3188,7 @@
                         </td>
                         <td style="max-width:280px;">
                             <span class="code-pill" style="font-size:0.75rem;">${t.subject}</span>
-                            <div style="font-size:0.85rem; font-weight:600; margin-top:4px; color:#1e293b;">${t.question}</div>
+                            <div style="font-size:0.85rem; font-weight:600; margin-top:4px; color:var(--text-main);">${t.question}</div>
                             <span style="font-size:0.72rem; color:var(--text-muted);">${t.date}</span>
                         </td>
                         <td>
@@ -2389,7 +3196,7 @@
                                 ${t.issue}
                             </span>
                         </td>
-                        <td style="font-size:0.85rem; color:#475569; max-width:220px;">
+                        <td style="font-size:0.85rem; color:var(--text-muted); max-width:220px;">
                             ${t.details}
                         </td>
                         <td style="text-align: right; white-space: nowrap;">
@@ -2420,7 +3227,7 @@
             }
         }
 
-        // --- ADMIN QUESTION POOL MANAGEMENT ---
+        // --- ADMIN QUESTION POOL MANAGEMENT (WITH SEARCH & FILTER) ---
         function handleAddQuestion(e) {
             e.preventDefault();
             const newQ = {
@@ -2439,29 +3246,62 @@
             saveQuestions();
             e.target.reset();
             renderAdminList();
+            renderStudyBook();
             alert('Item published successfully under ' + newQ.subject + '!');
         }
 
-        function deleteQuestion(idx) {
+        function deleteQuestion(actualIndex) {
             if (confirm("Remove this question from active rotation?")) {
-                questions.splice(idx, 1);
+                questions.splice(actualIndex, 1);
                 saveQuestions();
                 renderAdminList();
+                renderStudyBook();
             }
         }
 
         function renderAdminList() {
-            document.getElementById('qCountBadge').innerText = `${questions.length} active items`;
             const list = document.getElementById('adminQuestionList');
+            const searchInput = document.getElementById('adminQSearchInput');
+            const filterSelect = document.getElementById('adminQSubjectFilter');
+
+            const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+            const catFilter = filterSelect ? filterSelect.value : "All";
+
             list.innerHTML = '';
-            questions.forEach((q, idx) => {
+
+            let filteredPool = [];
+            questions.forEach((q, actualIdx) => {
+                const qSubj = q.subject || 'General';
+                const matchesCat = (catFilter === "All" || qSubj === catFilter);
+                const matchesQuery = query === "" || 
+                    q.question.toLowerCase().includes(query) ||
+                    (q.explanation && q.explanation.toLowerCase().includes(query)) ||
+                    q.options.some(opt => opt.toLowerCase().includes(query));
+
+                if (matchesCat && matchesQuery) {
+                    filteredPool.push({ item: q, originalIndex: actualIdx });
+                }
+            });
+
+            document.getElementById('qCountBadge').innerText = `Showing ${filteredPool.length} of ${questions.length} items`;
+
+            if (filteredPool.length === 0) {
+                list.innerHTML = `<p style="padding: 1.5rem; text-align: center; color: var(--text-muted); background: rgba(0,0,0,0.02); border-radius: 8px;">No questions match your filter criteria.</p>`;
+                return;
+            }
+
+            filteredPool.forEach((wrapped) => {
+                const q = wrapped.item;
+                const origIdx = wrapped.originalIndex;
+
                 list.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border:1px solid var(--border); border-radius:10px; background:#fafafa;">
-                        <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border:1px solid var(--border); border-radius:10px; background:var(--surface-card);">
+                        <div style="max-width: 780px;">
                             <span class="code-pill" style="margin-right: 8px;">${q.subject || 'General'}</span>
-                            <span style="font-size:0.9rem; font-weight:600; color:#334155;">${idx + 1}. ${q.question}</span>
+                            <span style="font-size:0.9rem; font-weight:600; color:var(--text-main);">#${origIdx + 1}. ${q.question}</span>
+                            <div style="font-size:0.8rem; color:var(--green); font-weight:700; margin-top:4px;">Key: ${q.options[q.answer]}</div>
                         </div>
-                        <button class="btn btn-outline" style="color:var(--red); padding: 4px 10px; font-size: 0.8rem;" onclick="deleteQuestion(${idx})">Remove</button>
+                        <button class="btn btn-outline" style="color:var(--red); padding: 4px 10px; font-size: 0.8rem; flex-shrink: 0;" onclick="deleteQuestion(${origIdx})">Remove</button>
                     </div>
                 `;
             });
@@ -2505,6 +3345,9 @@
                 `;
             });
         }
+
+        // Initialize Theme Engine
+        initTheme();
     </script>
 </body>
 </html>
