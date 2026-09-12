@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>UNKNOWN CBT Portal - Test Series & Learning Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,11 +68,11 @@
 
         /* Top Bar */
         .top-navbar {
-            background: rgba(15, 23, 42, 0.88);
+            background: rgba(15, 23, 42, 0.92);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             color: #fff;
-            padding: 0.85rem 2rem;
+            padding: 0.75rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -80,6 +80,8 @@
             position: sticky;
             top: 0;
             z-index: 50;
+            gap: 12px;
+            flex-wrap: wrap;
         }
         .brand {
             font-size: 1.15rem;
@@ -106,6 +108,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
         }
         .nav-tab-btn {
             background: rgba(255, 255, 255, 0.08);
@@ -117,6 +120,7 @@
             font-size: 0.82rem;
             cursor: pointer;
             transition: all 0.2s;
+            white-space: nowrap;
         }
         .nav-tab-btn:hover, .nav-tab-btn.active {
             background: #ffffff;
@@ -130,6 +134,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            white-space: nowrap;
         }
         .user-tag::before {
             content: "";
@@ -665,7 +670,8 @@
         .table-responsive {
             border: 1px solid var(--border);
             border-radius: 12px;
-            overflow: hidden;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             margin-top: 1rem;
         }
         .admin-table {
@@ -680,6 +686,7 @@
             padding: 12px 16px;
             font-weight: 600;
             border-bottom: 1px solid var(--border);
+            white-space: nowrap;
         }
         .admin-table td {
             padding: 14px 16px;
@@ -722,6 +729,8 @@
             box-shadow: var(--shadow-xl);
             border: 1px solid var(--border);
             position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         /* Digital Scratchpad / Rough Canvas Sheet */
@@ -735,6 +744,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            max-height: 92vh;
         }
         .scratchpad-toolbar {
             background: rgba(0, 0, 0, 0.02);
@@ -755,6 +765,8 @@
             background-size: 20px 20px;
             cursor: crosshair;
             touch-action: none;
+            width: 100%;
+            display: block;
         }
 
         /* Weekly Leaderboard Meta Banner */
@@ -769,12 +781,161 @@
             font-size: 0.85rem;
             font-weight: 600;
             color: var(--text-main);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        /* Mobile Responsive Enhancements */
+        @media screen and (max-width: 768px) {
+            .top-navbar {
+                padding: 0.65rem 1rem;
+                gap: 8px;
+            }
+            .brand {
+                font-size: 1rem;
+                width: 100%;
+                justify-content: space-between;
+            }
+            .top-navbar > div:last-child {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch !important;
+                gap: 8px !important;
+            }
+            .nav-links {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 4px;
+                width: 100%;
+            }
+            .nav-links::-webkit-scrollbar {
+                display: none;
+            }
+            .nav-tab-btn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+                flex-shrink: 0;
+            }
+            .full-view {
+                padding: 0 0.75rem;
+                margin: 1.25rem auto;
+            }
+            .card {
+                padding: 1.25rem;
+                border-radius: 12px;
+            }
+            .auth-card {
+                padding: 1.5rem 1.25rem;
+            }
+            .daily-banner-card {
+                padding: 1.25rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .daily-banner-card button {
+                width: 100%;
+            }
+            .metrics-banner {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            .metric-card {
+                padding: 1rem;
+            }
+            .cbt-container {
+                display: flex;
+                flex-direction: column;
+                height: auto;
+                min-height: calc(100vh - 80px);
+                overflow: visible;
+            }
+            .quiz-area {
+                height: auto;
+                overflow: visible;
+                border-right: none;
+            }
+            .meta-bar {
+                padding: 0.75rem 1rem;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .meta-bar > div {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .question-body {
+                padding: 1.25rem 1rem;
+                overflow: visible;
+            }
+            .q-title {
+                font-size: 1rem;
+                margin-bottom: 1.25rem;
+            }
+            .option-label {
+                padding: 10px 14px;
+                gap: 10px;
+            }
+            .option-text {
+                font-size: 0.88rem;
+            }
+            .footer-controls {
+                padding: 0.75rem 1rem;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .footer-controls > div {
+                width: 100%;
+                display: flex;
+                gap: 8px;
+            }
+            .footer-controls button {
+                flex: 1;
+            }
+            .sidebar {
+                height: auto;
+                overflow: visible;
+                padding: 1.25rem 1rem;
+                border-top: 1.5px solid var(--border);
+            }
+            .palette-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 6px;
+            }
+            .palette-btn {
+                height: 38px;
+                font-size: 0.8rem;
+            }
+            .reader-container {
+                padding: 1.5rem 1rem;
+            }
+            .scratchpad-sheet {
+                max-height: 96vh;
+                margin: 0;
+            }
+            .scratchpad-toolbar {
+                padding: 8px 10px;
+            }
+            .modal-content {
+                padding: 1.25rem;
+                margin: 0.5rem;
+            }
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+            .canvas-area {
+                width: 100% !important;
+                height: auto !important;
+                aspect-ratio: 8 / 5;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
+    <!-- Header Navigation[cite: 2] -->
     <header class="top-navbar">
         <div class="brand">
             <span class="badge-logo">PORTAL</span>
@@ -786,7 +947,7 @@
             <!-- Persistent Dark / Light Theme Button -->
             <button class="nav-tab-btn" id="themeToggleBtn" onclick="toggleTheme()">🌓 Dark</button>
 
-            <!-- Mode Switcher Navigation -->
+            <!-- Mode Switcher Navigation[cite: 2] -->
             <div id="studentNavHub" class="hidden nav-links">
                 <button class="nav-tab-btn active" id="navBtnMCQ" onclick="switchToPortalMode('tests')">📝 Exam Portal</button>
                 <button class="nav-tab-btn" id="navBtnDaily20" onclick="switchToPortalMode('daily20')">⚡ Daily 20 Quiz</button>
@@ -802,7 +963,7 @@
         </div>
     </header>
 
-    <!-- 1. AUTH GATEWAY -->
+    <!-- 1. AUTH GATEWAY[cite: 2] -->
     <div id="authView" class="auth-container">
         <div class="auth-card">
             <div class="tab-group">
@@ -810,7 +971,7 @@
                 <button class="tab-btn" id="tabAdmin" onclick="setAuthTab('admin')">Administrator</button>
             </div>
 
-            <!-- Candidate Login -->
+            <!-- Candidate Login[cite: 2] -->
             <form id="candidateLoginForm" onsubmit="handleCandidateLogin(event)">
                 <div style="margin-bottom: 1.5rem;">
                     <h2 style="font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;">Welcome Back</h2>
@@ -834,7 +995,7 @@
                 </p>
             </form>
 
-            <!-- Candidate Register -->
+            <!-- Candidate Register[cite: 2] -->
             <form id="candidateRegisterForm" class="hidden" onsubmit="handleCandidateRegister(event)">
                 <div style="margin-bottom: 1.5rem;">
                     <h2 style="font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;">Candidate Register</h2>
@@ -859,7 +1020,7 @@
                 </p>
             </form>
 
-            <!-- Reset Password -->
+            <!-- Reset Password[cite: 2] -->
             <form id="candidateForgotForm" class="hidden" onsubmit="handleCandidateResetPassword(event)">
                 <div style="margin-bottom: 1.5rem;">
                     <h2 style="font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;">Credential Recovery</h2>
@@ -880,7 +1041,7 @@
                 </p>
             </form>
 
-            <!-- Admin Login -->
+            <!-- Admin Login[cite: 2] -->
             <form id="adminForm" class="hidden" onsubmit="handleAdminLogin(event)">
                 <div style="margin-bottom: 1.5rem;">
                     <h2 style="font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em;">Admin Terminal</h2>
@@ -899,10 +1060,10 @@
         </div>
     </div>
 
-    <!-- 2. SUBJECT SELECTION DASHBOARD (TESTS) -->
+    <!-- 2. SUBJECT SELECTION DASHBOARD (TESTS)[cite: 2] -->
     <div id="subjectView" class="full-view hidden">
         <div class="card">
-            <!-- Daily 20 Callout Banner -->
+            <!-- Daily 20 Callout Banner[cite: 2] -->
             <div class="daily-banner-card">
                 <div>
                     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
@@ -915,13 +1076,13 @@
                 <button class="btn btn-success" style="padding: 12px 24px; font-size: 0.95rem;" onclick="startDaily20Exam()">Start Daily 20 Quiz →</button>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; flex-wrap: wrap; gap: 12px;">
                 <div>
                     <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em;">Subject-Wise CBT Assessment Modules</h2>
                     <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">Select an assessment subject to initiate timed practice questions (100 Qs per subject).</p>
                 </div>
                 <div>
-                    <button class="btn btn-outline" style="border-color: var(--primary); color: var(--primary);" onclick="switchToPortalMode('studybook')">📖 Study Questions First</button>
+                    <button class="btn btn-outline" style="border-color: var(--primary); color: var(--primary); width: 100%;" onclick="switchToPortalMode('studybook')">📖 Study Questions First</button>
                 </div>
             </div>
 
@@ -929,7 +1090,7 @@
         </div>
     </div>
 
-    <!-- 2.5 WEEKLY RESETTABLE DAILY 20 LEADERBOARD -->
+    <!-- 2.5 WEEKLY RESETTABLE DAILY 20 LEADERBOARD[cite: 1] -->
     <div id="leaderboardView" class="full-view hidden">
         <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 12px;">
@@ -937,9 +1098,9 @@
                     <h2 style="font-size: 1.4rem; font-weight: 800;">🏆 Daily 20 Weekly Leaderboard</h2>
                     <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Resets automatically every Monday 00:00 UTC. View active or past archived weeks.</p>
                 </div>
-                <div style="display: flex; gap: 8px; align-items: center;">
-                    <select id="leaderboardWeekSelector" onchange="renderLeaderboard()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.84rem; background: var(--surface-card); color: var(--text-main); font-weight: 600;"></select>
-                    <button class="btn btn-primary" onclick="startDaily20Exam()">Take Today's Quiz</button>
+                <div style="display: flex; gap: 8px; align-items: center; width: 100%; max-width: 400px; flex-wrap: wrap;">
+                    <select id="leaderboardWeekSelector" onchange="renderLeaderboard()" style="flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.84rem; background: var(--surface-card); color: var(--text-main); font-weight: 600; min-width: 140px;"></select>
+                    <button class="btn btn-primary" style="white-space: nowrap;" onclick="startDaily20Exam()">Take Today's Quiz</button>
                 </div>
             </div>
 
@@ -965,7 +1126,7 @@
         </div>
     </div>
 
-    <!-- 3. PRE-EXAM STUDY BOOK & REVISION PAGE -->
+    <!-- 3. PRE-EXAM STUDY BOOK & REVISION PAGE[cite: 2] -->
     <div id="studyBookView" class="full-view hidden">
         <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; flex-wrap: wrap; gap: 12px;">
@@ -973,33 +1134,33 @@
                     <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em;">📖 Pre-Exam Question Study Book</h2>
                     <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">Learn every question statement, confirmed answer key, and in-depth concept before starting the test.</p>
                 </div>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <select id="studySubjectFilter" onchange="renderStudyBook()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; background: var(--surface-card); color: var(--text-main);">
+                <div style="display: flex; gap: 10px; align-items: center; width: 100%; flex-wrap: wrap;">
+                    <select id="studySubjectFilter" onchange="renderStudyBook()" style="flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; background: var(--surface-card); color: var(--text-main); min-width: 140px;">
                         <option value="All">All Subjects</option>
                     </select>
-                    <input type="text" id="studySearchInput" oninput="renderStudyBook()" placeholder="🔍 Search topic or formula..." style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; width: 220px; background: var(--surface-card); color: var(--text-main);">
+                    <input type="text" id="studySearchInput" oninput="renderStudyBook()" placeholder="🔍 Search topic or formula..." style="flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; min-width: 140px; background: var(--surface-card); color: var(--text-main);">
                 </div>
             </div>
 
-            <div style="margin: 1.25rem 0; display: flex; justify-content: space-between; align-items: center;">
+            <div style="margin: 1.25rem 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
                 <span id="studyItemCountBadge" class="code-pill">Loading study items...</span>
-                <button class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem;" onclick="switchToPortalMode('tests')">Ready to Test? Go to Exam Portal →</button>
+                <button class="btn btn-primary" style="padding: 6px 14px; font-size: 0.8rem; width: 100%; max-width: 320px;" onclick="switchToPortalMode('tests')">Ready to Test? Go to Exam Portal →</button>
             </div>
 
             <div id="studyBookContainer"></div>
         </div>
     </div>
 
-    <!-- 4. E-LIBRARY & READING HUB -->
+    <!-- 4. E-LIBRARY & READING HUB[cite: 2] -->
     <div id="libraryView" class="full-view hidden">
         <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; flex-wrap: wrap; gap: 12px;">
                 <div>
                     <h2 style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em;">E-Library &amp; Study Textbooks</h2>
                     <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">In-depth theory, chapters, formulas, and concepts for continuous learning.</p>
                 </div>
-                <div style="display: flex; gap: 8px;">
-                    <select id="libraryFilterSelect" onchange="filterLibraryBooks()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; background: var(--surface-card); color: var(--text-main);">
+                <div style="width: 100%; max-width: 260px;">
+                    <select id="libraryFilterSelect" onchange="filterLibraryBooks()" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; background: var(--surface-card); color: var(--text-main);">
                         <option value="All">All Categories</option>
                     </select>
                 </div>
@@ -1009,9 +1170,9 @@
         </div>
     </div>
 
-    <!-- 5. DISTRACTION-FREE BOOK READER SCREEN -->
+    <!-- 5. DISTRACTION-FREE BOOK READER SCREEN[cite: 2] -->
     <div id="bookReaderView" class="full-view hidden">
-        <div style="margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="margin-bottom: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <button class="btn btn-outline" onclick="switchToPortalMode('library')">← Back to E-Library</button>
             <div style="display: flex; align-items: center; gap: 8px;">
                 <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 600;">Font Size:</span>
@@ -1023,33 +1184,33 @@
         <article class="reader-container">
             <header style="border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-bottom: 2rem;">
                 <span class="code-pill" id="readBookCategory">Category</span>
-                <h1 id="readBookTitle" style="font-size: 2rem; font-weight: 800; margin: 12px 0 6px; letter-spacing: -0.02em; color: var(--text-main);">Book Title</h1>
+                <h1 id="readBookTitle" style="font-size: 1.75rem; font-weight: 800; margin: 12px 0 6px; letter-spacing: -0.02em; color: var(--text-main);">Book Title</h1>
                 <p id="readBookMeta" style="font-size: 0.85rem; color: var(--text-muted);">Est. Reading Time: 15 mins</p>
             </header>
             
             <div class="reader-content" id="readBookBody"></div>
 
-            <footer style="border-top: 1px solid var(--border); padding-top: 2rem; margin-top: 3rem; display: flex; justify-content: space-between; align-items: center;">
+            <footer style="border-top: 1px solid var(--border); padding-top: 2rem; margin-top: 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
                 <div>
                     <span style="font-size: 0.85rem; color: var(--text-muted);">Finished reading? Put your concepts to practice!</span>
                 </div>
-                <button class="btn btn-primary" onclick="switchToPortalMode('tests')">Go to MCQ Assessments →</button>
+                <button class="btn btn-primary" style="width: 100%;" onclick="switchToPortalMode('tests')">Go to MCQ Assessments →</button>
             </footer>
         </article>
     </div>
 
-    <!-- 6. MODERN CBT DESKTOP -->
+    <!-- 6. MODERN CBT DESKTOP[cite: 2] -->
     <div id="cbtView" class="cbt-container hidden">
         <div class="quiz-area">
             <div class="meta-bar">
-                <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                     <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.75rem;" onclick="returnToSubjects()">← Exit Quiz</button>
                     <span class="pill" id="activeSubjectBadge">Subject</span>
                     <span class="pill" id="qNumText">Question 01</span>
                 </div>
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.78rem; font-weight: 700; color: var(--primary); border-color: var(--border-focus);" onclick="openScratchpad()">📝 Scratchpad / Rough Work</button>
-                    <span class="marks">+1.00 Mark &nbsp;|&nbsp; -0.25 Negative</span>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px;">
+                    <button class="btn btn-outline" style="padding: 4px 10px; font-size: 0.78rem; font-weight: 700; color: var(--primary); border-color: var(--border-focus);" onclick="openScratchpad()">📝 Scratchpad</button>
+                    <span class="marks">+1.00 | -0.25</span>
                     <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.75rem; color: var(--red); border-color: var(--border);" onclick="openGrievanceModalForCurrentQuestion()">⚠️ Report</button>
                 </div>
             </div>
@@ -1082,11 +1243,11 @@
 
             <div class="palette-grid" id="paletteGrid"></div>
 
-            <button class="btn btn-success" style="width: 100%; padding: 12px;" onclick="submitTest()">Final Submit</button>
+            <button class="btn btn-success" style="width: 100%; padding: 12px; margin-top: 1rem;" onclick="submitTest()">Final Submit</button>
         </div>
     </div>
 
-    <!-- 7. SCORECARD & DETAILED SUMMARY -->
+    <!-- 7. SCORECARD & DETAILED SUMMARY[cite: 2] -->
     <div id="resultView" class="full-view hidden">
         <div class="card">
             <h2 style="font-size: 1.5rem; font-weight: 800; text-align: center; letter-spacing: -0.02em;">Examination Report</h2>
@@ -1109,24 +1270,24 @@
             <h3 style="font-size: 1.1rem; font-weight: 700; margin: 2rem 0 1rem;">Solutions &amp; Key Explanations</h3>
             <div id="solutionList" style="display: flex; flex-direction: column; gap: 1rem;"></div>
 
-            <div style="display: flex; justify-content: center; gap: 12px; margin-top: 2.5rem;">
-                <button class="btn btn-primary" onclick="restartTest()">Re-take Quiz</button>
-                <button class="btn btn-outline" onclick="returnToSubjects()">Back to Dashboard</button>
+            <div style="display: flex; justify-content: center; gap: 12px; margin-top: 2.5rem; flex-wrap: wrap;">
+                <button class="btn btn-primary" style="flex: 1; min-width: 140px;" onclick="restartTest()">Re-take Quiz</button>
+                <button class="btn btn-outline" style="flex: 1; min-width: 140px;" onclick="returnToSubjects()">Back to Dashboard</button>
             </div>
         </div>
     </div>
 
-    <!-- 8. MODERN ADMIN CMS -->
+    <!-- 8. MODERN ADMIN CMS[cite: 2] -->
     <div id="adminDashboardView" class="full-view hidden">
         <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.25rem; flex-wrap: wrap; gap: 12px;">
                 <div>
                     <h2 style="font-size: 1.4rem; font-weight: 800;">Administrator Console</h2>
                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Direct access to test banks, examinee accounts, complaints, and admin roles</p>
                 </div>
-                <div style="display: flex; gap: 8px;">
-                    <button class="btn btn-warning" onclick="resetDefaultQuestionBank()">Reset Default 600-Q Banks</button>
-                    <button class="btn btn-danger" onclick="logout()">Sign Out</button>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; width: 100%;">
+                    <button class="btn btn-warning" style="flex: 1;" onclick="resetDefaultQuestionBank()">Reset Default 600-Q Banks</button>
+                    <button class="btn btn-danger" style="flex: 1;" onclick="logout()">Sign Out</button>
                 </div>
             </div>
 
@@ -1139,7 +1300,7 @@
                     </p>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 1.25rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 1.25rem;" class="mobile-stack-grid">
                     <div style="background: rgba(0,0,0,0.02); padding: 14px; border-radius: 10px; border: 1px solid var(--border);">
                         <label style="font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 6px;">1. Upload File (.json, .csv, .txt)</label>
                         <input type="file" id="bulkUploadFileInput" accept=".json,.csv,.txt" style="font-size: 0.85rem; width: 100%; margin-bottom: 10px;">
@@ -1148,10 +1309,10 @@
                     <div style="background: rgba(0,0,0,0.02); padding: 14px; border-radius: 10px; border: 1px solid var(--border);">
                         <label style="font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 6px;">2. Target Subject (for TXT / fallback)</label>
                         <select id="bulkTargetSubjectSelect" style="padding: 8px 12px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 0.85rem; width: 100%; background: var(--surface-card); color: var(--text-main); margin-bottom: 10px;"></select>
-                        <div style="display: flex; gap: 6px;">
-                            <button type="button" class="btn btn-outline" style="font-size: 0.75rem; flex: 1;" onclick="loadBulkTemplate('json')">JSON Sample</button>
-                            <button type="button" class="btn btn-outline" style="font-size: 0.75rem; flex: 1;" onclick="loadBulkTemplate('csv')">CSV Sample</button>
-                            <button type="button" class="btn btn-outline" style="font-size: 0.75rem; flex: 1;" onclick="loadBulkTemplate('txt')">TXT Sample</button>
+                        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline" style="font-size: 0.75rem; flex: 1; min-width: 80px;" onclick="loadBulkTemplate('json')">JSON Sample</button>
+                            <button type="button" class="btn btn-outline" style="font-size: 0.75rem; flex: 1; min-width: 80px;" onclick="loadBulkTemplate('csv')">CSV Sample</button>
+                            <button type="button" class="btn btn-outline" style="font-size: 0.75rem; flex: 1; min-width: 80px;" onclick="loadBulkTemplate('txt')">TXT Sample</button>
                         </div>
                     </div>
                 </div>
@@ -1161,17 +1322,17 @@
                     <textarea id="bulkImportRawText" rows="6" placeholder="Paste JSON array, CSV rows, or Q/A TXT blocks here..." style="font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.82rem; line-height: 1.4;"></textarea>
                 </div>
 
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.78rem; color: var(--text-muted);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                    <span style="font-size: 0.78rem; color: var(--text-muted); width: 100%;">
                         💡 <strong>Format Guide:</strong> CSV: <code>Subject,Question,OptA,OptB,OptC,OptD,AnswerIndex(0-3),Explanation</code> | TXT: <code>Q:, A), B), C), D), Answer:, Exp:</code>
                     </span>
-                    <button type="button" class="btn btn-success" style="padding: 10px 20px;" onclick="processBulkQuestionImport()">🚀 Process &amp; Import All Questions</button>
+                    <button type="button" class="btn btn-success" style="padding: 10px 20px; width: 100%;" onclick="processBulkQuestionImport()">🚀 Process &amp; Import All Questions</button>
                 </div>
             </div>
 
-            <!-- E-BOOK / READING CONTENT MANAGEMENT -->
+            <!-- E-BOOK / READING CONTENT MANAGEMENT[cite: 2] -->
             <div style="border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px;">
                     <div>
                         <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--primary);">Publish New E-Book / Study Chapter</h3>
                         <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Add comprehensive theory and textbooks for candidates to read</p>
@@ -1180,7 +1341,7 @@
                 </div>
 
                 <form onsubmit="handleAddBook(event)" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 1.5rem;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
                         <div class="form-row" style="margin-bottom: 0;">
                             <label>Book / Module Title</label>
                             <input type="text" id="newBookTitle" placeholder="e.g. Fundamental Rights Handbook" required>
@@ -1206,7 +1367,7 @@
                     </div>
 
                     <div>
-                        <button type="submit" class="btn btn-primary">+ Publish to E-Library</button>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">+ Publish to E-Library</button>
                     </div>
                 </form>
 
@@ -1225,9 +1386,9 @@
                 </div>
             </div>
 
-            <!-- MULTI-ADMIN ACCOUNTS MANAGEMENT -->
+            <!-- MULTI-ADMIN ACCOUNTS MANAGEMENT[cite: 2] -->
             <div style="border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px;">
                     <div>
                         <h3 style="font-size: 1.05rem; font-weight: 700;">Administrator Access Control</h3>
                         <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Create, inspect, or revoke administrator access accounts</p>
@@ -1235,7 +1396,7 @@
                     <span class="code-pill" id="adminCountBadge">0 admins</span>
                 </div>
 
-                <form onsubmit="handleCreateNewAdmin(event)" style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 12px; align-items: end; margin-bottom: 1.25rem;">
+                <form onsubmit="handleCreateNewAdmin(event)" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; align-items: end; margin-bottom: 1.25rem;">
                     <div class="form-row" style="margin-bottom: 0;">
                         <label>Admin Username</label>
                         <input type="text" id="newAdminUsername" placeholder="e.g. admin_raj" required>
@@ -1252,7 +1413,7 @@
                             <option value="Reviewer">Reviewer</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-success" style="height: 46px;">+ Add Admin</button>
+                    <button type="submit" class="btn btn-success" style="height: 46px; width: 100%;">+ Add Admin</button>
                 </form>
 
                 <div class="table-responsive">
@@ -1270,9 +1431,9 @@
                 </div>
             </div>
 
-            <!-- GRIEVANCES / DISPUTE MANAGEMENT SECTION -->
+            <!-- GRIEVANCES / DISPUTE MANAGEMENT SECTION[cite: 2] -->
             <div style="border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px;">
                     <div>
                         <h3 style="font-size: 1.05rem; font-weight: 700; color: #b91c1c;">Incoming Candidate Question Grievances</h3>
                         <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Review student reports regarding incorrect keys, wrong statements, or errors</p>
@@ -1295,10 +1456,10 @@
                 </div>
             </div>
 
-            <!-- Subject Manager Section -->
+            <!-- Subject Manager Section[cite: 2] -->
             <div style="border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem;">
                 <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem;">Subject Categories Management</h3>
-                <form onsubmit="handleAddSubject(event)" style="display: grid; grid-template-columns: 80px 1.5fr 2fr auto; gap: 12px; align-items: end;">
+                <form onsubmit="handleAddSubject(event)" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; align-items: end;">
                     <div class="form-row" style="margin-bottom: 0;">
                         <label>Icon</label>
                         <input type="text" id="newSubjIcon" placeholder="📚" maxlength="2" required style="text-align: center;">
@@ -1311,7 +1472,7 @@
                         <label>Short Description</label>
                         <input type="text" id="newSubjDesc" placeholder="e.g. Modern history &amp; milestones" required>
                     </div>
-                    <button type="submit" class="btn btn-success" style="height: 46px;">+ Add Subject</button>
+                    <button type="submit" class="btn btn-success" style="height: 46px; width: 100%;">+ Add Subject</button>
                 </form>
 
                 <div style="margin-top: 1.25rem;">
@@ -1320,7 +1481,7 @@
                 </div>
             </div>
 
-            <!-- Question Form -->
+            <!-- Question Form[cite: 2] -->
             <form onsubmit="handleAddQuestion(event)" style="border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem;">
                 <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem;">Add Subject Question</h3>
                 
@@ -1333,7 +1494,7 @@
                     <label>Statement</label>
                     <textarea id="adQuestion" rows="2" required placeholder="Type the question content..."></textarea>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
                     <div class="form-row"><label>Choice A</label><input type="text" id="adOpt0" required></div>
                     <div class="form-row"><label>Choice B</label><input type="text" id="adOpt1" required></div>
                     <div class="form-row"><label>Choice C</label><input type="text" id="adOpt2" required></div>
@@ -1352,12 +1513,12 @@
                     <label>Contextual Rationale</label>
                     <textarea id="adExplanation" rows="2" placeholder="Explain the rationale behind the correct choice..."></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Publish Question Item</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Publish Question Item</button>
             </form>
 
-            <!-- User Management -->
+            <!-- User Management[cite: 2] -->
             <div style="border-bottom: 1px solid var(--border); padding-bottom: 2rem; margin-bottom: 2rem;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 8px;">
                     <div>
                         <h3 style="font-size: 1.05rem; font-weight: 700;">Active Examinees</h3>
                         <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Inspect or reset authentication credentials</p>
@@ -1379,7 +1540,7 @@
                 </div>
             </div>
 
-            <!-- Published Question Pool with Search and Filter Toolbar -->
+            <!-- Published Question Pool with Search and Filter Toolbar[cite: 2] -->
             <div>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 10px;">
                     <div>
@@ -1389,12 +1550,12 @@
                     <span class="code-pill" id="qCountBadge">0 active items</span>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 220px auto; gap: 10px; margin-bottom: 1.25rem; align-items: center;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 1.25rem; align-items: center;">
                     <input type="text" id="adminQSearchInput" oninput="renderAdminList()" placeholder="🔍 Search question statement, choice or solution..." style="padding: 10px 14px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 0.9rem; background: var(--surface-card); color: var(--text-main);">
                     <select id="adminQSubjectFilter" onchange="renderAdminList()" style="padding: 10px 14px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 0.9rem; background: var(--surface-card); color: var(--text-main);">
                         <option value="All">All Categories</option>
                     </select>
-                    <button type="button" class="btn btn-primary" style="height: 42px;" onclick="renderAdminList()">Search / Filter</button>
+                    <button type="button" class="btn btn-primary" style="height: 42px; width: 100%;" onclick="renderAdminList()">Search / Filter</button>
                 </div>
 
                 <div id="adminQuestionList" style="display: flex; flex-direction: column; gap: 8px;"></div>
@@ -1402,7 +1563,7 @@
         </div>
     </div>
 
-    <!-- 9. COMPLAINT / GRIEVANCE MODAL -->
+    <!-- 9. COMPLAINT / GRIEVANCE MODAL[cite: 2] -->
     <div id="grievanceModal" class="modal-overlay hidden">
         <div class="modal-content">
             <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 6px; color: var(--text-main);">Question Grievance Form</h3>
@@ -1435,42 +1596,41 @@
                     <textarea id="reportQDetails" rows="3" required placeholder="Please cite why you believe the current key/question is incorrect..."></textarea>
                 </div>
 
-                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.5rem;">
-                    <button type="button" class="btn btn-outline" onclick="closeGrievanceModal()">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Submit Grievance</button>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 1.5rem; flex-wrap: wrap;">
+                    <button type="button" class="btn btn-outline" style="flex: 1;" onclick="closeGrievanceModal()">Cancel</button>
+                    <button type="submit" class="btn btn-danger" style="flex: 1;" >Submit Grievance</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- 10. DIGITAL SCRATCHPAD / ROUGH WORK SHEET MODAL -->
+    <!-- 10. DIGITAL SCRATCHPAD / ROUGH WORK SHEET MODAL[cite: 2] -->
     <div id="scratchpadModal" class="modal-overlay hidden">
         <div class="scratchpad-sheet">
             <div class="scratchpad-toolbar">
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <span style="font-weight: 800; font-size: 1rem; color: var(--text-main);">📐 Candidate Rough Sheet</span>
-                    <div style="display: flex; align-items: center; gap: 6px;">
-                        <button type="button" class="btn btn-outline" style="padding: 4px 10px; font-size: 0.78rem;" id="penModeBtn" onclick="setPadMode('draw')">✏️ Pen</button>
-                        <button type="button" class="btn btn-outline" style="padding: 4px 10px; font-size: 0.78rem;" id="eraserModeBtn" onclick="setPadMode('erase')">🧹 Eraser</button>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-main);">📐 Rough Sheet</span>
+                    <div style="display: flex; align-items: center; gap: 4px;">
+                        <button type="button" class="btn btn-outline" style="padding: 4px 8px; font-size: 0.75rem;" id="penModeBtn" onclick="setPadMode('draw')">✏️ Pen</button>
+                        <button type="button" class="btn btn-outline" style="padding: 4px 8px; font-size: 0.75rem;" id="eraserModeBtn" onclick="setPadMode('erase')">🧹 Eraser</button>
                     </div>
                 </div>
 
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <input type="color" id="padColor" value="#1e293b" title="Pen Color" style="width: 28px; height: 28px; border: none; border-radius: 50%; cursor: pointer;">
-                    <select id="padSize" style="padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.8rem; background: var(--surface-card); color: var(--text-main);">
-                        <option value="2">Fine (2px)</option>
-                        <option value="4" selected>Normal (4px)</option>
-                        <option value="8">Bold (8px)</option>
-                        <option value="16">Thick (16px)</option>
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <input type="color" id="padColor" value="#1e293b" title="Pen Color" style="width: 26px; height: 26px; border: none; border-radius: 50%; cursor: pointer;">
+                    <select id="padSize" style="padding: 4px 6px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.75rem; background: var(--surface-card); color: var(--text-main);">
+                        <option value="2">Fine</option>
+                        <option value="4" selected>Normal</option>
+                        <option value="8">Bold</option>
                     </select>
-                    <button type="button" class="btn btn-outline" style="padding: 4px 10px; font-size: 0.78rem; color: var(--red);" onclick="clearPadCanvas()">Clear Sheet</button>
-                    <button type="button" class="btn btn-primary" style="padding: 5px 14px; font-size: 0.78rem;" onclick="closeScratchpad()">Done / Hide</button>
+                    <button type="button" class="btn btn-outline" style="padding: 4px 8px; font-size: 0.75rem; color: var(--red);" onclick="clearPadCanvas()">Clear</button>
+                    <button type="button" class="btn btn-primary" style="padding: 4px 10px; font-size: 0.75rem;" onclick="closeScratchpad()">Done</button>
                 </div>
             </div>
 
             <canvas id="scratchCanvas" class="canvas-area" width="800" height="480"></canvas>
-            <div style="background: rgba(0, 0, 0, 0.02); padding: 6px 16px; font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid var(--border);">
-                💡 Tip: Your drawings/calculations stay saved on this scratchpad during your active exam.
+            <div style="background: rgba(0, 0, 0, 0.02); padding: 6px 12px; font-size: 0.72rem; color: var(--text-muted); border-top: 1px solid var(--border);">
+                💡 Tip: Drawings stay saved during your active exam.
             </div>
         </div>
     </div>
@@ -1499,7 +1659,7 @@
             { username: 'admin2', pass: 'pass123', role: 'Admin' }
         ];
 
-        // Seed E-Books & Study Textbooks
+        // Seed E-Books & Study Textbooks[cite: 2]
         const initialBooks = [
             {
                 id: "book_polity_1",
@@ -1615,11 +1775,11 @@
             }
         ];
 
-        // Generator: 100 Questions per Category (600 in total)
+        // Generator: 100 Questions per Category (600 in total)[cite: 2]
         function buildFullQuestionBank() {
             const pool = [];
 
-            // 1. Current Affairs (100)
+            // 1. Current Affairs (100)[cite: 2]
             const caTopics = [
                 ["International Maritime Organization (IMO) headquarters", "London", ["Geneva", "London", "Paris", "Rome"], 1, "Headquartered in London, UK."],
                 ["Nobel Peace Prize award city", "Oslo", ["Stockholm", "Oslo", "The Hague", "Copenhagen"], 1, "Presented annually in Oslo, Norway."],
@@ -1643,7 +1803,7 @@
                 });
             }
 
-            // 2. Indian Polity (100)
+            // 2. Indian Polity (100)[cite: 2]
             const polityTopics = [
                 ["Article establishing Finance Commission", "Article 280", ["Article 280", "Article 324", "Article 112", "Article 356"], 0, "Article 280 mandates the Finance Commission."],
                 ["Article enumerating Fundamental Duties", "Article 51A", ["Article 51", "Article 51A", "Article 39A", "Article 48A"], 1, "Inserted by the 42nd Amendment Act 1976."],
@@ -1667,7 +1827,7 @@
                 });
             }
 
-            // 3. Economics (100)
+            // 3. Economics (100)[cite: 2]
             const econTopics = [
                 ["Condition of stagnation paired with high inflation", "Stagflation", ["Recession", "Stagflation", "Reflation", "Deflation"], 1, "Stagnant growth + high inflation = stagflation."],
                 ["Number of members in RBI Monetary Policy Committee", "6", ["4", "5", "6", "8"], 2, "3 RBI officials + 3 external government nominees."],
@@ -1691,7 +1851,7 @@
                 });
             }
 
-            // 4. General Science (100)
+            // 4. General Science (100)[cite: 2]
             const sciTopics = [
                 ["Highest frequency electromagnetic wave", "Gamma Rays", ["Radio waves", "Infrared", "Gamma Rays", "Microwaves"], 2, "Gamma rays hold highest frequency & energy."],
                 ["Powerhouse of eukaryotic cell", "Mitochondria", ["Ribosome", "Mitochondria", "Golgi Body", "Nucleus"], 1, "Produces cellular ATP."],
@@ -1715,7 +1875,7 @@
                 });
             }
 
-            // 5. Quantitative Aptitude (Mathematics) (100)
+            // 5. Quantitative Aptitude (Mathematics) (100)[cite: 2]
             for (let i = 1; i <= 100; i++) {
                 const subType = i % 5;
                 if (subType === 1) {
@@ -1775,7 +1935,7 @@
                 }
             }
 
-            // 6. Logical Reasoning (100)
+            // 6. Logical Reasoning (100)[cite: 2]
             for (let i = 1; i <= 100; i++) {
                 const subType = i % 4;
                 if (subType === 1) {
@@ -1843,7 +2003,7 @@
         let currentReaderFontSize = 1.08;
         let testStartTime = null;
 
-        // Scratchpad / Canvas State
+        // Scratchpad / Canvas State[cite: 2]
         let padCanvas, padCtx;
         let isDrawing = false;
         let padMode = 'draw';
@@ -1896,7 +2056,7 @@
             }
         }
 
-        // --- AUTH TABS & NAVIGATION ---
+        // --- AUTH TABS & NAVIGATION[cite: 2] ---
         function setAuthTab(tab) {
             const tabC = document.getElementById('tabCandidate');
             const tabA = document.getElementById('tabAdmin');
@@ -2404,14 +2564,18 @@
             isDrawing = true;
             padCtx.beginPath();
             const rect = padCanvas.getBoundingClientRect();
-            padCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+            const scaleX = padCanvas.width / rect.width;
+            const scaleY = padCanvas.height / rect.height;
+            padCtx.moveTo((e.clientX - rect.left) * scaleX, (e.clientY - rect.top) * scaleY);
         }
 
         function scratchDraw(e) {
             if (!isDrawing) return;
             const rect = padCanvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+            const scaleX = padCanvas.width / rect.width;
+            const scaleY = padCanvas.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
 
             const size = document.getElementById('padSize').value;
             padCtx.lineWidth = size;
@@ -2557,7 +2721,7 @@ Exp: An adult human skeleton comprises 206 distinct bones.`;
                 try {
                     const data = JSON.parse(raw);
                     const list = Array.isArray(data) ? data : [data];
-                    list.forEach((item, idx) => {
+                    list.forEach((item) => {
                         if (item.question && Array.isArray(item.options) && item.options.length >= 2) {
                             let ans = parseInt(item.answer);
                             if (isNaN(ans) || ans < 0 || ans >= item.options.length) ans = 0;
@@ -2579,13 +2743,10 @@ Exp: An adult human skeleton comprises 206 distinct bones.`;
             if (parsedQuestions.length === 0 && raw.includes(',')) {
                 const lines = raw.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
                 lines.forEach((line, lineIdx) => {
-                    // Skip potential header row
                     if (lineIdx === 0 && (line.toLowerCase().includes('question') || line.toLowerCase().includes('optiona'))) {
                         return;
                     }
                     const parts = parseCsvRow(line);
-                    // Format: Subject, Question, Opt0, Opt1, Opt2, Opt3, CorrectIdx, Explanation (8 parts)
-                    // Or: Question, Opt0, Opt1, Opt2, Opt3, CorrectIdx, Explanation (7 parts)
                     if (parts.length >= 7) {
                         let subj, q, optA, optB, optC, optD, ansRaw, exp;
                         if (parts.length >= 8) {
@@ -2597,7 +2758,6 @@ Exp: An adult human skeleton comprises 206 distinct bones.`;
 
                         let ans = parseInt(ansRaw);
                         if (isNaN(ans)) {
-                            // Check if letter A-D
                             const letterMap = { 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
                             ans = letterMap[String(ansRaw).trim().toLowerCase()] ?? 0;
                         }
@@ -2656,11 +2816,9 @@ Exp: An adult human skeleton comprises 206 distinct bones.`;
                 return;
             }
 
-            // Add parsed questions to master question collection
             questions.push(...parsedQuestions);
             saveQuestions();
 
-            // Refresh dashboards and interfaces
             renderAdminList();
             renderStudyBook();
             renderSubjectSelector();
@@ -3070,8 +3228,8 @@ Exp: An adult human skeleton comprises 206 distinct bones.`;
 
                 solList.innerHTML += `
                     <div style="border: 1px solid var(--border); padding: 1.25rem; border-radius: 12px; background: rgba(0,0,0,0.02); position: relative;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                            <p style="font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Q${idx + 1}: ${q.question}</p>
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
+                            <p style="font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; flex: 1;">Q${idx + 1}: ${q.question}</p>
                             <button class="btn btn-outline" style="padding: 3px 8px; font-size: 0.75rem; color: var(--red); border-color: var(--border);" onclick="openGrievanceModal('${escapedSubj}', '${escapedQ}')">⚠️ Report</button>
                         </div>
                         <p style="margin: 4px 0; font-size: 0.88rem;">
@@ -3295,8 +3453,8 @@ Exp: An adult human skeleton comprises 206 distinct bones.`;
                 const origIdx = wrapped.originalIndex;
 
                 list.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border:1px solid var(--border); border-radius:10px; background:var(--surface-card);">
-                        <div style="max-width: 780px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border:1px solid var(--border); border-radius:10px; background:var(--surface-card); flex-wrap:wrap; gap:8px;">
+                        <div style="max-width: 100%;">
                             <span class="code-pill" style="margin-right: 8px;">${q.subject || 'General'}</span>
                             <span style="font-size:0.9rem; font-weight:600; color:var(--text-main);">#${origIdx + 1}. ${q.question}</span>
                             <div style="font-size:0.8rem; color:var(--green); font-weight:700; margin-top:4px;">Key: ${q.options[q.answer]}</div>
@@ -3337,7 +3495,7 @@ Exp: An adult human skeleton comprises 206 distinct bones.`;
                         <td style="font-weight:600;">${u.name}</td>
                         <td><span class="code-pill">${u.id}</span></td>
                         <td><span class="code-pill">${u.pass}</span></td>
-                        <td style="text-align: right;">
+                        <td style="text-align: right; white-space: nowrap;">
                             <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.8rem;" onclick="adminResetUserPassword(${idx})">Change Secret</button>
                             <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.8rem; color: var(--red);" onclick="adminDeleteUser(${idx})">Revoke</button>
                         </td>
